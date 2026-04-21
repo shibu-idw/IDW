@@ -1,8 +1,8 @@
-import heroBg from "../../../assets/Division/hero.jpg";
+import heroBg from "../../assets/Division/hero.jpg";
 
 export default function Hero() {
   return (
-    <div className="w-full bg-[#e6e6e6] flex justify-center py-[28px]">
+    <div className="w-full bg-[#eeeeee] flex justify-center py-[28px]">
       
       <div className="w-[94%] max-w-[1580px]">
         
