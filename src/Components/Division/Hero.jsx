@@ -1,4 +1,4 @@
-import heroBg from "../../../assets/Division/hero.png";
+import heroBg from "../../../assets/Division/hero.jpg";
 
 export default function Hero() {
   return (
@@ -6,7 +6,7 @@ export default function Hero() {
       
       <div className="w-[94%] max-w-[1580px]">
         
-        <div className="relative h-[520px] w-full overflow-hidden">
+        <div className="relative w-full h-[520px] overflow-hidden">
           
           {/* Background */}
           <img
@@ -16,12 +16,12 @@ export default function Hero() {
           />
 
           {/* Overlay */}
-          <div className="absolute inset-0 bg-black/60"></div>
+          <div className="absolute inset-0 bg-black/60" />
 
           {/* Content */}
           <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
             
-            {/* Poppins Light */}
+            {/* Heading Top */}
             <h2
               className="text-white font-light leading-none tracking-[-0.02em]
                          text-[64px] md:text-[88px]"
@@ -30,7 +30,7 @@ export default function Hero() {
               Structured for
             </h2>
 
-            {/* Poppins SemiBold */}
+            {/* Heading Main */}
             <h1
               className="text-white font-semibold leading-none mt-[6px]
                          text-[56px] md:text-[96px]"
@@ -39,7 +39,7 @@ export default function Hero() {
               digital impact
             </h1>
 
-            {/* Inter */}
+            {/* Description */}
             <p
               className="text-white/85 mt-[18px] max-w-[880px]
                          text-[16px] md:text-[18px] leading-[1.6]"
