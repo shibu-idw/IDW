@@ -4,6 +4,9 @@ import Logo from "./../../assets/logoidw.png";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
+  const [active, setActive] = useState(""); // 🔥 active menu state
+
+  const menuItems = ["About", "Services", "Divisions"];
 
   return (
     <header className="w-full bg-[#f5f5f5] fixed top-0 left-0 z-50">
@@ -24,9 +27,18 @@ export default function Header() {
 
           {/* Desktop Menu */}
           <nav className="hidden lg:flex items-center gap-18 text-gray-600 text-xl font-semibold">
-            <a href="#" className="hover:text-black">About</a>
-            <a href="#" className="hover:text-black">Services</a>
-            <a href="#" className="hover:text-black">Divisions</a>
+            {menuItems.map((item) => (
+              <a
+                key={item}
+                href="#"
+                onClick={() => setActive(item)}
+                className={`hover:text-black ${
+                  active === item ? "text-black" : ""
+                }`}
+              >
+                {item}
+              </a>
+            ))}
           </nav>
 
           {/* Hamburger */}
@@ -49,22 +61,40 @@ export default function Header() {
       {open && (
         <>
           {/* 📱 Mobile Full Width */}
-          <div className="sm:hidden bg-white px-6 pb-4 space-y-4 text-gray-700 font-medium">
-            <a href="#" className="block">About</a>
-            <a href="#" className="block">Services</a>
-            <a href="#" className="block">Divisions</a>
+          <div className="sm:hidden bg-[#f5f5f5] px-6 pb-4 space-y-4 text-gray-700 font-medium">
+            {menuItems.map((item) => (
+              <a
+                key={item}
+                href="#"
+                onClick={() => setActive(item)}
+                className={`block px-2 py-1 rounded ${
+                  active === item ? "bg-gray-200" : ""
+                }`}
+              >
+                {item}
+              </a>
+            ))}
 
-            {/* Mobile மட்டும் button */}
+            {/* Mobile Button */}
             <button className="w-full bg-[#2f4b8f] text-white py-2 rounded-md">
               Contact Us →
             </button>
           </div>
 
           {/* 📲 Tablet Right Side Box */}
-          <div className="hidden sm:block lg:hidden absolute top-[80px] right-6 w-64 bg-white shadow-lg rounded-lg p-5 space-y-4 text-gray-700 font-medium">
-            <a href="#" className="block">About</a>
-            <a href="#" className="block">Services</a>
-            <a href="#" className="block">Divisions</a>
+          <div className="hidden sm:block lg:hidden absolute top-[80px] right-6 w-64 bg-[#f5f5f5] shadow-lg rounded-lg p-5 space-y-4 text-gray-700 font-medium">
+            {menuItems.map((item) => (
+              <a
+                key={item}
+                href="#"
+                onClick={() => setActive(item)}
+                className={`block px-2 py-1 rounded ${
+                  active === item ? "bg-gray-200" : ""
+                }`}
+              >
+                {item}
+              </a>
+            ))}
           </div>
         </>
       )}

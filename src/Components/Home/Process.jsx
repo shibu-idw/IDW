@@ -11,7 +11,7 @@ export default function ClientProcess() {
   ];
 
   return (
-    <section className="bg-[#f3f4f6] pt-12 md:pt-16 pb-20 md:pb-20 lg:pb-40 px-4 md:px-10 lg:px-20">
+    <section className="bg-[#f3f4f6] pt-12 md:pt-16 pb-20 md:pb-20 lg:pb-40 px-6 md:px-10 lg:px-20">
       <div className="max-w-7xl mx-auto">
 
         {/* Heading */}
@@ -20,7 +20,7 @@ export default function ClientProcess() {
         </h2>
 
         {/* Layout */}
-        <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-10 md:gap-16 lg:gap-24 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-10 md:gap-16 lg:gap-20 items-start">
 
           {/* LEFT IMAGE */}
           <div className="w-full lg:w-[540px] h-[260px] sm:h-[320px] md:h-[420px] lg:h-[524px] overflow-hidden">
