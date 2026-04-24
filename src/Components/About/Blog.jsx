@@ -43,24 +43,22 @@ const blogs = [
 
 function BlogCard({ blog, isOpen, onContentEnter, onContentLeave, onToggle }) {
   return (
-    <div className="group">
-      {/* Image - touch panna open aaga koodathu */}
+    <div>
       <div className="overflow-hidden bg-transparent">
         <img
           src={blog.image}
           alt={blog.title}
-          className="h-[220px] sm:h-[250px] md:h-[260px] lg:h-[290px] xl:h-[320px] w-full object-cover"
+          className="h-[240px] sm:h-[300px] md:h-[360px] lg:h-[290px] xl:h-[320px] w-full object-cover"
         />
       </div>
 
-      {/* Content area - inga mattum hover panna open aagum */}
       <div
         className="pt-4"
         onMouseEnter={onContentEnter}
         onMouseLeave={onContentLeave}
       >
         <div className="flex items-start justify-between gap-4">
-          <h3 className="max-w-[90%] text-[18px] sm:text-[20px] md:text-[21px] lg:text-[23px] font-medium leading-[1.15] tracking-[-0.03em] text-black">
+          <h3 className="max-w-[90%] font-[Poppins] text-[19px] sm:text-[22px] md:text-[25px] lg:text-[23px] font-medium leading-[1.15] tracking-[-0.03em] text-black">
             {blog.title}
           </h3>
 
@@ -80,11 +78,11 @@ function BlogCard({ blog, isOpen, onContentEnter, onContentLeave, onToggle }) {
         </div>
 
         <div
-          className={`overflow-hidden transition-all duration-500 ease-in-out ${
-            isOpen ? "max-h-[420px] opacity-100 mt-4" : "max-h-[90px] opacity-100 mt-4"
+          className={`overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+            isOpen ? "max-h-[520px] opacity-100 mt-4" : "max-h-[92px] opacity-100 mt-4"
           }`}
         >
-          <p className="text-[#8d8d8d] text-[15px] sm:text-[16px] md:text-[17px] leading-[1.35]">
+          <p className="font-[Poppins] text-[#8d8d8d] text-[15px] sm:text-[17px] md:text-[19px] lg:text-[17px] leading-[1.35]">
             {isOpen ? blog.fullText : blog.preview}
           </p>
         </div>
@@ -95,7 +93,7 @@ function BlogCard({ blog, isOpen, onContentEnter, onContentLeave, onToggle }) {
             alt={blog.author}
             className="h-8 w-8 rounded-full object-cover"
           />
-          <p className="text-[#666666] text-[15px] sm:text-[16px] leading-none">
+          <p className="font-[Poppins] text-[#666666] text-[15px] sm:text-[16px] leading-none">
             {blog.author} · {blog.date}
           </p>
         </div>
@@ -109,28 +107,36 @@ export default function BlogSection() {
 
   return (
     <section className="w-full bg-[#f3f3f3]">
-      <div className="max-w-[1440px] mx-auto px-5 sm:px-8 md:px-10 lg:px-14 xl:px-20 pt-10 sm:pt-12 md:pt-16 lg:pt-20 pb-14 sm:pb-16 md:pb-20 lg:pb-24">
-        <div className="grid grid-cols-1 lg:grid-cols-[320px_minmax(0,1fr)] gap-8 lg:gap-16 items-start">
+      <div className="max-w-[1440px] mx-auto px-5 sm:px-8 md:px-10 lg:px-14 xl:px-20 pt-12 sm:pt-16 md:pt-20 lg:pt-20 pb-14 sm:pb-16 md:pb-20 lg:pb-24">
+        <div className="grid grid-cols-1 lg:grid-cols-[320px_minmax(0,1fr)] gap-8 md:gap-10 lg:gap-16 items-start">
           <div>
-            <h3 className="text-black font-semibold tracking-[-0.04em] text-[24px] sm:text-[28px] md:text-[32px] leading-none">
+            <h3 className="font-[Poppins] text-black font-semibold tracking-[-0.04em] text-[26px] sm:text-[30px] md:text-[34px] lg:text-[32px] leading-none">
               /IDW Blogs/
             </h3>
           </div>
 
           <div className="max-w-[980px]">
-          <h2 className="font-[Poppins] font-normal text-[42px] leading-[1.3] tracking-[0em] text-black max-w-[900px]">
-  Discover practical ideas that simplify
-  <br />
-  digital growth for modern businesses.
-  <br />
-  Insights built to inform, guide, and
-  <br />
-  move businesses forward.
-</h2>
+            {/* Mobile + Tablet heading */}
+            <h2 className="lg:hidden font-[Poppins] font-normal text-[34px] sm:text-[46px] md:text-[58px] leading-[1.22] tracking-[0em] text-black">
+              Discover practical ideas that simplify digital growth for modern
+              businesses. Insights built to inform, guide, and move businesses
+              forward.
+            </h2>
+
+            {/* Desktop heading */}
+            <h2 className="hidden lg:block font-[Poppins] font-normal text-[42px] leading-[1.3] tracking-[0em] text-black max-w-[900px]">
+              Discover practical ideas that simplify
+              <br />
+              digital growth for modern businesses.
+              <br />
+              Insights built to inform, guide, and
+              <br />
+              move businesses forward.
+            </h2>
 
             <button
               type="button"
-              className="mt-8 sm:mt-10 inline-flex items-center gap-4 border-b border-[#9e9e9e] pb-2 text-[#7a7a7a] hover:text-black transition text-[18px] sm:text-[20px] md:text-[22px]"
+              className="mt-8 sm:mt-10 inline-flex items-center gap-4 border-b border-[#9e9e9e] pb-2 font-[Poppins] text-[#7a7a7a] hover:text-black transition text-[18px] sm:text-[20px] md:text-[22px]"
             >
               <span>View all blogs</span>
               <span className="text-[24px] leading-none">→</span>
@@ -138,21 +144,17 @@ export default function BlogSection() {
           </div>
         </div>
 
-        <div className="mt-12 sm:mt-14 md:mt-16 lg:mt-20 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 md:gap-5 lg:gap-7 xl:gap-8 items-start">
+        <div className="mt-12 sm:mt-14 md:mt-16 lg:mt-20 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10 md:gap-8 lg:gap-7 xl:gap-8 items-start">
           {blogs.map((blog) => (
             <BlogCard
               key={blog.id}
               blog={blog}
               isOpen={openId === blog.id}
               onContentEnter={() => {
-                if (window.innerWidth >= 1024) {
-                  setOpenId(blog.id);
-                }
+                if (window.innerWidth >= 1024) setOpenId(blog.id);
               }}
               onContentLeave={() => {
-                if (window.innerWidth >= 1024) {
-                  setOpenId(null);
-                }
+                if (window.innerWidth >= 1024) setOpenId(null);
               }}
               onToggle={() =>
                 setOpenId((prev) => (prev === blog.id ? null : blog.id))
