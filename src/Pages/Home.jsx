@@ -6,6 +6,7 @@ import Process from "./../Components/Home/Process"
 import Explore from "./../Components/Home/Explore"
 import Form from "./../Components/Home/Form"
 import FAQ from "./../Components/Home/Faq"
+import Card from "./../Components/Home/service_card"
 
 
 const Home = () => {
@@ -14,6 +15,7 @@ const Home = () => {
       <Hero/>
       <Vission/>
       <Service/>
+       <Card/>
       <Process/>
       <Explore/>
       <Form/>

@@ -28,12 +28,13 @@ export default function FAQSection() {
   };
 
   return (
-    <section className="bg-[#f3f3f3] py-38 px-6 md:px-20">
-      <div className="max-w-7xl mx-auto grid md:grid-cols-[0.8fr_2.5fr] gap-6 md:gap-15">
+    <section className="bg-[#f3f3f3] py-16 md:py-24 lg:py-38 px-6 md:px-10 lg:px-20">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-[0.8fr_2.5fr] gap-8 md:gap-12 lg:gap-15">
 
         {/* LEFT SMALL TITLE */}
         <div>
-          <p className="text-black font-semibold mb-6 tracking-wide text-2xl">
+          <p className="text-black font-semibold mb-4 md:mb-6 tracking-wide 
+            text-lg md:text-xl lg:text-2xl">
             /Frequently asked questions/
           </p>
         </div>
@@ -41,34 +42,37 @@ export default function FAQSection() {
         {/* RIGHT CONTENT */}
         <div>
 
-          <h2 className="text-2xl md:text-4xl font-medium leading-tight mb-25 max-w-6xl text-black">
+          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl 
+            font-medium leading-tight 
+            mb-10 md:mb-16 lg:mb-25 
+            max-w-6xl text-black">
             Everything you need to know, explained simply and clearly. Helping
             you understand and take the next step with ease.
           </h2>
 
-          <div className="space-y-0">
+          <div>
             {faqs.map((faq, index) => (
-              <div key={index} className="border-b border-gray-300 py-8">
+              <div key={index} className="border-b border-gray-300 py-5 md:py-6 lg:py-8">
 
                 <div
-                  className="flex justify-between items-center cursor-pointer"
+                  className="flex justify-between items-center gap-4 cursor-pointer"
                   onClick={() => toggle(index)}
                 >
-                  <h3 className="text-base md:text-2xl font-medium">
+                  <h3 className="text-sm sm:text-base md:text-xl lg:text-2xl font-medium">
                     {index + 1}. {faq.question}
                   </h3>
 
-                  <div className="border-2 border-black rounded-full p-1">
+                  <div className="border-2 border-black rounded-full p-1 shrink-0">
                     {active === index ? (
-                      <Minus size={16} />
+                      <Minus size={14} />
                     ) : (
-                      <Plus size={16} />
+                      <Plus size={14} />
                     )}
                   </div>
                 </div>
 
                 {active === index && (
-                  <p className="text-gray-500 text-sm mt-3 max-w-xl">
+                  <p className="text-gray-500 text-xs sm:text-sm md:text-base mt-3 max-w-xl">
                     {faq.answer}
                   </p>
                 )}
