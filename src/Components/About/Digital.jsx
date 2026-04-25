@@ -7,14 +7,34 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function DigitalIntro() {
   const sectionRef = useRef(null);
-  const cardRef = useRef(null);
+  const desktopCardRef = useRef(null);
+  const tabletCardRef = useRef(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // 👉 tablet + desktop animation
-      if (window.innerWidth >= 768) {
+      const isTablet = window.innerWidth >= 768 && window.innerWidth < 1024;
+      const isDesktop = window.innerWidth >= 1024;
+
+      if (isTablet && tabletCardRef.current) {
         gsap.fromTo(
-          cardRef.current,
+          tabletCardRef.current,
+          { y: 360 },
+          {
+            y: 0,
+            ease: "none",
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: "top 75%",
+              end: "bottom bottom",
+              scrub: 1.4,
+            },
+          }
+        );
+      }
+
+      if (isDesktop && desktopCardRef.current) {
+        gsap.fromTo(
+          desktopCardRef.current,
           { y: 620 },
           {
             y: 0,
@@ -29,15 +49,16 @@ export default function DigitalIntro() {
         );
       }
     }, sectionRef);
-  
+
     return () => ctx.revert();
   }, []);
+
   return (
     <section
       ref={sectionRef}
       className="relative w-full bg-black text-white overflow-hidden font-sans"
     >
-      {/* BACKGROUND TEXT (desktop only) */}
+      {/* BACKGROUND TEXT - DESKTOP ONLY */}
       <div className="pointer-events-none absolute inset-0 hidden lg:block">
         <h2 className="absolute top-0 right-4 text-[240px] font-bold text-white/[0.03]">
           IDW
@@ -69,11 +90,15 @@ export default function DigitalIntro() {
           with confidence.
         </p>
 
-        {/* CARD */}
+        {/* TABLET CARD ANIMATION WORKS HERE */}
         <div className="mt-10 flex justify-center">
-          <div className="w-[280px] sm:w-[330px] bg-[#f1f1f1] text-black shadow-2xl">
+          <div
+            ref={tabletCardRef}
+            className="w-[280px] sm:w-[330px] bg-[#f1f1f1] text-black shadow-2xl will-change-transform"
+          >
             <img
               src={personImg}
+              alt="Founder"
               className="w-full h-[380px] object-cover object-top"
             />
 
@@ -92,7 +117,6 @@ export default function DigitalIntro() {
           </div>
         </div>
 
-        {/* LIST */}
         <ul className="mt-10 text-gray-300 text-[16px] sm:text-[18px] leading-[1.5] space-y-2">
           <li>Small businesses. Clear direction.</li>
           <li>A practical path into digital adoption.</li>
@@ -100,7 +124,6 @@ export default function DigitalIntro() {
           <li>See how ideas become digital progress.</li>
         </ul>
 
-        {/* BOTTOM TEXT */}
         <h2 className="mt-12 text-[50px] sm:text-[80px] md:text-[100px] font-extralight leading-[0.9] text-right">
           Business needs <br /> into digital solutions
         </h2>
@@ -126,11 +149,12 @@ export default function DigitalIntro() {
           </div>
 
           <div
-            ref={cardRef}
-            className="absolute left-[42%] top-[120px] z-[50] w-[310px] bg-[#f1f1f1] text-black shadow-2xl"
+            ref={desktopCardRef}
+            className="absolute left-[42%] top-[120px] z-[50] w-[310px] bg-[#f1f1f1] text-black shadow-2xl will-change-transform"
           >
             <img
               src={personImg}
+              alt="Founder"
               className="w-full h-[500px] object-cover object-top"
             />
 
