@@ -9,45 +9,66 @@ export default function DigitalIntro() {
   const sectionRef = useRef(null);
   const desktopCardRef = useRef(null);
   const tabletCardRef = useRef(null);
+  const mobileCardRef = useRef(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      const isTablet = window.innerWidth >= 768 && window.innerWidth < 1024;
-      const isDesktop = window.innerWidth >= 1024;
-
-      if (isTablet && tabletCardRef.current) {
-        gsap.fromTo(
-          tabletCardRef.current,
-          { y: 360 },
-          {
-            y: 0,
-            ease: "none",
-            scrollTrigger: {
-              trigger: sectionRef.current,
-              start: "top 75%",
-              end: "bottom bottom",
-              scrub: 1.4,
-            },
-          }
-        );
-      }
-
-      if (isDesktop && desktopCardRef.current) {
-        gsap.fromTo(
-          desktopCardRef.current,
-          { y: 620 },
-          {
-            y: 0,
-            ease: "none",
-            scrollTrigger: {
-              trigger: sectionRef.current,
-              start: "top 75%",
-              end: "bottom bottom",
-              scrub: 1.4,
-            },
-          }
-        );
-      }
+      ScrollTrigger.matchMedia({
+        "(max-width: 767px)": () => {
+          gsap.fromTo(
+            mobileCardRef.current,
+            { y: "125vh" },
+            {
+              y: "-125vh",
+              ease: "none",
+              scrollTrigger: {
+                trigger: sectionRef.current,
+                start: "top top",
+                end: "+=1900",
+                scrub: 1.2,
+                pin: true,
+                anticipatePin: 1,
+              },
+            }
+          );
+        },
+        "(min-width: 768px) and (max-width: 1023px)": () => {
+          gsap.fromTo(
+            tabletCardRef.current,
+            { y: "125vh" },
+            {
+              y: "-125vh",
+              ease: "none",
+              scrollTrigger: {
+                trigger: sectionRef.current,
+                start: "top top",
+                end: "+=1900",
+                scrub: 1.2,
+                pin: true,
+                anticipatePin: 1,
+              },
+            }
+          );
+        },
+        "(min-width: 1024px)": () => {
+          gsap.fromTo(
+            desktopCardRef.current,
+            { y: "125vh" },
+            {
+              y: "-125vh",
+              ease: "none",
+              scrollTrigger: {
+                trigger: sectionRef.current,
+                start: "top top",
+                end: "+=1900",
+                scrub: 1.2,
+                pin: true,
+                anticipatePin: 1,
+              },
+            }
+          );
+        },
+      });
     }, sectionRef);
 
     return () => ctx.revert();
@@ -56,111 +77,76 @@ export default function DigitalIntro() {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full bg-black text-white overflow-hidden font-sans"
+      className="relative w-full h-screen bg-black text-white overflow-hidden font-sans"
     >
-      {/* BACKGROUND TEXT - RESPONSIVE */}
+      {/* ── BACKGROUND TEXT ── */}
       <div className="pointer-events-none absolute inset-0 select-none z-0 overflow-hidden">
-        <h2 className="hidden lg:block absolute top-[-25px] right-4 text-[240px] font-bold text-white/[0.06] tracking-[-0.08em] leading-none">
+        <h2 className="hidden lg:block absolute top-[-40px] right-4 text-[260px] font-bold text-white/[0.04] tracking-[-0.08em] leading-none">
           IDW
         </h2>
-
-        <h2 className="absolute top-[35%] sm:top-[34%] md:top-[35%] lg:top-[36%] left-[-6px] lg:left-[-8px] text-[62px] sm:text-[90px] md:text-[115px] lg:text-[120px] font-bold text-white/[0.055] tracking-[-0.08em] leading-none">
+        <h2
+          className="
+            absolute top-[8%] left-[-10px]
+            text-[48px] sm:text-[80px] md:text-[100px] lg:text-[130px]
+            font-bold text-white/[0.045]
+            tracking-[-0.07em] leading-[1.1] whitespace-nowrap
+          "
+        >
           Introducing
         </h2>
-
-        <h2 className="absolute top-[47%] sm:top-[47%] md:top-[48%] lg:top-[48%] left-[-10px] lg:left-[-18px] text-[150px] sm:text-[220px] md:text-[300px] lg:text-[350px] font-bold text-white/[0.06] tracking-[-0.1em] leading-[0.8]">
+        <h2
+          className="
+            absolute top-[38%] left-[-20px]
+            text-[110px] sm:text-[180px] md:text-[240px] lg:text-[320px]
+            font-bold text-white/[0.05]
+            tracking-[-0.08em] leading-[0.9] whitespace-nowrap
+          "
+        >
           Digital
         </h2>
-
-        <h2 className="absolute bottom-[-7%] sm:bottom-[-8%] md:bottom-[-8%] lg:bottom-[-8%] left-[-12px] lg:left-[-18px] text-[190px] sm:text-[280px] md:text-[380px] lg:text-[450px] font-bold text-white/[0.06] tracking-[-0.12em] leading-[0.75]">
+        <h2
+          className="
+            absolute bottom-[-8%] left-[-20px]
+            text-[120px] sm:text-[210px] md:text-[270px] lg:text-[380px]
+            font-bold text-white/[0.05]
+            tracking-[-0.085em] leading-[0.9] whitespace-nowrap
+          "
+        >
           World
         </h2>
       </div>
 
-      {/* MOBILE */}
-      <div className="relative z-10 md:hidden px-5 py-14">
-        <h1 className="text-[52px] font-extralight leading-[0.9] tracking-[-0.07em]">
-          Digital moves,
-          <br />
-          practical
-        </h1>
-
-        <p className="mt-6 text-gray-300 text-[16px] leading-[1.35] max-w-[340px]">
-          Structure, clarity, and action — built to
-          <br />
-          help businesses adopt digital tools
-          <br />
-          with confidence.
-        </p>
-
-        <div className="mt-10 flex justify-center">
-          <div className="w-[280px] bg-[#f1f1f1] text-black shadow-2xl">
-            <img
-              src={personImg}
-              alt="Founder"
-              className="w-full h-[320px] object-cover object-top"
-            />
-
-            <div className="p-5">
-              <h3 className="text-[18px] font-medium leading-[1.15]">
-                Er.Venkat <br /> Chennakrishnan
-              </h3>
-
-              <div className="mt-8 flex justify-between text-[12px] font-semibold">
-                <p>Founder & CEO</p>
-                <p className="text-right">
-                  Quality Group of <br /> Companies
-                </p>
-              </div>
-            </div>
-          </div>
+      {/* ── MOBILE (< 768px) ── */}
+      <div className="relative z-10 md:hidden px-4 pt-10 pb-6 h-screen flex flex-col justify-between">
+        {/* TOP */}
+        <div>
+          <h1 className="text-[clamp(38px,11vw,52px)] font-extralight leading-[0.9] tracking-[-0.07em]">
+            Digital moves,
+            <br />
+            practical
+          </h1>
+          <p className="mt-4 text-gray-300 text-[clamp(13px,3.8vw,16px)] leading-[1.4] max-w-[320px]">
+            Structure, clarity, and action — built to help businesses adopt
+            digital tools with confidence.
+          </p>
         </div>
 
-        <ul className="mt-10 list-disc pl-5 text-gray-300 text-[16px] leading-[1.5] space-y-2">
-          <li>Small businesses. Clear direction.</li>
-          <li>A practical path into digital adoption.</li>
-          <li>Helping businesses move from offline to online.</li>
-          <li>See how ideas become digital progress.</li>
-        </ul>
-
-        <h2 className="mt-12 text-[50px] font-extralight leading-[0.9] tracking-[-0.08em] text-right">
-          Business needs <br /> into digital solutions
-        </h2>
-      </div>
-
-      {/* TABLET */}
-      <div className="relative z-10 hidden md:block lg:hidden px-8 py-16 min-h-[120vh]">
-        <h1 className="text-[100px] font-extralight leading-[0.88] tracking-[-0.07em]">
-          Digital moves,
-          <br />
-          practical
-        </h1>
-
-        <p className="mt-8 text-gray-300 text-[22px] leading-[1.35] max-w-[460px]">
-          Structure, clarity, and action — built to
-          <br />
-          help businesses adopt digital tools
-          <br />
-          with confidence.
-        </p>
-
-        <div className="mt-10 flex justify-center">
+        {/* MIDDLE — floating card anchor */}
+        <div className="relative flex justify-center pointer-events-none flex-1">
           <div
-            ref={tabletCardRef}
-            className="w-[350px] bg-[#f1f1f1] text-black shadow-2xl will-change-transform"
+            ref={mobileCardRef}
+            className="absolute bottom-[-100px] w-[clamp(200px,55vw,250px)] bg-[#f1f1f1] text-black shadow-2xl will-change-transform pointer-events-auto"
           >
             <img
               src={personImg}
               alt="Founder"
-              className="w-full h-[360px] object-cover object-top"
+              className="w-full h-[clamp(220px,55vw,290px)] object-cover object-top"
             />
-
-            <div className="p-5">
-              <h3 className="text-[20px] font-medium leading-[1.15]">
+            <div className="p-3">
+              <h3 className="text-[clamp(14px,4vw,17px)] font-medium leading-[1.15]">
                 Er.Venkat <br /> Chennakrishnan
               </h3>
-
-              <div className="mt-8 flex justify-between text-[13px] font-semibold">
+              <div className="mt-4 flex justify-between text-[clamp(9px,2.5vw,11px)] font-semibold">
                 <p>Founder & CEO</p>
                 <p className="text-right">
                   Quality Group of <br /> Companies
@@ -170,53 +156,105 @@ export default function DigitalIntro() {
           </div>
         </div>
 
-        <ul className="mt-12 ml-auto list-disc pl-6 max-w-[560px] text-gray-300 text-[20px] leading-[1.5] space-y-2">
-          <li>Small businesses. Clear direction.</li>
-          <li>A practical path into digital adoption.</li>
-          <li>Helping businesses move from offline to online.</li>
-          <li>See how ideas become digital progress.</li>
-        </ul>
-
-        <h2 className="mt-14 text-[96px] font-extralight leading-[0.9] tracking-[-0.08em] text-right">
-          Business needs <br /> into digital solutions
-        </h2>
+        {/* BOTTOM */}
+        <div>
+          <ul className="list-disc pl-5 text-gray-300 text-[clamp(12px,3.5vw,15px)] leading-[1.5] space-y-1">
+            <li>Small businesses. Clear direction.</li>
+            <li>A practical path into digital adoption.</li>
+            <li>Helping businesses move from offline to online.</li>
+            <li>See how ideas become digital progress.</li>
+          </ul>
+          <h2 className="mt-5 text-[clamp(34px,10vw,50px)] font-extralight leading-[0.9] tracking-[-0.08em] text-right">
+            Business needs <br /> into digital solutions
+          </h2>
+        </div>
       </div>
 
-      {/* DESKTOP */}
-      <div className="hidden lg:flex relative z-10 mx-auto max-w-[1440px] px-6 lg:px-20 min-h-[130vh] flex-col">
-        <div className="relative pt-24 lg:pt-40">
+      {/* ── TABLET (768px – 1023px) ── */}
+      <div className="relative z-10 hidden md:flex lg:hidden px-8 pt-12 pb-8 h-screen flex-col justify-between">
+        {/* TOP */}
+        <div>
+          <h1 className="text-[clamp(64px,10vw,100px)] font-extralight leading-[0.88] tracking-[-0.07em]">
+            Digital moves,
+            <br />
+            practical
+          </h1>
+          <p className="mt-6 text-gray-300 text-[clamp(16px,2.4vw,22px)] leading-[1.35] max-w-[460px]">
+            Structure, clarity, and action — built to help businesses adopt
+            digital tools with confidence.
+          </p>
+        </div>
+
+        {/* MIDDLE */}
+        <div className="relative flex justify-center pointer-events-none flex-1">
+          <div
+            ref={tabletCardRef}
+            className="absolute bottom-[-140px] w-[clamp(260px,38vw,320px)] bg-[#f1f1f1] text-black shadow-2xl will-change-transform pointer-events-auto"
+          >
+            <img
+              src={personImg}
+              alt="Founder"
+              className="w-full h-[clamp(280px,40vw,340px)] object-cover object-top"
+            />
+            <div className="p-4">
+              <h3 className="text-[clamp(16px,2.5vw,20px)] font-medium leading-[1.15]">
+                Er.Venkat <br /> Chennakrishnan
+              </h3>
+              <div className="mt-6 flex justify-between text-[clamp(11px,1.6vw,13px)] font-semibold">
+                <p>Founder & CEO</p>
+                <p className="text-right">
+                  Quality Group of <br /> Companies
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* BOTTOM */}
+        <div>
+          <ul className="ml-auto list-disc pl-6 max-w-[560px] text-gray-300 text-[clamp(15px,2vw,20px)] leading-[1.5] space-y-1">
+            <li>Small businesses. Clear direction.</li>
+            <li>A practical path into digital adoption.</li>
+            <li>Helping businesses move from offline to online.</li>
+            <li>See how ideas become digital progress.</li>
+          </ul>
+          <h2 className="mt-8 text-[clamp(60px,9vw,96px)] font-extralight leading-[0.9] tracking-[-0.08em] text-right">
+            Business needs <br /> into digital solutions
+          </h2>
+        </div>
+      </div>
+
+      {/* ── DESKTOP (1024px+) ── */}
+      <div className="hidden lg:flex relative z-10 mx-auto max-w-[1440px] px-[clamp(24px,5vw,80px)] h-screen flex-col justify-between">
+        {/* TOP */}
+        <div className="relative pt-[clamp(60px,8vh,160px)]">
           <div className="relative z-[5]">
-            <h1 className="text-[130px] font-extralight leading-[0.88] tracking-[-0.07em]">
+            <h1 className="text-[clamp(72px,9vw,130px)] font-extralight leading-[0.88] tracking-[-0.07em]">
               Digital moves,
               <br />
               practical
             </h1>
-
-            <p className="mt-10 w-[420px] text-gray-300 text-[19px] leading-[1.3]">
-              Structure, clarity, and action — built to
-              <br />
-              help businesses adopt digital tools
-              <br />
-              with confidence.
+            <p className="mt-8 w-[clamp(300px,30vw,420px)] text-gray-300 text-[clamp(15px,1.4vw,19px)] leading-[1.3]">
+              Structure, clarity, and action — built to help businesses adopt
+              digital tools with confidence.
             </p>
           </div>
 
+          {/* FLOATING CARD */}
           <div
             ref={desktopCardRef}
-            className="absolute left-[42%] top-[120px] z-[50] w-[310px] bg-[#f1f1f1] text-black shadow-2xl will-change-transform"
+            className="absolute left-[42%] top-[clamp(80px,10vw,120px)] z-[50] w-[clamp(240px,22vw,310px)] bg-[#f1f1f1] text-black shadow-2xl will-change-transform"
           >
             <img
               src={personImg}
               alt="Founder"
-              className="w-full h-[430px] object-cover object-top"
+              className="w-full h-[clamp(300px,32vw,430px)] object-cover object-top"
             />
-
-            <div className="p-5">
-              <h3 className="text-[19px] font-medium leading-[1.15]">
+            <div className="p-4">
+              <h3 className="text-[clamp(15px,1.4vw,19px)] font-medium leading-[1.15]">
                 Er.Venkat <br /> Chennakrishnan
               </h3>
-
-              <div className="mt-12 flex justify-between text-[13px] font-semibold">
+              <div className="mt-10 flex justify-between text-[clamp(10px,0.95vw,13px)] font-semibold">
                 <p>Founder & CEO</p>
                 <p className="text-right uppercase">
                   Quality Group of <br /> Companies
@@ -226,8 +264,9 @@ export default function DigitalIntro() {
           </div>
         </div>
 
-        <div className="mt-auto pb-24 flex flex-col items-end">
-          <ul className="text-gray-300 text-[18px] leading-[1.45] w-[520px] list-disc pl-6 space-y-2">
+        {/* BOTTOM */}
+        <div className="pb-[clamp(24px,4vh,80px)] flex flex-col items-end">
+          <ul className="text-gray-300 text-[clamp(14px,1.3vw,18px)] leading-[1.45] w-[clamp(320px,38vw,520px)] list-disc pl-6 space-y-1">
             <li>Small businesses. Clear direction.</li>
             <li>A practical path into digital adoption.</li>
             <li className="whitespace-nowrap">
@@ -235,8 +274,7 @@ export default function DigitalIntro() {
             </li>
             <li>See how ideas become digital progress.</li>
           </ul>
-
-          <h2 className="mt-12 text-[110px] font-extralight leading-[0.9] tracking-[-0.08em] text-right">
+          <h2 className="mt-10 text-[clamp(56px,8vw,110px)] font-extralight leading-[0.9] tracking-[-0.08em] text-right">
             Business needs <br /> into digital solutions
           </h2>
         </div>
