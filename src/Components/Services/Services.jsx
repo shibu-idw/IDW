@@ -223,50 +223,77 @@ const services = [
 ];
 
 const Services = () => {
-  const containerRef = useRef();
+  const containerRef = useRef(null);
+  const cardsRef = useRef([]);
 
   useEffect(() => {
-    const cards = gsap.utils.toArray(".card");
+    // ✅ FIX: cardsRef array null elements filter பண்ணு
+    const cards = cardsRef.current.filter(Boolean);
 
-    gsap.set(cards, {
-      position: "absolute",
-      top: 0,
-      left: 0,
-      width: "100%",
-    });
+    if (!cards.length) return;
 
-    gsap.set(cards, {
-      zIndex: (i, target, arr) => arr.length - i,
-    });
+    const ctx = gsap.context(() => {
 
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: containerRef.current,
-        start: "top top",
-        end: `+=${cards.length * 100}%`,
-        scrub: 1,
-        pin: true,
-      },
-    });
+      // ✅ initial state - first card visible, rest hidden below
+      cards.forEach((card, i) => {
+        gsap.set(card, {
+          position: "absolute",
+          inset: 0,
+          zIndex: i + 1,
+          yPercent: i === 0 ? 0 : 100,
+          scale: 1,
+          opacity: 1,
+        });
+      });
 
-    cards.forEach((card, i) => {
-      if (i === 0) return;
-      tl.fromTo(
-        card,
-        { y: 100, opacity: 0, scale: 0.95 },
-        { y: 0, opacity: 1, scale: 1, duration: 1, ease: "power3.out" },
-        i,
-      );
-      tl.to(
-        cards[i - 1],
-        { y: -100, opacity: 0, scale: 0.9, duration: 1, ease: "power3.out" },
-        i,
-      );
-    });
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top top",
+          end: `+=${cards.length * 140}%`,
+          scrub: true,
+          pin: true,
+        },
+      });
 
-    return () => {
-      ScrollTrigger.killAll();
-    };
+      cards.forEach((card, i) => {
+        const next = cards[i + 1];
+
+        // current card shrink + fly out
+        tl.to(card, {
+          scale: 0.65,
+          x: 80,
+          y: -40,
+          rotate: 2,
+          duration: 0.6,
+          ease: "none",
+        }).to(card, {
+          scale: 0.35,
+          x: 200,
+          y: -160,
+          rotate: 8,
+          opacity: 0,
+          duration: 0.6,
+          ease: "none",
+        });
+
+        // next card slide up
+        if (next) {
+          tl.to(
+            next,
+            {
+              yPercent: 0,
+              duration: 1,
+              ease: "none",
+            },
+            "<0.2"
+          );
+        }
+      });
+
+    }, containerRef);
+
+    return () => ctx.revert();
   }, []);
 
   return (
@@ -274,58 +301,54 @@ const Services = () => {
       ref={containerRef}
       className="relative bg-gray-200 h-screen overflow-hidden"
     >
-      {services.map((item) => (
+      {services.map((item, index) => (
         <div
           key={item.id}
-          className="card h-screen flex justify-center items-center"
+          // ✅ FIX: ref array-ஓட connect பண்றோம்
+          ref={(el) => (cardsRef.current[index] = el)}
+          className="card h-screen"
         >
           <div className={`relative w-full h-full shadow-2xl ${item.bg}`}>
+
             {/* ===================== MOBILE LAYOUT (below 768px) ===================== */}
-            <div className="flex flex-col md:hidden h-full px-5 pt-7 overflow-hidden relative">
+            <div className="flex flex-col md:hidden h-full px-5 pt-5 overflow-hidden relative">
+
               {/* Ghost number */}
               <div className="absolute top-0 right-3 text-[100px] font-bold opacity-[0.07] leading-none pointer-events-none">
                 {item.id}
               </div>
 
               {/* Title */}
-              <h1
-                className={`${item.titleStyle} text-[44px] leading-[1.05] mb-4 relative z-10`}
-              >
+              <h1 className={`${item.titleStyle} text-[32px] leading-[1.05] mb-2 relative z-10 flex-shrink-0`}>
                 {item.title.split(" ").map((word, i) => (
-                  <span key={i} className="block">
-                    {word}
-                  </span>
+                  <span key={i} className="block">{word}</span>
                 ))}
               </h1>
 
               {/* Approach label */}
-              <p className="text-[10px] uppercase tracking-[1.5px] opacity-40 font-medium mb-3 relative z-10">
+              <p className="text-[9px] uppercase tracking-[1.5px] opacity-40 font-medium mb-2 relative z-10 flex-shrink-0">
                 {item.leftTitle}
               </p>
 
               {/* 6-column content grid */}
-              <div className="grid grid-cols-6 gap-x-3 gap-y-3 flex-1 overflow-hidden relative z-10">
+              <div className="grid grid-cols-6 gap-x-3 gap-y-2 flex-1 min-h-0 overflow-hidden relative z-10">
                 {[...item.middle, ...item.right].map((s, i) => (
-                  <div key={i} className="col-span-3 flex flex-col gap-[2px]">
-                    <h4 className="text-[11px] font-semibold leading-tight">
-                      {s.title}
-                    </h4>
-                    <p className="text-[9px] opacity-50 leading-snug">
-                      {s.desc}
-                    </p>
+                  <div key={i} className="col-span-3 flex flex-col gap-[1px]">
+                    <h4 className="text-[10px] font-semibold leading-tight">{s.title}</h4>
+                    <p className="text-[8px] opacity-50 leading-snug">{s.desc}</p>
                   </div>
                 ))}
               </div>
 
-              {/* Button row */}
-              <div className="flex items-center justify-center py-2 relative z-10">
-                <button className="bg-blue-700 text-white px-4 py-2 text-[11px] font-medium">
+              {/* Button */}
+              <div className="flex items-center justify-end py-1.5 relative z-10 flex-shrink-0">
+                <button className="bg-blue-700 text-white px-4 py-1.5 rounded-lg text-[11px] font-medium">
                   Get started →
                 </button>
               </div>
 
               {/* Bottom image */}
-              <div className="h-[150px] flex-shrink-0">
+              <div className="h-[120px] flex-shrink-0">
                 <img
                   src={item.img}
                   alt={item.title}
@@ -336,20 +359,15 @@ const Services = () => {
 
             {/* ===================== TABLET + DESKTOP LAYOUT (768px+) ===================== */}
             <div className="hidden md:grid grid-cols-12 gap-6 h-full px-8 lg:px-10 py-8 lg:py-10">
+
               {/* Title */}
               <div className="md:col-span-12">
-                <h1
-                  className={`${item.titleStyle} leading-[1.1] text-[36px] lg:text-[50px]`}
-                >
+                <h1 className={`${item.titleStyle} leading-[1.1] text-[36px] lg:text-[50px]`}>
                   {(() => {
                     const words = item.title.split(" ");
                     if (words.includes("&")) {
-                      const firstLine = words
-                        .slice(0, words.indexOf("&") + 1)
-                        .join(" ");
-                      const secondLine = words
-                        .slice(words.indexOf("&") + 1)
-                        .join(" ");
+                      const firstLine = words.slice(0, words.indexOf("&") + 1).join(" ");
+                      const secondLine = words.slice(words.indexOf("&") + 1).join(" ");
                       return (
                         <>
                           <span className="block">{firstLine}</span>
@@ -358,9 +376,7 @@ const Services = () => {
                       );
                     }
                     return words.map((word, index) => (
-                      <span key={index} className="block">
-                        {word}
-                      </span>
+                      <span key={index} className="block">{word}</span>
                     ));
                   })()}
                 </h1>
@@ -375,17 +391,13 @@ const Services = () => {
 
               {/* Middle + Right content */}
               <div className="md:col-span-6 grid grid-cols-2 gap-4 lg:gap-6">
-                <div className="space-y-2 lg:space-y-3">
+                <div className="space-y-2 lg:space-y-3 overflow-hidden">
                   {item.middle.map((m, index) => (
                     <div key={index}>
-                      <h3
-                        className={`${item.middleTitleStyle} text-[13px] lg:text-[18px]`}
-                      >
+                      <h3 className={`${item.middleTitleStyle} text-[13px] lg:text-[18px]`}>
                         {m.title}
                       </h3>
-                      <p
-                        className={`${item.middleDescStyle} text-[10px] lg:text-[12px]`}
-                      >
+                      <p className={`${item.middleDescStyle} text-[10px] lg:text-[12px]`}>
                         {m.desc}
                       </p>
                     </div>
@@ -394,17 +406,13 @@ const Services = () => {
                     Get started →
                   </button>
                 </div>
-                <div className="space-y-2 lg:space-y-3">
+                <div className="space-y-2 lg:space-y-3 overflow-hidden">
                   {item.right.map((r, index) => (
                     <div key={index}>
-                      <h3
-                        className={`${item.rightTitleStyle} text-[13px] lg:text-[18px]`}
-                      >
+                      <h3 className={`${item.rightTitleStyle} text-[13px] lg:text-[18px]`}>
                         {r.title}
                       </h3>
-                      <p
-                        className={`${item.rightDescStyle} text-[10px] lg:text-[12px]`}
-                      >
+                      <p className={`${item.rightDescStyle} text-[10px] lg:text-[12px]`}>
                         {r.desc}
                       </p>
                     </div>
@@ -421,12 +429,11 @@ const Services = () => {
                 />
               </div>
 
-              {/* Number - tablet + desktop */}
-              <div
-                className={`absolute top-4 right-6 lg:top-6 lg:right-10 ${item.idStyle} text-[50px] lg:text-[70px]`}
-              >
+              {/* Number */}
+              <div className={`absolute top-4 right-6 lg:top-6 lg:right-10 ${item.idStyle} text-[50px] lg:text-[70px]`}>
                 {item.id}
               </div>
+
             </div>
           </div>
         </div>
