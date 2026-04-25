@@ -1,4 +1,5 @@
 import { motion, useAnimation } from "framer-motion";
+import { useRef, useState, useEffect } from "react";
 
 // Images
 import ig1 from "../../assets/division/ig1.png";
@@ -70,34 +71,118 @@ const data = [
   }
 ];
 
-const loopData = [...data, ...data];
+// Create 3 loops to ensure enough content for seamless scrolling
+const loopData = [...data, ...data, ...data];
 
 export default function OurDivisions() {
   const controls = useAnimation();
+  const containerRef = useRef(null);
+  const isDragging = useRef(false);
+  const startX = useRef(0);
+  const scrollLeft = useRef(0);
+  const [isDesktop, setIsDesktop] = useState(true);
+
+  useEffect(() => {
+    const checkScreen = () => {
+      setIsDesktop(window.innerWidth >= 1024);
+    };
+    checkScreen();
+    window.addEventListener("resize", checkScreen);
+    return () => window.removeEventListener("resize", checkScreen);
+  }, []);
+
+  // Reset scroll position when it reaches the duplicate set
+  useEffect(() => {
+    if (!isDesktop) return;
+    
+    const container = containerRef.current;
+    if (!container) return;
+
+    const handleScroll = () => {
+      if (isDragging.current) return;
+      
+      const scrollWidth = container.scrollWidth;
+      const clientWidth = container.clientWidth;
+      const scrollLeft = container.scrollLeft;
+      
+      // If we've scrolled past the original 7 cards into the duplicate
+      const originalWidth = (300 + 42) * data.length;
+      
+      if (scrollLeft >= originalWidth) {
+        // Reset scroll to the beginning without animation
+        container.scrollLeft = scrollLeft - originalWidth;
+      }
+      
+      if (scrollLeft <= 0 && scrollLeft > -10) {
+        // Near the beginning, don't reset
+      }
+    };
+    
+    container.addEventListener('scroll', handleScroll);
+    return () => container.removeEventListener('scroll', handleScroll);
+  }, [isDesktop]);
 
   const handleMouseEnter = () => {
-    controls.stop();
+    if (isDesktop) {
+      controls.stop();
+    }
   };
 
   const handleMouseLeave = () => {
-    controls.start({
-      x: [null, -2394],
-      transition: {
-        duration: 25,
-        ease: "linear",
-        repeat: Infinity
+    if (!isDragging.current && isDesktop) {
+      controls.start({
+        x: [containerRef.current?.scrollLeft || 0, -((300 + 42) * data.length * 2)],
+        transition: {
+          duration: 30, // Increased from 18 to 30 for slower speed
+          ease: "linear",
+          repeat: Infinity
+        }
+      });
+    }
+  };
+
+  const handleMouseDown = (e) => {
+    isDragging.current = true;
+    startX.current = e.pageX - containerRef.current.offsetLeft;
+    scrollLeft.current = containerRef.current.scrollLeft;
+    controls.stop();
+    containerRef.current.style.cursor = "grabbing";
+  };
+
+  const handleMouseMove = (e) => {
+    if (!isDragging.current) return;
+    e.preventDefault();
+    const x = e.pageX - containerRef.current.offsetLeft;
+    const walk = (x - startX.current) * 1.5;
+    containerRef.current.scrollLeft = scrollLeft.current - walk;
+  };
+
+  const handleMouseUp = () => {
+    isDragging.current = false;
+    if (containerRef.current) {
+      containerRef.current.style.cursor = "grab";
+      // Resume auto-scroll after manual drag
+      if (isDesktop) {
+        controls.start({
+          x: [containerRef.current.scrollLeft, -((300 + 42) * data.length * 2)],
+          transition: {
+            duration: 30, // Increased from 18 to 30 for slower speed
+            ease: "linear",
+            repeat: Infinity
+          }
+        });
       }
-    });
+    }
   };
 
   return (
-    <div className="w-full bg-[#f5f5f5] px-6 md:px-10 lg:px-20 py-15 md:py-25 lg:py-24">
+    <div className="w-full bg-[#f5f5f5] py-15 md:py-25 lg:py-24">
 
       {/* Title */}
-      <div className="flex justify-center">
+      <div className="px-[20px] md:px-[40px] lg:px-20">
         <div className="max-w-7xl mx-auto w-full">
           <p
-            className="mb-[40px] lg:mb-[50px]"
+            className="mb-[15px] lg:mb-[20px] font-semibold"
             style={{
               fontFamily: "Inter, sans-serif",
               fontSize: "16px",
@@ -109,107 +194,125 @@ export default function OurDivisions() {
         </div>
       </div>
 
-      {/* Marquee */}
-      <div className="overflow-hidden">
-        <div className="flex justify-center">
-          <div className="max-w-7xl mx-auto">
-            <motion.div
-              className="flex gap-[42px]"
-              animate={controls}
-              initial={{ x: 0 }}
-              onViewportEnter={() =>
+      {/* Scroll Container */}
+      <div
+        ref={containerRef}
+        className="overflow-x-auto overflow-y-hidden"
+        style={{
+          cursor: "grab",
+          scrollbarWidth: "none",
+          msOverflowStyle: "none",
+          WebkitOverflowScrolling: "touch"
+        }}
+        onMouseDown={handleMouseDown}
+        onMouseMove={handleMouseMove}
+        onMouseUp={handleMouseUp}
+        onMouseLeave={() => {
+          handleMouseUp();
+          handleMouseLeave();
+        }}
+      >
+        <div className="flex">
+          <motion.div
+            className="flex gap-[42px] px-[20px] md:px-[40px] lg:px-20"
+            animate={isDesktop ? controls : {}}
+            initial={{ x: 0 }}
+            style={{
+              display: "flex",
+              flexDirection: "row"
+            }}
+            onViewportEnter={() => {
+              if (isDesktop) {
                 controls.start({
-                  x: [0, -2394],
+                  x: [0, -((300 + 42) * data.length * 2)],
                   transition: {
-                    duration: 25,
+                    duration: 30, // Increased from 18 to 30 for slower speed
                     ease: "linear",
                     repeat: Infinity
                   }
-                })
+                });
               }
-            >
-              {loopData.map((item, i) => (
-                <div
-                  key={i}
-                  className="flex flex-col min-w-[260px] md:min-w-[280px] lg:min-w-[300px] min-h-[600px] pt-[40px] pb-[40px]"
-                  onMouseEnter={handleMouseEnter}
-                  onMouseLeave={handleMouseLeave}
-                >
-                  <div className="flex flex-col flex-1">
+            }}
+          >
+            {loopData.map((item, i) => (
+              <div
+                key={i}
+                className="flex flex-col min-w-[260px] md:min-w-[280px] lg:min-w-[300px] min-h-[600px] pt-[10px] md:pt-[15px] pb-[60px] md:pb-[70px] lg:pb-[40px]"
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+              >
+                <div className="flex flex-col flex-1">
 
-                    {/* ✅ ONLY CHANGE HERE */}
+                  <img
+                    src={item.logo}
+                    alt=""
+                    className="h-[55px] mb-[28px] object-contain object-left"
+                  />
+
+                  <h3
+                    className="mb-[16px] h-[52px] overflow-hidden"
+                    style={{
+                      fontFamily: "Poppins, sans-serif",
+                      fontWeight: 500,
+                      fontSize: "20px",
+                      lineHeight: "130%",
+                      display: "-webkit-box",
+                      WebkitLineClamp: 2,
+                      WebkitBoxOrient: "vertical"
+                    }}
+                  >
+                    {item.title}
+                  </h3>
+
+                  <div className="w-full h-[200px] mb-[16px] overflow-hidden">
                     <img
-                      src={item.logo}
+                      src={item.img}
                       alt=""
-                      className="h-[60px] mb-[20px] object-contain object-left"
+                      className="w-full h-full object-cover object-top"
                     />
-
-                    <h3
-                      className="mb-[16px] h-[52px] overflow-hidden"
-                      style={{
-                        fontFamily: "Poppins, sans-serif",
-                        fontWeight: 500,
-                        fontSize: "20px",
-                        lineHeight: "130%",
-                        display: "-webkit-box",
-                        WebkitLineClamp: 2,
-                        WebkitBoxOrient: "vertical"
-                      }}
-                    >
-                      {item.title}
-                    </h3>
-
-                    <div className="w-full h-[200px] mb-[16px] overflow-hidden">
-                      <img
-                        src={item.img}
-                        alt=""
-                        className="w-full h-full object-cover object-top"
-                      />
-                    </div>
-
-                    <p
-                      className="h-[180px]"
-                      style={{
-                        fontFamily: "Inter, sans-serif",
-                        fontSize: "15px",
-                        lineHeight: "150%",
-                        color: "#7A7A7A",
-                        textAlign: "justify"
-                      }}
-                    >
-                      {item.desc}
-                    </p>
-
-                    <div className="flex items-center mt-[60px]">
-                      <div
-                        className="rounded-full flex items-center justify-center cursor-pointer"
-                        style={{
-                          width: "32px",
-                          height: "32px",
-                          border: "1px solid #1E3A8A",
-                        }}
-                        onClick={() => window.open(item.link, "_blank")}
-                      >
-                        <svg width="12" height="12" viewBox="0 0 16 16" fill="none">
-                          <path
-                            d="M3 13L13 3M13 3H5M13 3V11"
-                            stroke="#1E3A8A"
-                            strokeWidth="1.5"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
-                      </div>
-                    </div>
-
                   </div>
+
+                  <p
+                    className="min-h-[180px] mb-[20px]"
+                    style={{
+                      fontFamily: "Inter, sans-serif",
+                      fontSize: "15px",
+                      lineHeight: "150%",
+                      color: "#7A7A7A",
+                      textAlign: "justify"
+                    }}
+                  >
+                    {item.desc}
+                  </p>
+
+                  <div className="flex items-center mt-auto pt-[20px] md:pt-[30px]">
+                    <div
+                      className="rounded-full flex items-center justify-center cursor-pointer"
+                      style={{
+                        width: "32px",
+                        height: "32px",
+                        border: "1px solid #1E3A8A",
+                      }}
+                      onClick={() => window.open(item.link, "_blank")}
+                    >
+                      <svg width="12" height="12" viewBox="0 0 16 16" fill="none">
+                        <path
+                          d="M3 13L13 3M13 3H5M13 3V11"
+                          stroke="#1E3A8A"
+                          strokeWidth="1.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+
                 </div>
-              ))}
-            </motion.div>
-          </div>
+              </div>
+            ))}
+          </motion.div>
         </div>
       </div>
-
     </div>
   );
 }
