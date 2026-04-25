@@ -1,16 +1,21 @@
 import React from 'react'
-import Division from './Pages/Division';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+
+import Division from './Pages/Division'
 import Header from "./Components/Header/Header"
 import Home from "./Pages/Home"
 
 const App = () => {
   return (
-    <div>
-      
-      <Header/>
-      <Home/>
-      <Division />
-    </div>
+    <Router>
+      <Header />
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/division" element={<Division />} />
+      </Routes>
+
+    </Router>
   )
 }
 
