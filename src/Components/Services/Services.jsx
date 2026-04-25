@@ -72,7 +72,7 @@ const services = [
       },
       {
         title: "Website Mobile App Design & Development ",
-        desc: "-Business websites, portfolio websites, e-commerce stores, landing pages, and fully responsive web experiences.-Android, iOS, and cross-platform app design and development with intuitive user experiences",
+        desc: "Business websites, portfolio websites, e-commerce stores, landing pages, and fully responsive web experiences.-Android, iOS, and cross-platform app design and development with intuitive user experiences",
       },
       {
         title: "Website Optimization",
@@ -86,7 +86,7 @@ const services = [
       },
       {
         title: "Front-End & Back-End Development",
-        desc: "-Fast, responsive, and interactive interfaces built for web and mobile platforms.-Secure, scalable, and efficient systems, APIs, databases, and platform architecture",
+        desc: "Fast, responsive, and interactive interfaces built for web and mobile platforms.-Secure, scalable, and efficient systems, APIs, databases, and platform architecture",
       },
       {
         title: "Maintenance & Support",
