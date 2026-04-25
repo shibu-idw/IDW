@@ -100,7 +100,7 @@ export default function VisionMission() {
             <div className="space-y-2 sm:space-y-3 md:space-y-4">
               <p
                 className="text-[#5f5f5f] leading-[1.28]"
-                style={{ fontSize: "clamp(26px, 3.2vw, 46px)" }}
+                style={{ fontSize: "clamp(25px, 3.2vw, 45px)" }}
               >
                 <span className="font-semibold text-black mr-2">01</span>
                 To become a trusted digital growth
