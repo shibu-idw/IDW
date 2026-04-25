@@ -13,7 +13,7 @@ export default function AboutHero() {
         <div className="absolute inset-0 bg-black/70" />
 
         <div className="absolute inset-0 flex flex-col justify-center items-center text-center px-4 sm:px-6 md:px-10">
-        <h2 className="font-[Poppins] text-white text-[42px] sm:text-[60px] md:text-[82px] lg:text-[100px] font-light leading-[1] tracking-[-0.04em] text-center opacity-90">
+        <h2 className="font-[Poppins] font-[200] text-white text-[42px] sm:text-[60px] md:text-[82px] lg:text-[100px] font-light leading-[1] tracking-[-0.03em] text-center opacity-70 mt-5">
   Built to simplify
 </h2>
 
