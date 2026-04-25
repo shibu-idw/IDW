@@ -4,23 +4,26 @@ import Logo from "./../../assets/logoidw.png";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
-  const [active, setActive] = useState(""); // 🔥 active menu state
+  const [active, setActive] = useState("");
 
-  const menuItems = ["About", "Services", "Divisions"];
+  const menuItems = [
+    { name: "About", link: "/about" },
+    { name: "Services", link: "/service" },
+    { name: "Divisions", link: "/division" },
+  ];
 
   return (
     <header className="w-full bg-[#f5f5f5] fixed top-0 left-0 z-50">
-      
       <div className="max-w-7xl mx-auto flex items-center justify-between px-6 md:px-10 lg:px-20 py-6">
 
         {/* Logo */}
-        <div className="flex items-center">
+        <a href="/" className="flex items-center">
           <img
             src={Logo}
             alt="Logo"
             className="h-10 lg:h-15 object-contain"
           />
-        </div>
+        </a>
 
         {/* Right Section */}
         <div className="flex items-center gap-6 lg:gap-10">
@@ -29,14 +32,14 @@ export default function Header() {
           <nav className="hidden lg:flex items-center gap-18 text-gray-600 text-xl font-semibold">
             {menuItems.map((item) => (
               <a
-                key={item}
-                href="#"
-                onClick={() => setActive(item)}
-                className={`hover:text-black ${
-                  active === item ? "text-black" : ""
+                key={item.name}
+                href={item.link}
+                onClick={() => setActive(item.name)}
+                className={`cursor-pointer transition hover:text-black ${
+                  active === item.name ? "text-black" : ""
                 }`}
               >
-                {item}
+                {item.name}
               </a>
             ))}
           </nav>
@@ -49,10 +52,13 @@ export default function Header() {
             {open ? <X size={26} /> : <Menu size={26} />}
           </button>
 
-          {/* Button */}
-          <button className="hidden sm:flex items-center gap-2 bg-[#2f4b8f] text-white px-5 py-2 text-md font-semibold hover:bg-[#1f3a7a] transition">
+          {/* Get Started */}
+          <a
+            href="/contact"
+            className="hidden sm:flex items-center gap-2 bg-[#2f4b8f] text-white px-5 py-2 text-md font-semibold hover:bg-[#1f3a7a] transition"
+          >
             Get Started →
-          </button>
+          </a>
 
         </div>
       </div>
@@ -60,39 +66,47 @@ export default function Header() {
       {/* Dropdowns */}
       {open && (
         <>
-          {/* 📱 Mobile Full Width */}
+          {/* Mobile */}
           <div className="sm:hidden bg-[#f5f5f5] px-6 pb-4 space-y-4 text-gray-700 font-medium">
             {menuItems.map((item) => (
               <a
-                key={item}
-                href="#"
-                onClick={() => setActive(item)}
+                key={item.name}
+                href={item.link}
+                onClick={() => {
+                  setActive(item.name);
+                  setOpen(false);
+                }}
                 className={`block px-2 py-1 rounded ${
-                  active === item ? "bg-gray-200" : ""
+                  active === item.name ? "bg-gray-200" : ""
                 }`}
               >
-                {item}
+                {item.name}
               </a>
             ))}
 
-            {/* Mobile Button */}
-            <button className="w-full bg-[#2f4b8f] text-white py-2 rounded-md">
+            <a
+              href="/contact"
+              className="block w-full text-center bg-[#2f4b8f] text-white py-2 rounded-md"
+            >
               Contact Us →
-            </button>
+            </a>
           </div>
 
-          {/* 📲 Tablet Right Side Box */}
+          {/* Tablet */}
           <div className="hidden sm:block lg:hidden absolute top-[80px] right-6 w-64 bg-[#f5f5f5] shadow-lg rounded-lg p-5 space-y-4 text-gray-700 font-medium">
             {menuItems.map((item) => (
               <a
-                key={item}
-                href="#"
-                onClick={() => setActive(item)}
+                key={item.name}
+                href={item.link}
+                onClick={() => {
+                  setActive(item.name);
+                  setOpen(false);
+                }}
                 className={`block px-2 py-1 rounded ${
-                  active === item ? "bg-gray-200" : ""
+                  active === item.name ? "bg-gray-200" : ""
                 }`}
               >
-                {item}
+                {item.name}
               </a>
             ))}
           </div>
