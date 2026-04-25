@@ -26,7 +26,7 @@ const Terms = () => {
         <p className="font-medium mt-4 text-[#605E5E] text-[18px]">2. Automatically Collected Information**</p>
         <p className="text-[#605E5E] text-[18px]">- IP address, browser type, device information, operating system</p>
         <p className="text-[#605E5E] text-[18px]">- Pages visited, time spent on pages, clickstream data</p>
-        <p>- Referral source and exit pages</p>
+        <p className="text-[#605E5E] text-[18px]">- Referral source and exit pages</p>
 
         <p className="font-medium mt-4 text-[#605E5E] text-[18px]">3. Cookies and Tracking Technologies**</p>
         <p className="text-[#605E5E] text-[18px]">
