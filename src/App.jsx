@@ -1,5 +1,4 @@
-import React from 'react'
-import Services from './Components/Services/Services'
+import Services from "./Components/Services/Services";
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Header from "./Components/Header/Header";
@@ -10,11 +9,11 @@ const App = () => {
   return (
     <div>
       <Services />
-      <Header />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-      </Routes>
+      {/* <Header /> */}
+      {/* <Routes> */}
+        {/* <Route path="/" element={<Home />} /> */}
+        {/* <Route path="/about" element={<About />} /> */}
+      {/* </Routes> */}
     </div>
   );
 };
