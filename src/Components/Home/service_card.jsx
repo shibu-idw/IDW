@@ -34,19 +34,19 @@ export default function StickyCards() {
       const cards = cardsRef.current;
 
       gsap.set(containerRef.current, {
-        perspective: 2000,
+        perspective: 2200,
         transformStyle: "preserve-3d",
       });
 
+      // INITIAL SETUP
       cards.forEach((card, i) => {
         gsap.set(card, {
           position: "absolute",
           inset: 0,
           zIndex: i + 1,
-          yPercent: i === 0 ? 0 : 100,
+          yPercent: i === 0 ? 0 : 120,
           scale: 1,
-          opacity: 1,
-          transformOrigin: "center center",
+          rotateX: 0,
         });
       });
 
@@ -54,7 +54,7 @@ export default function StickyCards() {
         scrollTrigger: {
           trigger: containerRef.current,
           start: "top top",
-          end: `+=${cards.length * 140}%`,
+          end: `+=${cards.length * 130}%`,
           scrub: true,
           pin: true,
         },
@@ -63,34 +63,56 @@ export default function StickyCards() {
       cards.forEach((card, i) => {
         const next = cards[i + 1];
 
-        tl.to(card, {
-          scale: 0.65,
-          x: 80,
-          y: -40,
-          rotate: 2,
-          opacity: 1,
-          duration: 0.6,
-          ease: "none",
-        }).to(card, {
-          scale: 0.35,
-          x: 200,
-          y: -160,
-          rotate: 8,
-          opacity: 0,
-          duration: 0.6,
-          ease: "none",
-        });
+        // NORMAL CARDS (1 & 2)
+        if (i !== cards.length - 1) {
+          // Start exit
+          tl.to(card, {
+            scale: 0.8,
+            x: 40,
+            y: -20,
+            rotate: 1,
+            duration: 0.4,
+            ease: "none",
+          });
 
-        if (next) {
-          tl.to(
-            next,
-            {
-              yPercent: 0,
-              duration: 1,
-              ease: "none",
-            },
-            "<0.2"
-          );
+          // Continue exit + fade
+          tl.to(card, {
+            scale: 0.5,
+            x: 80,
+            y: -70,
+            rotate: 4,
+            opacity: 0,
+            duration: 0.4,
+            ease: "none",
+          });
+
+          // 👇 NEXT CARD COMES BEFORE CURRENT DISAPPEARS
+          if (next) {
+            tl.to(
+              next,
+              {
+                yPercent: 0,
+                duration: 0.8,
+                ease: "power2.out",
+              },
+              "-=0.3" // 👈 overlap timing
+            );
+          }
+        }
+
+        // LAST CARD → ZOOM + FLIP EXIT
+        if (i === cards.length - 1) {
+          tl.to(card, {
+            scale: 0.5,
+            x: 80,
+            y: -70,
+            rotate: 4,
+            rotateX: 60,
+            transformOrigin: "center center",
+            opacity: 0,
+            duration: 0.7,
+            ease: "power2.in",
+          });
         }
       });
     }, containerRef);
@@ -105,7 +127,7 @@ export default function StickyCards() {
         Scroll down for the experience
       </div>
 
-      {/* STICKY WRAPPER */}
+      {/* STICKY SECTION */}
       <div
         ref={containerRef}
         className="relative w-full h-screen overflow-hidden bg-black"
@@ -118,7 +140,6 @@ export default function StickyCards() {
               i % 2 === 0 ? "bg-[#f3f3f3] text-black" : "bg-[#111] text-white"
             }`}
           >
-            {/* RESPONSIVE CENTER CONTAINER */}
             <div className="w-full max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 px-4 sm:px-6 md:px-10">
               
               {/* LEFT */}
@@ -160,7 +181,6 @@ export default function StickyCards() {
         ))}
       </div>
 
-      {/* Spacer */}
       <div className="h-[100vh] bg-black" />
     </div>
   );
