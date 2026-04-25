@@ -59,8 +59,8 @@ const services = [
     img: serviceImg2,
     idStyle: "text-[70px] font-bold opacity-20",
     titleStyle: "text-md text-[40px] font-semibold",
-    middleTitleStyle: "text-[18px] font-semibold",
-    middleDescStyle: "text-md text-[12px] opacity-70",
+    middleTitleStyle: "text-[14px] font-semibold",
+    middleDescStyle: "text-xs text-[12px] opacity-70",
     rightTitleStyle: "text-[18px] font-semibold",
     rightDescStyle: "text-md text-[12px] opacity-70",
     leftTitle: "Approach",
@@ -227,22 +227,22 @@ const Services = () => {
   const cardsRef = useRef([]);
 
   useEffect(() => {
-    // ✅ FIX: cardsRef array null elements filter பண்ணு
-    const cards = cardsRef.current.filter(Boolean);
-
-    if (!cards.length) return;
-
     const ctx = gsap.context(() => {
+      const cards = cardsRef.current;
 
-      // ✅ initial state - first card visible, rest hidden below
+      gsap.set(containerRef.current, {
+        perspective: 2200,
+        transformStyle: "preserve-3d",
+      });
+
       cards.forEach((card, i) => {
         gsap.set(card, {
           position: "absolute",
           inset: 0,
           zIndex: i + 1,
-          yPercent: i === 0 ? 0 : 100,
+          yPercent: i === 0 ? 0 : 120,
           scale: 1,
-          opacity: 1,
+          rotateX: 0,
         });
       });
 
@@ -250,7 +250,7 @@ const Services = () => {
         scrollTrigger: {
           trigger: containerRef.current,
           start: "top top",
-          end: `+=${cards.length * 140}%`,
+          end: `+=${cards.length * 130}%`,
           scrub: true,
           pin: true,
         },
@@ -259,52 +259,57 @@ const Services = () => {
       cards.forEach((card, i) => {
         const next = cards[i + 1];
 
-        // current card shrink + fly out
-        tl.to(card, {
-          scale: 0.65,
-          x: 80,
-          y: -40,
-          rotate: 2,
-          duration: 0.6,
-          ease: "none",
-        }).to(card, {
-          scale: 0.35,
-          x: 200,
-          y: -160,
-          rotate: 8,
-          opacity: 0,
-          duration: 0.6,
-          ease: "none",
-        });
-
-        // next card slide up
-        if (next) {
-          tl.to(
-            next,
-            {
+        if (i !== cards.length - 1) {
+          tl.to(card, {
+            scale: 0.8,
+            x: 40,
+            y: -20,
+            rotate: 1,
+            duration: 0.4,
+            ease: "none",
+          });
+          tl.to(card, {
+            scale: 0.5,
+            x: 80,
+            y: -70,
+            rotate: 4,
+            opacity: 0,
+            duration: 0.4,
+            ease: "none",
+          });
+          if (next) {
+            tl.to(next, {
               yPercent: 0,
-              duration: 1,
-              ease: "none",
-            },
-            "<0.2"
-          );
+              duration: 0.8,
+              ease: "power2.out",
+            }, "-=0.3");
+          }
+        }
+
+        if (i === cards.length - 1) {
+          tl.to(card, {
+            scale: 0.5,
+            x: 80,
+            y: -70,
+            rotate: 4,
+            rotateX: 60,
+            transformOrigin: "center center",
+            opacity: 0,
+            duration: 0.7,
+            ease: "power2.in",
+          });
         }
       });
-
     }, containerRef);
 
     return () => ctx.revert();
   }, []);
 
   return (
-    <div
-      ref={containerRef}
-      className="relative bg-gray-200 h-screen overflow-hidden"
-    >
+    <div ref={containerRef} className="relative bg-gray-200 h-screen overflow-hidden">
       {services.map((item, index) => (
         <div
           key={item.id}
-          // ✅ FIX: ref array-ஓட connect பண்றோம்
           ref={(el) => (cardsRef.current[index] = el)}
           className="card h-screen"
         >
@@ -312,25 +317,17 @@ const Services = () => {
 
             {/* ===================== MOBILE LAYOUT (below 768px) ===================== */}
             <div className="flex flex-col md:hidden h-full px-5 pt-5 overflow-hidden relative">
-
-              {/* Ghost number */}
               <div className="absolute top-0 right-3 text-[100px] font-bold opacity-[0.07] leading-none pointer-events-none">
                 {item.id}
               </div>
-
-              {/* Title */}
               <h1 className={`${item.titleStyle} text-[32px] leading-[1.05] mb-2 relative z-10 flex-shrink-0`}>
                 {item.title.split(" ").map((word, i) => (
                   <span key={i} className="block">{word}</span>
                 ))}
               </h1>
-
-              {/* Approach label */}
               <p className="text-[9px] uppercase tracking-[1.5px] opacity-40 font-medium mb-2 relative z-10 flex-shrink-0">
                 {item.leftTitle}
               </p>
-
-              {/* 6-column content grid */}
               <div className="grid grid-cols-6 gap-x-3 gap-y-2 flex-1 min-h-0 overflow-hidden relative z-10">
                 {[...item.middle, ...item.right].map((s, i) => (
                   <div key={i} className="col-span-3 flex flex-col gap-[1px]">
@@ -339,30 +336,77 @@ const Services = () => {
                   </div>
                 ))}
               </div>
-
-              {/* Button */}
               <div className="flex items-center justify-end py-1.5 relative z-10 flex-shrink-0">
                 <button className="bg-blue-700 text-white px-4 py-1.5 rounded-lg text-[11px] font-medium">
                   Get started →
                 </button>
               </div>
-
-              {/* Bottom image */}
               <div className="h-[120px] flex-shrink-0">
-                <img
-                  src={item.img}
-                  alt={item.title}
-                  className="w-full h-full object-cover rounded-t-xl"
-                />
+                <img src={item.img} alt={item.title} className="w-full h-full object-cover rounded-t-xl" />
               </div>
             </div>
 
-            {/* ===================== TABLET + DESKTOP LAYOUT (768px+) ===================== */}
-            <div className="hidden md:grid grid-cols-12 gap-6 h-full px-8 lg:px-10 py-8 lg:py-10">
+            {/* ===================== TABLET LAYOUT (768px - 1023px) ===================== */}
+            {/* ===================== TABLET LAYOUT (768px - 1023px) ===================== */}
+<div className="hidden md:flex lg:hidden flex-col h-full px-6 py-4 overflow-hidden relative">
+
+  {/* Number */}
+  <div className={`absolute top-3 right-5 ${item.idStyle} text-[40px]`}>
+    {item.id}
+  </div>
+
+  {/* Title */}
+  <h1 className={`${item.titleStyle} text-[30px] leading-[1.05] mb-1 flex-shrink-0`}>
+    {item.title.split(" ").map((word, i) => (
+      <span key={i} className="block">{word}</span>
+    ))}
+  </h1>
+
+  {/* Left title */}
+  <p className="text-[10px] uppercase tracking-[1.5px] opacity-50 font-medium mb-2 flex-shrink-0">
+    {item.leftTitle}
+  </p>
+
+  {/* Middle + Right - 6 col grid - tight spacing */}
+  <div className="grid grid-cols-6 gap-x-3 gap-y-1.5 flex-shrink-0">
+    {item.middle.map((m, i) => (
+      <div key={`m-${i}`} className="col-span-3 flex flex-col gap-[1px]">
+        <h4 className="text-[10px] font-semibold leading-tight">{m.title}</h4>
+        <p className="text-[8px] opacity-60 leading-snug">{m.desc}</p>
+      </div>
+    ))}
+    {item.right.map((r, i) => (
+      <div key={`r-${i}`} className="col-span-3 flex flex-col gap-[1px]">
+        <h4 className="text-[10px] font-semibold leading-tight">{r.title}</h4>
+        <p className="text-[8px] opacity-60 leading-snug">{r.desc}</p>
+      </div>
+    ))}
+  </div>
+
+  {/* Button center */}
+  <div className="flex justify-center py-2 flex-shrink-0">
+    <button className="bg-blue-600 text-white px-6 py-1.5 rounded-md text-[11px] font-medium">
+      Get started →
+    </button>
+  </div>
+
+  {/* Image - flex-1 takes all remaining space */}
+  <div className="flex-1 min-h-0">
+    <img
+      src={item.img}
+      alt={item.title}
+      className="w-full h-full object-cover rounded-t-xl"
+    />
+  </div>
+
+</div>
+
+            {/* ===================== DESKTOP LAYOUT (1024px+) ===================== */}
+            <div className="hidden lg:grid grid-cols-12 gap-6 h-full px-10 py-10">
 
               {/* Title */}
-              <div className="md:col-span-12">
-                <h1 className={`${item.titleStyle} leading-[1.1] text-[36px] lg:text-[50px]`}>
+              <div className="col-span-12">
+                <h1 className={`${item.titleStyle} leading-[1.1] text-[50px]`}>
                   {(() => {
                     const words = item.title.split(" ");
                     if (words.includes("&")) {
@@ -383,54 +427,40 @@ const Services = () => {
               </div>
 
               {/* Approach */}
-              <div className="md:col-span-2">
-                <h2 className={`${item.leftTitleStyle} text-sm lg:text-lg`}>
-                  {item.leftTitle}
-                </h2>
+              <div className="col-span-2">
+                <h2 className={`${item.leftTitleStyle} text-[15px]`}>{item.leftTitle}</h2>
               </div>
 
-              {/* Middle + Right content */}
-              <div className="md:col-span-6 grid grid-cols-2 gap-4 lg:gap-6">
-                <div className="space-y-2 lg:space-y-3 overflow-hidden">
+              {/* Middle + Right */}
+              <div className="col-span-6 grid grid-cols-2 gap-6 overflow-hidden">
+                <div className="space-y-3 overflow-hidden">
                   {item.middle.map((m, index) => (
                     <div key={index}>
-                      <h3 className={`${item.middleTitleStyle} text-[13px] lg:text-[18px]`}>
-                        {m.title}
-                      </h3>
-                      <p className={`${item.middleDescStyle} text-[10px] lg:text-[12px]`}>
-                        {m.desc}
-                      </p>
+                      <h3 className={`${item.middleTitleStyle} text-[18px]`}>{m.title}</h3>
+                      <p className={`${item.middleDescStyle} text-[12px]`}>{m.desc}</p>
                     </div>
                   ))}
-                  <button className="mt-2 lg:mt-4 px-3 lg:px-4 py-1.5 lg:py-2 bg-blue-600 text-white rounded-md text-xs lg:text-sm">
+                  <button className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-md text-sm">
                     Get started →
                   </button>
                 </div>
-                <div className="space-y-2 lg:space-y-3 overflow-hidden">
+                <div className="space-y-3 overflow-hidden">
                   {item.right.map((r, index) => (
                     <div key={index}>
-                      <h3 className={`${item.rightTitleStyle} text-[13px] lg:text-[18px]`}>
-                        {r.title}
-                      </h3>
-                      <p className={`${item.rightDescStyle} text-[10px] lg:text-[12px]`}>
-                        {r.desc}
-                      </p>
+                      <h3 className={`${item.rightTitleStyle} text-[18px]`}>{r.title}</h3>
+                      <p className={`${item.rightDescStyle} text-[12px]`}>{r.desc}</p>
                     </div>
                   ))}
                 </div>
               </div>
 
               {/* Image */}
-              <div className="md:col-span-4 flex items-end justify-end">
-                <img
-                  src={item.img}
-                  alt={item.title}
-                  className="w-full h-auto max-w-[200px] lg:max-w-sm rounded-lg object-cover"
-                />
+              <div className="col-span-4 flex items-end justify-end">
+                <img src={item.img} alt={item.title} className="w-full h-auto max-w-sm rounded-lg object-cover" />
               </div>
 
               {/* Number */}
-              <div className={`absolute top-4 right-6 lg:top-6 lg:right-10 ${item.idStyle} text-[50px] lg:text-[70px]`}>
+              <div className={`absolute top-6 right-10 ${item.idStyle} text-[70px]`}>
                 {item.id}
               </div>
 
