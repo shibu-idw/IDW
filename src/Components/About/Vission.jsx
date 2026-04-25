@@ -9,9 +9,9 @@ import logo6 from "../../assets/About/p6.png";
 import logo7 from "../../assets/About/p7.png";
 
 const stats = [
-  { label: "Employees", value: 50, suffix: "+" },
-  { label: "Projects", value: 150, suffix: "+" },
-  { label: "Experiences", value: 10, suffix: "+" },
+  { label: "Employees",   value: 50,  suffix: "+" },
+  { label: "Projects",    value: 150, suffix: "+" },
+  { label: "Experiences", value: 10,  suffix: "+" },
 ];
 
 const logos = [logo1, logo2, logo3, logo4, logo5, logo6, logo7];
@@ -21,27 +21,19 @@ function CountUp({ end, suffix = "", duration = 1500, start }) {
 
   useEffect(() => {
     if (!start) return;
-
     let startTime = null;
     let frame;
-
     const animate = (time) => {
       if (!startTime) startTime = time;
       const progress = Math.min((time - startTime) / duration, 1);
       setCount(Math.floor(progress * end));
       if (progress < 1) frame = requestAnimationFrame(animate);
     };
-
     frame = requestAnimationFrame(animate);
     return () => cancelAnimationFrame(frame);
   }, [start, end, duration]);
 
-  return (
-    <span>
-      {count}
-      {suffix}
-    </span>
-  );
+  return <span>{count}{suffix}</span>;
 }
 
 export default function VisionMission() {
@@ -50,100 +42,86 @@ export default function VisionMission() {
 
   useEffect(() => {
     if (!ref.current) return;
-
     const observer = new IntersectionObserver(
       ([entry]) => entry.isIntersecting && setStartCount(true),
       { threshold: 0.35 }
     );
-
     observer.observe(ref.current);
     return () => observer.disconnect();
   }, []);
 
   return (
     <section ref={ref} className="w-full bg-[#f3f3f3] overflow-hidden">
-      <div className="max-w-[1440px] mx-auto px-5 sm:px-8 md:px-10 lg:px-20 py-14 sm:py-16 md:py-20 lg:py-20">
-        <div className="grid grid-cols-1 lg:grid-cols-[320px_1fr] gap-8 md:gap-10 lg:gap-12">
-          
-          {/* LEFT TITLE */}
-          <h3 className="font-[Poppins] font-semibold text-black text-[24px] sm:text-[32px] md:text-[38px] lg:text-[28px] leading-[1.05] tracking-[-0.02em]">
+      <div className="max-w-[1440px] mx-auto
+        px-5 sm:px-8 md:px-10 lg:px-14 xl:px-20
+        py-12 sm:py-16 md:py-20">
+
+        {/* ── HEADER + CONTENT GRID ── */}
+        <div className="grid grid-cols-1 lg:grid-cols-[minmax(180px,22%)_1fr]
+          gap-6 md:gap-8 lg:gap-10 xl:gap-14 items-start">
+
+          {/* LEFT — label */}
+          <h3 className="font-[Poppins] font-semibold text-black leading-[1.05] tracking-[-0.02em]"
+            style={{ fontSize: "clamp(20px, 2.2vw, 30px)" }}>
             /OUR VISION & MISSION/
           </h3>
 
-          {/* RIGHT CONTENT */}
+          {/* RIGHT — content */}
           <div className="w-full">
 
-            {/* MOBILE + TABLET */}
-            <div className="space-y-5 lg:hidden">
-              <div className="flex items-start gap-2 sm:gap-3">
-                <span className="font-semibold text-black text-[30px] sm:text-[44px] md:text-[56px]">
-                  01
-                </span>
+            {/* Vision / Mission items */}
+            <div className="space-y-4">
+  {[
+   <div className="space-y-4">
+   <p className="text-[#5f5f5f] leading-[1.28]"
+     style={{ fontSize: "clamp(22px, 3.2vw, 46px)" }}>
+     <span className="font-semibold text-black mr-2">01</span>
+     To become a trusted digital growth<br />
+     partner for businesses across<br />
+     industries
+   </p>
+ 
+   <p className="text-[#5f5f5f] leading-[1.28]"
+     style={{ fontSize: "clamp(22px, 3.2vw, 46px)" }}>
+     <span className="font-semibold text-black mr-2">02</span>
+     To make digital accessible,<br />
+     effective, and growth-driven for every<br />
+     business.
+   </p>
+ </div>
+  ].map((text, i) => (
+    <p
+      key={i}
+      className="text-[#5f5f5f] leading-[1.28]"
+      style={{ fontSize: "clamp(22px, 3.2vw, 46px)" }}>
+      <span className="font-semibold text-black mr-2"></span>
+      {text}
+    </p>
+  ))}
+</div>
 
-                <p className="text-[#5f5f5f] text-[30px] sm:text-[44px] md:text-[56px] leading-[1.25]">
-                  To become a trusted digital growth partner for businesses across industries
-                </p>
-              </div>
-
-              <div className="flex items-start gap-2 sm:gap-3">
-                <span className="font-semibold text-black text-[30px] sm:text-[44px] md:text-[56px]">
-                  02
-                </span>
-
-                <p className="text-[#5f5f5f] text-[30px] sm:text-[44px] md:text-[56px] leading-[1.25]">
-                  To make digital accessible, effective, and growth-driven for every business.
-                </p>
-              </div>
-            </div>
-
-            {/* ✅ DESKTOP (FIXED ALIGNMENT) */}
-            <div className="hidden lg:block space-y-4">
-
-              <p className="text-[#5f5f5f] text-[42px] leading-[1.28]">
-                <span className="font-semibold text-black mr-2">01</span>
-                To become a trusted digital growth
-                <br />
-                partner for businesses across
-                <br />
-                industries
-              </p>
-
-              <p className="text-[#5f5f5f] text-[42px] leading-[1.28]">
-                <span className="font-semibold text-black mr-2">02</span>
-                To make digital accessible,
-                <br />
-                effective, and growth-driven for every
-                <br />
-                business.
-              </p>
-
-            </div>
-
-            {/* DESCRIPTION */}
-            <div className="mt-10 lg:max-w-[820px]">
-              <p className="text-[#6c6c6c] text-[15px] sm:text-[18px] md:text-[22px] lg:text-[18px] leading-[1.35]">
+            {/* Description */}
+            <div className="mt-8 lg:mt-10 lg:max-w-[820px]">
+              <p className="text-[#6c6c6c] leading-[1.4]"
+                style={{ fontSize: "clamp(14px, 1.4vw, 19px)" }}>
                 We provide end-to-end digital solutions including marketing,
                 branding, development, and consulting to help businesses achieve
                 measurable growth.
               </p>
-
-              <div className="mt-3 h-px bg-[#9d9d9d]" />
+              <div className="mt-4 h-px bg-[#9d9d9d]" />
             </div>
 
-            {/* STATS */}
-            <div className="grid grid-cols-3 gap-6 mt-10 lg:max-w-[820px]">
+            {/* Stats */}
+            <div className="grid grid-cols-3 gap-4 sm:gap-6 mt-8 lg:mt-10 lg:max-w-[820px]">
               {stats.map((s) => (
                 <div key={s.label}>
-                  <h4 className="font-semibold text-black text-[18px] lg:text-[24px]">
+                  <h4 className="font-semibold text-black leading-none"
+                    style={{ fontSize: "clamp(13px, 1.4vw, 22px)" }}>
                     {s.label}
                   </h4>
-
-                  <div className="mt-3 text-black text-[40px] lg:text-[56px]">
-                    <CountUp
-                      end={s.value}
-                      suffix={s.suffix}
-                      start={startCount}
-                    />
+                  <div className="mt-2 text-black font-light"
+                    style={{ fontSize: "clamp(32px, 4.2vw, 58px)" }}>
+                    <CountUp end={s.value} suffix={s.suffix} start={startCount} />
                   </div>
                 </div>
               ))}
@@ -152,14 +130,15 @@ export default function VisionMission() {
           </div>
         </div>
 
-        {/* LOGO SCROLL */}
-        <div className="mt-16 overflow-hidden group">
-          <div className="flex w-max items-center gap-20 animate-scroll group-hover:[animation-play-state:paused]">
+        {/* ── LOGO SCROLL ── */}
+        <div className="mt-14 sm:mt-16 overflow-hidden group">
+          <div className="flex w-max items-center gap-16 sm:gap-20
+            animate-scroll group-hover:[animation-play-state:paused]">
             {[...logos, ...logos].map((logo, i) => (
               <img
                 key={i}
                 src={logo}
-                className="h-12 lg:h-14 grayscale"
+                className="h-10 sm:h-12 lg:h-14 grayscale object-contain"
                 alt=""
               />
             ))}
@@ -169,7 +148,7 @@ export default function VisionMission() {
 
       <style>{`
         @keyframes scroll {
-          0% { transform: translateX(0); }
+          0%   { transform: translateX(0); }
           100% { transform: translateX(-50%); }
         }
         .animate-scroll {
