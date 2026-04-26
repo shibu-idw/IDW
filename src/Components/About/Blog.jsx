@@ -43,36 +43,33 @@ const blogs = [
 
 function BlogCard({ blog, isOpen, onContentEnter, onContentLeave, onToggle }) {
   return (
-    <div className="flex flex-col">
-      {/* IMAGE */}
-      <div className="overflow-hidden w-full">
+    <div>
+      <div className="overflow-hidden bg-transparent">
         <img
           src={blog.image}
           alt={blog.title}
-          className="w-full object-cover h-[240px] sm:h-[280px] md:h-[320px] lg:h-[260px] xl:h-[300px]"
+          className="h-[240px] sm:h-[300px] md:h-[360px] lg:h-[290px] xl:h-[320px] w-full object-cover"
         />
       </div>
 
-      {/* CONTENT */}
       <div
-        className="pt-4 flex flex-col flex-1"
+        className="pt-4"
         onMouseEnter={onContentEnter}
         onMouseLeave={onContentLeave}
       >
-        {/* TITLE ROW */}
-        <div className="flex items-start justify-between gap-3">
-          <h3 className="font-[Poppins] text-[17px] sm:text-[20px] md:text-[22px] lg:text-[20px] xl:text-[22px] font-medium leading-[1.2] tracking-[-0.03em] text-black">
+        <div className="flex items-start justify-between gap-4">
+          <h3 className="max-w-[90%] font-[Poppins] text-[19px] sm:text-[22px] md:text-[25px] lg:text-[23px] font-medium leading-[1.15] tracking-[-0.03em] text-black">
             {blog.title}
           </h3>
 
           <button
             onClick={onToggle}
-            className="shrink-0 mt-1 flex h-8 w-8 items-center justify-center rounded-full border border-[#cfcfcf] text-[#8b8b8b] transition-all hover:border-black hover:text-black"
+            className="shrink-0 mt-1 flex h-9 w-9 items-center justify-center rounded-full border border-[#cfcfcf] text-[#8b8b8b] transition hover:border-black hover:text-black"
             aria-label="Expand blog content"
             type="button"
           >
             <ChevronDown
-              size={16}
+              size={18}
               className={`transition-transform duration-300 ${
                 isOpen ? "rotate-180" : "rotate-0"
               }`}
@@ -80,25 +77,23 @@ function BlogCard({ blog, isOpen, onContentEnter, onContentLeave, onToggle }) {
           </button>
         </div>
 
-        {/* TEXT EXPAND */}
         <div
-          className={`overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] mt-3 ${
-            isOpen ? "max-h-[600px] opacity-100" : "max-h-[80px] opacity-100"
+          className={`overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+            isOpen ? "max-h-[520px] opacity-100 mt-4" : "max-h-[92px] opacity-100 mt-4"
           }`}
         >
-          <p className="font-[Poppins] text-[#8d8d8d] text-[14px] sm:text-[15px] md:text-[16px] lg:text-[15px] xl:text-[16px] leading-[1.45]">
+          <p className="font-[Poppins] text-[#8d8d8d] text-[15px] sm:text-[17px] md:text-[19px] lg:text-[17px] leading-[1.35]">
             {isOpen ? blog.fullText : blog.preview}
           </p>
         </div>
 
-        {/* AUTHOR */}
         <div className="mt-5 flex items-center gap-3">
           <img
             src={authorImg}
             alt={blog.author}
-            className="h-8 w-8 rounded-full object-cover shrink-0"
+            className="h-8 w-8 rounded-full object-cover"
           />
-          <p className="font-[Poppins] text-[#666666] text-[13px] sm:text-[14px] leading-none">
+          <p className="font-[Poppins] text-[#666666] text-[15px] sm:text-[16px] leading-none">
             {blog.author} · {blog.date}
           </p>
         </div>
@@ -112,29 +107,24 @@ export default function BlogSection() {
 
   return (
     <section className="w-full bg-[#f3f3f3]">
-      <div className="max-w-[1440px] mx-auto px-5 sm:px-8 md:px-10 lg:px-14 xl:px-20 pt-12 sm:pt-16 md:pt-20 pb-14 sm:pb-16 md:pb-20 lg:pb-24">
-
-        {/* ── HEADER ROW ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-[minmax(220px,28%)_1fr] gap-6 md:gap-8 lg:gap-12 xl:gap-16 items-start">
-          
-          {/* LEFT LABEL */}
-          <div className="pt-1">
-            <h3 className="font-[Poppins] text-black font-semibold tracking-[-0.04em] text-[22px] sm:text-[26px] md:text-[30px] lg:text-[28px] xl:text-[32px] leading-none">
+      <div className="max-w-[1440px] mx-auto px-5 sm:px-8 md:px-10 lg:px-14 xl:px-20 pt-12 sm:pt-16 md:pt-20 lg:pt-20 pb-14 sm:pb-16 md:pb-20 lg:pb-24">
+        <div className="grid grid-cols-1 lg:grid-cols-[320px_minmax(0,1fr)] gap-8 md:gap-10 lg:gap-16 items-start">
+          <div>
+            <h3 className="font-[Poppins] text-black font-semibold tracking-[-0.04em] text-[26px] sm:text-[30px] md:text-[34px] lg:text-[32px] leading-none">
               /IDW Blogs/
             </h3>
           </div>
 
-          {/* RIGHT HEADING + BUTTON */}
-          <div>
-            {/* Mobile */}
-            <h2 className="lg:hidden font-[Poppins] font-normal text-[28px] sm:text-[38px] md:text-[50px] leading-[1.2] tracking-[0em] text-black">
+          <div className="max-w-[980px]">
+            {/* Mobile + Tablet heading */}
+            <h2 className="lg:hidden font-[Poppins] font-normal text-[34px] sm:text-[46px] md:text-[58px] leading-[1.22] tracking-[0em] text-black">
               Discover practical ideas that simplify digital growth for modern
               businesses. Insights built to inform, guide, and move businesses
               forward.
             </h2>
 
-            {/* Desktop */}
-            <h2 className="hidden lg:block font-[Poppins] font-normal text-[clamp(30px,2.8vw,42px)] leading-[1.3] tracking-[0em] text-black">
+            {/* Desktop heading */}
+            <h2 className="hidden lg:block font-[Poppins] font-normal text-[42px] leading-[1.3] tracking-[0em] text-black max-w-[900px]">
               Discover practical ideas that simplify
               <br />
               digital growth for modern businesses.
@@ -146,16 +136,15 @@ export default function BlogSection() {
 
             <button
               type="button"
-              className="mt-6 sm:mt-8 inline-flex items-center gap-3 border-b border-[#9e9e9e] pb-1.5 font-[Poppins] text-[#7a7a7a] hover:text-black transition text-[16px] sm:text-[18px] md:text-[20px]"
+              className="mt-8 sm:mt-10 inline-flex items-center gap-4 border-b border-[#9e9e9e] pb-2 font-[Poppins] text-[#7a7a7a] hover:text-black transition text-[18px] sm:text-[20px] md:text-[22px]"
             >
               <span>View all blogs</span>
-              <span className="text-[22px] leading-none">→</span>
+              <span className="text-[24px] leading-none">→</span>
             </button>
           </div>
         </div>
 
-        {/* ── BLOG CARDS ── */}
-        <div className="mt-10 sm:mt-12 md:mt-16 lg:mt-20 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 md:gap-6 lg:gap-7 xl:gap-8 items-start">
+        <div className="mt-12 sm:mt-14 md:mt-16 lg:mt-20 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10 md:gap-8 lg:gap-7 xl:gap-8 items-start">
           {blogs.map((blog) => (
             <BlogCard
               key={blog.id}
@@ -173,7 +162,6 @@ export default function BlogSection() {
             />
           ))}
         </div>
-
       </div>
     </section>
   );

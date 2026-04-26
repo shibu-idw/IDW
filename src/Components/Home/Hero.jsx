@@ -19,7 +19,7 @@ export default function Hero() {
         <div className="absolute inset-0 flex flex-col justify-center items-center text-center px-4 sm:px-6">
           
           {/* Top Text */}
-          <h2 className="text-gray-100 text-2xl sm:text-3xl md:text-5xl lg:text-7xl font-[250] leading-tight tracking-tight transform lg:scale-x-116 lg:scale-y-130">
+          <h2 className="text-gray-100 text-2xl sm:text-3xl md:text-5xl lg:text-7xl font-thin leading-tight tracking-tight transform lg:scale-x-116 lg:scale-y-130">
             Empowering Businesses
           </h2>
 

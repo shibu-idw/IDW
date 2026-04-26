@@ -13,15 +13,15 @@ export default function AboutHero() {
         <div className="absolute inset-0 bg-black/70" />
 
         <div className="absolute inset-0 flex flex-col justify-center items-center text-center px-4 sm:px-6 md:px-10">
-        <h2 className="font-[Poppins] font-[200] text-white text-[42px] sm:text-[60px] md:text-[82px] lg:text-[100px] font-light leading-[1] tracking-[-0.03em] text-center opacity-70 mt-5">
-  Built to simplify
-</h2>
+          <h2 className="text-gray-100 text-[42px] sm:text-[56px] md:text-[74px] lg:text-7xl font-thin leading-[1.05] tracking-tight">
+            Built to simplify
+          </h2>
 
-          <h1 className="font-[Poppins] text-white text-[48px] sm:text-[64px] md:text-[84px] lg:text-[100px] font-semibold leading-[1] tracking-[-0.05em] text-center mt-1">
+          <h1 className="text-white text-[48px] sm:text-[64px] md:text-[82px] lg:text-7xl font-medium mt-2 leading-[1.05] tracking-tight">
             Digital growth
           </h1>
 
-          <p className="font-[Inter] text-white text-[15px] sm:text-[18px] md:text-[22px] lg:text-[27.58px] font-medium leading-[1.2] tracking-[-0.04em] text-center mt-5 max-w-[1080px]">
+          <p className="text-white text-[15px] sm:text-[17px] md:text-[19px] lg:text-lg mt-5 max-w-[760px] lg:max-w-5xl leading-[1.35]">
             IDW helps businesses and individuals navigate digital adoption with
             clarity and confidence. From understanding to action, we make every
             step simple, practical, and impactful.

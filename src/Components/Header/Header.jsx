@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
+import { Link } from "react-router-dom";
 import Logo from "./../../assets/logoidw.png";
 
 export default function Header() {
@@ -15,6 +16,9 @@ export default function Header() {
   return (
     <header className="w-full bg-[#f5f5f5] fixed top-0 left-0 z-50">
       <div className="max-w-7xl mx-auto flex items-center justify-between px-6 md:px-10 lg:px-20 py-6">
+        <Link to="/" className="flex items-center">
+          <img src={Logo} alt="Logo" className="h-10 lg:h-15 object-contain" />
+        </Link>
 
         {/* Logo */}
         <a href="/" className="flex items-center">
@@ -27,8 +31,6 @@ export default function Header() {
 
         {/* Right Section */}
         <div className="flex items-center gap-6 lg:gap-10">
-
-          {/* Desktop Menu */}
           <nav className="hidden lg:flex items-center gap-18 text-gray-600 text-xl font-semibold">
             {menuItems.map((item) => (
               <a
@@ -44,10 +46,10 @@ export default function Header() {
             ))}
           </nav>
 
-          {/* Hamburger */}
           <button
             className="lg:hidden text-gray-700"
             onClick={() => setOpen(!open)}
+            type="button"
           >
             {open ? <X size={26} /> : <Menu size={26} />}
           </button>
@@ -63,7 +65,6 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Dropdowns */}
       {open && (
         <>
           {/* Mobile */}
