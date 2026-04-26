@@ -306,7 +306,7 @@ const Services = () => {
   }, []);
 
   return (
-    <div ref={containerRef} className="relative bg-gray-200 h-screen overflow-hidden">
+    <div ref={containerRef} className="relative bg-[#f5f5f5] h-screen overflow-hidden">
       {services.map((item, index) => (
         <div
           key={item.id}
