@@ -102,7 +102,7 @@ export default function Vision() {
                 </h3>
               </div>
 
-              <p className="text-white text-xs leading-relaxed mb-3 ">
+              <p className="text-white text-xs leading-relaxed mb-3">
                 IDW (Introducing Digital to the World) is a digital growth initiative
                 focused on enabling businesses to successfully transition into the digital space.
               </p>
@@ -134,28 +134,24 @@ export default function Vision() {
             </div>
 
             {/* Right Content */}
-            <div
-  className="w-full md:w-2/3 lg:w-2/3
-  text-[#7A7A7A]
-  text-sm md:text-base lg:text-xl
-  font-semibold leading-tight
-  space-y-4 md:space-y-5 lg:space-y-6
-  mt-4 md:mt-0 lg:mt-0
-  overflow-hidden
-  whitespace-pre-line
-  break-all tracking-wide"
->
-  <p>
-    IDW (Introducing Digital to the World) is a digital growth initiative
-    focused on enabling businesses to successfully transition into the digital space.
-  </p>
+            <div className="w-full md:w-2/3 lg:w-2/3 text-[#7A7A7A] 
+              text-sm md:text-base lg:text-xl 
+              font-semibold leading-relaxed 
+              space-y-4 md:space-y-5 lg:space-y-6 
+              mt-4 md:mt-0 lg:mt-0">
 
-  <p>
-    We partner with startups, small businesses, and growing brands to build
-    strong digital foundations and scale through strategic marketing and
-    technology solutions.
-  </p>
-</div>
+              <p>
+                IDW (Introducing Digital to the World) is a digital growth initiative
+                focused on enabling businesses to successfully transition into the digital space.
+              </p>
+
+              <p>
+                We partner with startups, small businesses, and growing brands to build
+                strong digital foundations and scale through strategic marketing and
+                technology solutions.
+              </p>
+
+            </div>
 
           </div>
         </div>
