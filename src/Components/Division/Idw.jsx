@@ -14,7 +14,7 @@ export default function DivisionSection() {
             
             {/* Small label */}
             <p
-              className="text-black text-[14px] lg:text-[16px] mb-[12px] lg:mb-[18px] font-semibold "
+              className="text-black font-semibold mb-6 tracking-wide text-lg md:text-2xl "
               style={{
                 fontFamily: "'Poppins', sans-serif",
                 letterSpacing: "-0.03em"

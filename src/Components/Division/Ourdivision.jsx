@@ -181,16 +181,9 @@ export default function OurDivisions() {
       {/* Title */}
       <div className="px-[20px] md:px-[40px] lg:px-20">
         <div className="max-w-7xl mx-auto w-full">
-          <p
-            className="mb-[15px] lg:mb-[20px] font-semibold"
-            style={{
-              fontFamily: "Inter, sans-serif",
-              fontSize: "16px",
-              letterSpacing: "0.08em"
-            }}
-          >
-            /OUR DIVISIONS/
-          </p>
+         <p className="text-black font-semibold mb-6 tracking-widest text-lg md:text-2xl font-[Inter]">
+  /OUR DIVISIONS/
+</p>
         </div>
       </div>
 
