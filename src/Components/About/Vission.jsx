@@ -75,7 +75,10 @@ export default function VisionMission() {
           </div>
 
           {/* RIGHT — content */}
-          <div className="flex-1 min-w-0">
+          <div
+  className="flex-1 min-w-0"
+  style={{ paddingLeft: "clamp(0px, 3vw, 48px)" }}
+>
 
             {/* 01 & 02 */}
             <div style={{ display: "flex", flexDirection: "column", gap: "clamp(10px,1.8vh,20px)" }}>
