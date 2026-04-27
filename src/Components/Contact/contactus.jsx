@@ -1,16 +1,16 @@
 import React from "react";
 
-import mapImg from "./../../assets/Contact/Contact1.png";
+import mapImg from "./../../assets/Contact/footer.png";
 
 const HeroContact = () => {
   return (
-    <section className="bg-white px-6 md:px-10 lg:px-20 py-15 font-Poppins">
+    <section className="bg-[#f5f5f5] px-6 md:px-10 lg:px-20 py-15 font-Poppins">
 
       {/* Heading */}
-      <div className="text-center max-w-5xl mx-auto">
+      <div className="text-center max-w-7xl mx-auto">
         
         {/* Mobile 3 lines */}
-        <h1 className="text-[36px] md:text-[62px] py-16 font-bold  text-black 
+        <h1 className="text-[36px] md:text-[60px] pt-16 font-bold  text-black 
                        max-w-[280px] mx-auto md:max-w-full">
           Ready to Make Your Brand Roar?
         </h1>

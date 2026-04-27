@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import footerImg from "./../../assets/Footer/footer.jpg";
+import footerImg from "./../../assets/Footer/footerlast.jpg";
 
 const Footer = () => {
   return (
@@ -52,7 +52,7 @@ const Footer = () => {
         </div>
 
         {/* About / IDW Description */}
-        <div className="lg:w-[45%] lg:max-w-md">
+        <div className="">
           <h3 className="text-white text-[26px] font-semibold font-Poppins -ml-4.5 mb-6">
             IDW – Introducing Digital To The World
           </h3>
