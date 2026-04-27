@@ -11,7 +11,7 @@ export default function ClientProcess() {
   ];
 
   return (
-    <section className="bg-[#f5f5f5] pt-12 md:pt-16 pb-20 md:pb-20 lg:pb-40 px-6 md:px-10 lg:px-20">
+    <section className="bg-[#f3f4f6] pt-12 md:pt-16 pb-20 md:pb-20 lg:pb-40 px-6 md:px-10 lg:px-20">
       <div className="max-w-7xl mx-auto">
 
         {/* Heading */}
