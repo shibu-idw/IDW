@@ -11,13 +11,13 @@ import ig6 from "../../assets/division/ig6.png";
 import ig7 from "../../assets/division/ig7.png";
 
 // Logos
-import logo1 from "../../assets/division/log1.png";
-import logo2 from "../../assets/division/log2.png";
-import logo3 from "../../assets/division/log3.png";
-import logo4 from "../../assets/division/log4.png";
-import logo5 from "../../assets/division/log5.png";
-import logo6 from "../../assets/division/log6.png";
-import logo7 from "../../assets/division/log7.png";
+import logo1 from "../../assets/division/Log1.png";
+import logo2 from "../../assets/division/Log2.png";
+import logo3 from "../../assets/division/Log3.png";
+import logo4 from "../../assets/division/Log4.png";
+import logo5 from "../../assets/division/Log5.png";
+import logo6 from "../../assets/division/Log6.png";
+import logo7 from "../../assets/division/Log7.png";
 
 const data = [
   {

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-<<<<<<< HEAD
 import serviceImg1 from "../../assets/Service/serviceImg1.png";
 import serviceImg2 from "../../assets/Service/serviceImg2.png";
 import serviceImg3 from "../../assets/Service/serviceImg3.png";
@@ -16,7 +16,7 @@ const services = [
     title: "Digital Marketing",
     bg: "bg-black text-white",
     img: serviceImg1,
-    idStyle: "text-[70px] font-bold opacity-20",
+    idStyle: "text-[100px] font-semibold opacity-35 pr-30",
     titleStyle: "text-md text-[50px] font-semibold",
     middleTitleStyle: "text-[18px] font-semibold",
     middleDescStyle: "text-md text-[12px] opacity-70",
@@ -58,7 +58,7 @@ const services = [
     title: "Design & Development",
     bg: "bg-[#D0CECE] text-black",
     img: serviceImg2,
-    idStyle: "text-[70px] font-bold opacity-20",
+    idStyle: "text-[100px] font-semibold opacity-35 pr-30",
     titleStyle: "text-md text-[40px] font-semibold",
     middleTitleStyle: "text-[14px] font-semibold",
     middleDescStyle: "text-xs text-[12px] opacity-70",
@@ -100,7 +100,7 @@ const services = [
     title: "Branding & Strategy",
     bg: "bg-black text-white",
     img: serviceImg3,
-    idStyle: "text-[70px] font-bold opacity-20",
+    idStyle: "text-[100px] font-semibold opacity-35 pr-30",
     titleStyle: "text-md text-[50px] font-semibold",
     middleTitleStyle: "text-[18px] font-semibold",
     middleDescStyle: "text-md text-[12px] opacity-70",
@@ -142,7 +142,7 @@ const services = [
     title: "Analytics & Reporting",
     bg: "bg-black text-white",
     img: serviceImg4,
-    idStyle: "text-[70px] font-bold opacity-20",
+    idStyle:"text-[100px] font-semibold opacity-35 pr-30",
     titleStyle: "text-md text-[50px] font-semibold",
     middleTitleStyle: "text-[18px] font-semibold",
     middleDescStyle: "text-md text-[12px] opacity-70",
@@ -184,7 +184,7 @@ const services = [
     title: "Digital Consulting",
     bg: "bg-[#D0CECE] text-black",
     img: serviceImg5,
-    idStyle: "text-[70px] font-bold opacity-20",
+    idStyle:"text-[100px] font-semibold opacity-35 pr-30",
     titleStyle: "text-md text-[50px] font-semibold",
     middleTitleStyle: "text-[18px] font-semibold",
     middleDescStyle: "text-md text-[12px] opacity-70",
@@ -224,33 +224,7 @@ const services = [
 ];
 
 const Services = () => {
-=======
-
-gsap.registerPlugin(ScrollTrigger);
-
-const data = [
-  {
-    title: "UI/UX & Web Design",
-    subtitle: "01",
-    desc: "We design UI UX and web interfaces by structuring digital products around clarity, usability, and strong visual systems.",
-    img: "https://picsum.photos/id/1011/800/600",
-  },
-  {
-    title: "Webflow Development",
-    subtitle: "02",
-    desc: "We build Webflow websites for companies that need a reliable and maintainable digital presence.",
-    img: "https://picsum.photos/id/1012/800/600",
-  },
-  {
-    title: "Brand Strategy",
-    subtitle: "03",
-    desc: "We define the visual and emotional essence of your brand to create a lasting impact.",
-    img: "https://picsum.photos/id/1013/800/600",
-  },
-];
-
-export default function StickyCards() {
->>>>>>> parent of 49306d7 (Merge remote-tracking branch 'origin/gayu' into Raja)
+  const navigate = useNavigate();
   const containerRef = useRef(null);
   const cardsRef = useRef([]);
 
@@ -259,7 +233,7 @@ export default function StickyCards() {
       const cards = cardsRef.current;
 
       gsap.set(containerRef.current, {
-        perspective: 2000,
+        perspective: 2200,
         transformStyle: "preserve-3d",
       });
 
@@ -268,10 +242,9 @@ export default function StickyCards() {
           position: "absolute",
           inset: 0,
           zIndex: i + 1,
-          yPercent: i === 0 ? 0 : 100,
+          yPercent: i === 0 ? 0 : 120,
           scale: 1,
-          opacity: 1,
-          transformOrigin: "center center",
+          rotateX: 0,
         });
       });
 
@@ -279,7 +252,7 @@ export default function StickyCards() {
         scrollTrigger: {
           trigger: containerRef.current,
           start: "top top",
-          end: `+=${cards.length * 140}%`,
+          end: `+=${cards.length * 130}%`,
           scrub: true,
           pin: true,
         },
@@ -288,7 +261,6 @@ export default function StickyCards() {
       cards.forEach((card, i) => {
         const next = cards[i + 1];
 
-<<<<<<< HEAD
         if (i !== cards.length - 1) {
           tl.to(card, {
             scale: 0.8,
@@ -308,11 +280,15 @@ export default function StickyCards() {
             ease: "none",
           });
           if (next) {
-            tl.to(next, {
-              yPercent: 0,
-              duration: 0.8,
-              ease: "power2.out",
-            }, "-=0.3");
+            tl.to(
+              next,
+              {
+                yPercent: 0,
+                duration: 0.8,
+                ease: "power2.out",
+              },
+              "-=0.3",
+            );
           }
         }
 
@@ -328,36 +304,6 @@ export default function StickyCards() {
             duration: 0.7,
             ease: "power2.in",
           });
-=======
-        tl.to(card, {
-          scale: 0.65,
-          x: 80,
-          y: -40,
-          rotate: 2,
-          opacity: 1,
-          duration: 0.6,
-          ease: "none",
-        }).to(card, {
-          scale: 0.35,
-          x: 200,
-          y: -160,
-          rotate: 8,
-          opacity: 0,
-          duration: 0.6,
-          ease: "none",
-        });
-
-        if (next) {
-          tl.to(
-            next,
-            {
-              yPercent: 0,
-              duration: 1,
-              ease: "none",
-            },
-            "<0.2"
-          );
->>>>>>> parent of 49306d7 (Merge remote-tracking branch 'origin/gayu' into Raja)
         }
       });
     }, containerRef);
@@ -366,8 +312,10 @@ export default function StickyCards() {
   }, []);
 
   return (
-<<<<<<< HEAD
-    <div ref={containerRef} className="relative bg-[#f5f5f5] h-screen overflow-hidden">
+    <div
+      ref={containerRef}
+      className="relative bg-[#f5f5f5] h-screen overflow-hidden"
+    >
       {services.map((item, index) => (
         <div
           key={item.id}
@@ -375,10 +323,9 @@ export default function StickyCards() {
           className="card h-screen"
         >
           <div className={`relative w-full h-full shadow-2xl ${item.bg}`}>
-
            {/* ===================== MOBILE LAYOUT (below 768px) ===================== */}
-<div className="flex flex-col md:hidden h-full px-5 pt-5 overflow-hidden relative">
-  <div className="absolute top-0 right-3 text-[100px] font-normal opacity-[0.07] leading-none pointer-events-none">
+<div className="flex flex-col md:hidden h-full px-5 pt-8 overflow-hidden relative">
+  <div className="absolute top-0 right-3 text-[90px] font-bold opacity-[0.07] leading-none pointer-events-none pt-5">
     {item.id}
   </div>
 
@@ -392,93 +339,116 @@ export default function StickyCards() {
     {item.leftTitle}
   </p>
 
-  <div className="grid grid-cols-6 gap-x-3 gap-y-2 flex-shrink-0 relative z-10">
+  <div className="grid grid-cols-6 gap-x-3 gap-y-1 flex-shrink-0 relative z-10">
     {[...item.middle, ...item.right].map((s, i) => (
-      <div key={i} className="col-span-3 flex flex-col gap-[2px]">
-        <h4 className="text-[11px] font-semibold leading-tight">{s.title}</h4>
-        <p className="text-[10px] opacity-50 leading-snug">{s.desc}</p>
+      <div key={i} className="col-span-3 flex flex-col gap-[1px]">
+        <h4 className="text-[10px] font-semibold leading-tight">{s.title}</h4>
+        <p className="text-[8px] opacity-50 leading-snug line-clamp-8">{s.desc}</p>
       </div>
     ))}
   </div>
 
- <div className="flex items-center justify-center py-1.5 relative z-10 flex-shrink-0">
-  <button className="bg-blue-700 text-white px-4 py-1.5 rounded-lg text-[11px] font-medium">
-    Get started →
-  </button>
+  <div className="flex items-center justify-center py-1.5 relative z-10 flex-shrink-0">
+   <button
+  onClick={() => navigate("/contact")}
+  className="bg-blue-700 text-white px-4 py-1.5 rounded-lg text-[11px] font-medium"
+>
+  Get started →
+</button>
+  </div>
+
+  {/* Image — flex-1 with rounded on all sides */}
+  <div className="flex-1 min-h-0 relative z-10 mx-0 mb-0 px-2 pb-4">
+    <img
+      src={item.img}
+      alt={item.title}
+      className="w-full h-[200px] object-cover rounded-xl"
+    />
+  </div>
+</div>
+{/* ===================== TABLET LAYOUT (768px - 1023px) ===================== */}
+<div className="hidden md:flex lg:hidden flex-col h-full px-6 py-6 relative overflow-hidden">
+
+  {/* Row 1: Title + Number */}
+  <div className="flex flex-row justify-between items-start flex-shrink-0 mb-3">
+    <h1 className={`${item.titleStyle} leading-[1.1] text-[40px]`}>
+      {(() => {
+        const words = item.title.split(" ");
+        if (words.includes("&")) {
+          const firstLine = words.slice(0, words.indexOf("&") + 1).join(" ");
+          const secondLine = words.slice(words.indexOf("&") + 1).join(" ");
+          return (
+            <>
+              <span className="block">{firstLine}</span>
+              <span className="block">{secondLine}</span>
+            </>
+          );
+        }
+        return words.map((word, index) => (
+          <span key={index} className="block">{word}</span>
+        ));
+      })()}
+    </h1>
+    <div className={`${item.idStyle} text-[60px]`}>{item.id}</div>
+  </div>
+
+  {/* Row 2: Image */}
+  <div className="w-full flex-1 min-h-0 mb-3">
+  <img
+    src={item.img}
+    alt={item.title}
+    className="w-full h-full object-cover rounded-lg"
+  />
 </div>
 
-  {/* Image — flex-1 fills all remaining space */}
-  <div className="flex-1 min-h-0 relative z-10">
-    <img src={item.img} alt={item.title} className="w-full h-full object-cover rounded-t-xl" />
-  </div>
+ <div className="flex-shrink-0 mb-2 mt-8">
+  <h2 className={`${item.leftTitleStyle} text-[13px]`}>{item.leftTitle}</h2>
 </div>
+  {/* Row 4: Middle + Right content */}
+  <div className="flex flex-row flex-1 min-h-0 gap-6 overflow-hidden">
+    {/* Middle */}
+    <div className="flex-1 flex flex-col gap-3 overflow-hidden">
+      {item.middle.map((m, index) => (
+        <div key={index}>
+          <h3 className={`${item.middleTitleStyle} text-[14px]`}>{m.title}</h3>
+          <p className={`${item.middleDescStyle} text-[11px]`}>{m.desc}</p>
+        </div>
+      ))}
+    </div>
 
-            {/* ===================== TABLET LAYOUT (768px - 1023px) ===================== */}
-            {/* ===================== TABLET LAYOUT (768px - 1023px) ===================== */}
-<div className="hidden md:flex lg:hidden flex-col h-full px-6 py-4 overflow-hidden relative">
-
-  {/* Number */}
-  <div className={`absolute top-3 right-5 ${item.idStyle} text-[40px]`}>
-    {item.id}
+    {/* Right */}
+    <div className="flex-1 flex flex-col gap-3 overflow-hidden">
+      {item.right.map((r, index) => (
+        <div key={index}>
+          <h3 className={`${item.rightTitleStyle} text-[14px]`}>{r.title}</h3>
+          <p className={`${item.rightDescStyle} text-[11px]`}>{r.desc}</p>
+        </div>
+      ))}
+    </div>
   </div>
 
-  {/* Title */}
-  <h1 className={`${item.titleStyle} text-[30px] leading-[1.05] mb-1 flex-shrink-0`}>
-    {item.title.split(" ").map((word, i) => (
-      <span key={i} className="block">{word}</span>
-    ))}
-  </h1>
-
-  {/* Left title */}
-  <p className="text-[10px] uppercase tracking-[1.5px] opacity-50 font-medium mb-2 flex-shrink-0">
-    {item.leftTitle}
-  </p>
-
-  {/* Middle + Right - 6 col grid - tight spacing */}
-  <div className="grid grid-cols-6 gap-x-3 gap-y-1.5 flex-shrink-0">
-    {item.middle.map((m, i) => (
-      <div key={`m-${i}`} className="col-span-3 flex flex-col gap-[1px]">
-        <h4 className="text-[10px] font-semibold leading-tight">{m.title}</h4>
-        <p className="text-[8px] opacity-60 leading-snug">{m.desc}</p>
-      </div>
-    ))}
-    {item.right.map((r, i) => (
-      <div key={`r-${i}`} className="col-span-3 flex flex-col gap-[1px]">
-        <h4 className="text-[10px] font-semibold leading-tight">{r.title}</h4>
-        <p className="text-[8px] opacity-60 leading-snug">{r.desc}</p>
-      </div>
-    ))}
-  </div>
-
-  {/* Button center */}
-  <div className="flex justify-center py-2 flex-shrink-0">
-    <button className="bg-blue-600 text-white px-6 py-1.5 rounded-md text-[11px] font-medium">
+  {/* Row 5: Button center */}
+  <div className="flex justify-center flex-shrink-0 mt-3">
+    <button className="px-6 py-2 bg-[#2f4b8f] text-white rounded-md text-[13px]">
       Get started →
     </button>
   </div>
 
-  {/* Image - flex-1 takes all remaining space */}
-  <div className="flex-1 min-h-0">
-    <img
-      src={item.img}
-      alt={item.title}
-      className="w-full h-full object-cover rounded-t-xl"
-    />
-  </div>
-
 </div>
-
             {/* ===================== DESKTOP LAYOUT (1024px+) ===================== */}
             <div className="hidden lg:grid grid-cols-12 gap-6 h-full px-10 py-10">
-
               {/* Title */}
               <div className="col-span-12">
                 <h1 className={`${item.titleStyle} leading-[1.1] text-[50px]`}>
                   {(() => {
                     const words = item.title.split(" ");
                     if (words.includes("&")) {
-                      const firstLine = words.slice(0, words.indexOf("&") + 1).join(" ");
-                      const secondLine = words.slice(words.indexOf("&") + 1).join(" ");
+                      const firstLine = words
+                        .slice(0, words.indexOf("&") + 1)
+                        .join(" ");
+                      const secondLine = words
+                        .slice(words.indexOf("&") + 1)
+                        .join(" ");
                       return (
                         <>
                           <span className="block">{firstLine}</span>
@@ -487,7 +457,9 @@ export default function StickyCards() {
                       );
                     }
                     return words.map((word, index) => (
-                      <span key={index} className="block">{word}</span>
+                      <span key={index} className="block">
+                        {word}
+                      </span>
                     ));
                   })()}
                 </h1>
@@ -495,7 +467,9 @@ export default function StickyCards() {
 
               {/* Approach */}
               <div className="col-span-2">
-                <h2 className={`${item.leftTitleStyle} text-[15px]`}>{item.leftTitle}</h2>
+                <h2 className={`${item.leftTitleStyle} text-[15px]`}>
+                  {item.leftTitle}
+                </h2>
               </div>
 
               {/* Middle + Right */}
@@ -503,8 +477,12 @@ export default function StickyCards() {
                 <div className="space-y-3 overflow-hidden">
                   {item.middle.map((m, index) => (
                     <div key={index}>
-                      <h3 className={`${item.middleTitleStyle} text-[18px]`}>{m.title}</h3>
-                      <p className={`${item.middleDescStyle} text-[12px]`}>{m.desc}</p>
+                      <h3 className={`${item.middleTitleStyle} text-[18px]`}>
+                        {m.title}
+                      </h3>
+                      <p className={`${item.middleDescStyle} text-[12px]`}>
+                        {m.desc}
+                      </p>
                     </div>
                   ))}
                   <button className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-md text-sm">
@@ -514,91 +492,36 @@ export default function StickyCards() {
                 <div className="space-y-3 overflow-hidden">
                   {item.right.map((r, index) => (
                     <div key={index}>
-                      <h3 className={`${item.rightTitleStyle} text-[18px]`}>{r.title}</h3>
-                      <p className={`${item.rightDescStyle} text-[12px]`}>{r.desc}</p>
+                      <h3 className={`${item.rightTitleStyle} text-[18px]`}>
+                        {r.title}
+                      </h3>
+                      <p className={`${item.rightDescStyle} text-[12px]`}>
+                        {r.desc}
+                      </p>
                     </div>
                   ))}
                 </div>
               </div>
 
               {/* Image */}
-              <div className="col-span-4 flex items-end justify-end">
-                <img src={item.img} alt={item.title} className="w-full h-auto max-w-sm rounded-lg object-cover" />
+              <div className="col-span-4 flex items-end justify-end pb-10">
+                <img
+                  src={item.img}
+                  alt={item.title}
+                  className="w-full h-auto max-w-sm rounded-lg object-cover"
+                />
               </div>
 
               {/* Number */}
-              <div className={`absolute top-6 right-10 ${item.idStyle} text-[100px] font-normal`}>
+              <div
+                className={`absolute top-6 right-10 ${item.idStyle} text-[70px]`}
+              >
                 {item.id}
-=======
-    <div className="bg-black">
-      {/* Intro */}
-      <div className="h-[20vh] flex items-center justify-center text-white/30 italic text-sm md:text-base">
-        Scroll down for the experience
-      </div>
-
-      {/* STICKY WRAPPER */}
-      <div
-        ref={containerRef}
-        className="relative w-full h-screen overflow-hidden bg-black"
-      >
-        {data.map((item, i) => (
-          <div
-            key={i}
-            ref={(el) => (cardsRef.current[i] = el)}
-            className={`absolute inset-0 flex items-center justify-center ${
-              i % 2 === 0 ? "bg-[#f3f3f3] text-black" : "bg-[#111] text-white"
-            }`}
-          >
-            {/* RESPONSIVE CENTER CONTAINER */}
-            <div className="w-full max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 px-4 sm:px-6 md:px-10">
-              
-              {/* LEFT */}
-              <div className="flex flex-col justify-between">
-                <div>
-                  <h2 className="text-3xl sm:text-4xl md:text-6xl lg:text-8xl font-black uppercase leading-[0.9]">
-                    {item.title}
-                  </h2>
-
-                  <p className="mt-6 md:mt-10 text-sm sm:text-base md:text-lg opacity-70 max-w-sm">
-                    {item.desc}
-                  </p>
-                </div>
-
-                <div className="flex items-end justify-between mt-8 md:mt-10 gap-4">
-                  <button className="px-5 sm:px-6 md:px-8 py-2 md:py-3 border-2 border-current rounded-full uppercase text-[10px] sm:text-xs font-black tracking-widest hover:bg-current hover:text-white transition">
-                    Discuss implementation
-                  </button>
-
-                  <span className="text-5xl sm:text-7xl md:text-9xl font-thin opacity-10">
-                    {item.subtitle}
-                  </span>
-                </div>
               </div>
-
-              {/* RIGHT */}
-              <div className="flex items-center justify-center">
-                <div className="w-full h-[250px] sm:h-[350px] md:h-full max-h-[75vh] rounded-[1.5rem] md:rounded-[2rem] overflow-hidden shadow-2xl">
-                  <img
-                    src={item.img}
-                    className="w-full h-full object-cover"
-                    alt="preview"
-                  />
-                </div>
->>>>>>> parent of 49306d7 (Merge remote-tracking branch 'origin/gayu' into Raja)
-              </div>
-
             </div>
           </div>
-<<<<<<< HEAD
         </div>
       ))}
-=======
-        ))}
-      </div>
-
-      {/* Spacer */}
-      <div className="h-[100vh] bg-black" />
->>>>>>> parent of 49306d7 (Merge remote-tracking branch 'origin/gayu' into Raja)
     </div>
   );
 };

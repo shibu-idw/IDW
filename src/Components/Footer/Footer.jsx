@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from "react-router-dom";
+
 import footerImg from "./../../assets/Footer/footer.jpg";
 
 const Footer = () => {
@@ -18,7 +20,15 @@ const Footer = () => {
           </p>
           <ul className="space-y-2 text-[18px] mt-6 font-Inter">
             <li className="hover:text-white cursor-pointer">LinkedIn</li>
-            <li className="hover:text-white cursor-pointer">Instagram</li>
+           <li className="hover:text-white cursor-pointer">
+                <a 
+                href="https://www.instagram.com/idwindia?igsh=azh0ZW9iMXdvYmxh" 
+                target="_blank" 
+                rel="noopener noreferrer"
+              >
+                Instagram
+              </a>
+            </li>
             <li className="hover:text-white cursor-pointer">WhatsApp</li>
           </ul>
         </div>
@@ -29,23 +39,29 @@ const Footer = () => {
             Navigation
           </h3>
           <ul className="space-y-2 text-[18px] font-Inter">
-            <li className="hover:text-white cursor-pointer">About</li>
-            <li className="hover:text-white cursor-pointer">Services</li>
-            <li className="hover:text-white cursor-pointer">Divisions</li>
+            <li className="hover:text-white cursor-pointer">
+               <Link to="/about">About</Link>
+               </li>
+            <li className="hover:text-white cursor-pointer">
+               <Link to="/services">Services</Link>
+               </li>
+            <li className="hover:text-white cursor-pointer">
+              <Link to="/divisions">Divisions</Link>
+              </li>
           </ul>
         </div>
 
         {/* About / IDW Description */}
         <div className="lg:w-[45%] lg:max-w-md">
-          <h3 className="text-white text-[26px] font-semibold font-Poppins mb-6">
+          <h3 className="text-white text-[26px] font-semibold font-Poppins -ml-4.5 mb-6">
             IDW – Introducing Digital To The World
           </h3>
-          <p className="text-[16px] leading-relaxed mb-4 font-Inter">
+          <p className="text-[16px] leading-relaxed mb-4 -ml-4.5  font-Inter">
             This Space brings together work we've done and work We're currently
             doing, along with conversation that continue beyond Individual
             projects. If it feels right, this can be this starting point.
           </p>
-          <p className="text-[16px] font-Inter">
+          <p className="text-[16px] font-Inter -ml-4.5 ">
             <span className="text-gray-400">Location</span> <br />
             Bangalore, Tiruvannamalai
           </p>
@@ -77,7 +93,7 @@ const Footer = () => {
             <img
               src={footerImg}
               alt="footer visual"
-              className="w-[95px] sm:w-[180px] md:w-[270px] h-auto object-cover grayscale"
+              className="w-[95px] sm:w-[180px] md:w-[252px] h-auto object-cover grayscale"
             />
           </div>
 
@@ -88,9 +104,15 @@ const Footer = () => {
 
           {/* Policies — right aligned */}
           <div className="text-right text-[14px] mb-2 font-Inter">
-            <p className="hover:text-white mb-1 cursor-pointer">Terms & Conditions</p>
-            <p className="hover:text-white mb-1 cursor-pointer">Privacy Policy</p>
-            <p className="hover:text-white mb-1 cursor-pointer">Cookies Policy</p>
+            <p className="hover:text-white mb-1 cursor-pointer"> 
+              <Link to="/Terms & Conditions">Terms & Conditions</Link>
+              </p>
+            <p className="hover:text-white mb-1 cursor-pointer">
+              <Link to="/Privacy Policy">Privacy Policy</Link>
+              </p>
+            <p className="hover:text-white mb-1 cursor-pointer">
+              <Link to="/Cookies Policy">Cookies Policy</Link>
+              </p>
           </div>
 
           {/* Copyright — right aligned */}
@@ -117,9 +139,15 @@ const Footer = () => {
 
           {/* Policies — right aligned */}
           <div className="text-right text-[14px] mb-2 font-Inter">
-            <p className="hover:text-white mb-1 cursor-pointer">Terms & Conditions</p>
-            <p className="hover:text-white mb-1 cursor-pointer">Privacy Policy</p>
-            <p className="hover:text-white mb-1 cursor-pointer">Cookies Policy</p>
+            <p className="hover:text-white mb-1 cursor-pointer">
+              <Link to="/Terms & Conditions">Terms & Conditions</Link>
+              </p>
+            <p className="hover:text-white mb-1 cursor-pointer">
+              <Link to="/Privacy Policy">Privacy Policy</Link>
+              </p>
+            <p className="hover:text-white mb-1 cursor-pointer">
+              <Link to="/Cookies Policy">Cookies Policy</Link>
+              </p>
           </div>
 
           {/* Copyright — right aligned */}
