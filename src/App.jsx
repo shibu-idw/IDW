@@ -6,6 +6,8 @@ import Home from "./Pages/Home"
 import About from "./Pages/Aboutpage"
 import Footer from './Components/Footer/Footer'
 import Contact from "./Components/Contact/contactus"
+import PrivatePolicy from "./Components/PrivatePolicy/PrivatePolicy"
+import Terms from "./Components/Terms/Terms"
 
 const App = () => {
   return (
@@ -17,6 +19,8 @@ const App = () => {
         <Route path="/about" element={<About />} />
         <Route path="/division" element={<Division />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/privacy" element={<PrivatePolicy />} />
+        <Route path="/terms" element={<Terms />} />
       </Routes>
       <Footer />
     </>
