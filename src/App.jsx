@@ -11,19 +11,22 @@ import Terms from "./Components/Terms/Terms"
 
 const App = () => {
   return (
-    <>
+    <div className="min-h-screen flex flex-col">
       <Header />
 
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/division" element={<Division />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/privacy" element={<PrivatePolicy />} />
-        <Route path="/terms" element={<Terms />} />
-      </Routes>
+      <div className="flex-grow">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/division" element={<Division />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/privacy" element={<PrivatePolicy />} />
+          <Route path="/terms" element={<Terms />} />
+        </Routes>
+      </div>
+
       <Footer />
-    </>
+    </div>
   )
 }
 
