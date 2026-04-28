@@ -1,23 +1,24 @@
 import { motion, useAnimation } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 
-// Images from public folder ✅
-const ig1 = "/assets/division/ig1.png";
-const ig2 = "/assets/division/ig2.png";
-const ig3 = "/assets/division/ig3.png";
-const ig4 = "/assets/division/ig4.png";
-const ig5 = "/assets/division/ig5.png";
-const ig6 = "/assets/division/ig6.png";
-const ig7 = "/assets/division/ig7.png";
+// Images
+import ig1 from "../../assets/division/ig1.png";
+import ig2 from "../../assets/division/ig2.png";
+import ig3 from "../../assets/division/ig3.png";
+import ig4 from "../../assets/division/ig4.png";
+import ig5 from "../../assets/division/ig5.png";
+import ig6 from "../../assets/division/ig6.png";
+import ig7 from "../../assets/division/ig7.png";
 
-// Logos ✅
-const logo1 = "/assets/division/Log1.png";
-const logo2 = "/assets/division/Log2.png";
-const logo3 = "/assets/division/Log3.png";
-const logo4 = "/assets/division/Log4.png";
-const logo5 = "/assets/division/Log5.png";
-const logo6 = "/assets/division/Log6.png";
-const logo7 = "/assets/division/Log7.png";
+// Logos
+import logo1 from "../../assets/division/Log1.png";
+import logo2 from "../../assets/division/Log2.png";
+import logo3 from "../../assets/division/Log3.png";
+import logo4 from "../../assets/division/Log4.png";
+import logo5 from "../../assets/division/Log5.png";
+import logo6 from "../../assets/division/Log6.png";
+import logo7 from "../../assets/division/Log7.png";
+
 const data = [
   {
     logo: logo1,
