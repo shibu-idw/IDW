@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import BgImage from "./../../assets/Home/wood.png";
+const BgImage = "/assets/Home/wood.png";
 
 export default function ContactForm() {
   const [step, setStep] = useState(1);
