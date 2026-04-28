@@ -8,6 +8,13 @@ export default function Header() {
   const navigate = useNavigate();
   const location = useLocation();
 
+  // ✅ COMMON NAVIGATION FIX
+  const handleNavigate = (path) => {
+    setOpen(false);
+    navigate(path);
+    window.scrollTo({ top: 0, behavior: "instant" });
+  };
+
   const handleServiceClick = (e) => {
     e.preventDefault();
     setOpen(false);
@@ -35,11 +42,7 @@ export default function Header() {
   return (
     <header className="w-full bg-[#f5f5f5] fixed top-0 left-0 z-50">
       <div className="max-w-7xl mx-auto flex items-center justify-between px-6 md:px-10 lg:px-20 py-6">
-        <Link to="/" className="flex items-center">
-          <img src={Logo} alt="Logo" className="h-10 lg:h-15 object-contain" />
-        </Link>
-
-        {/* LOGO */}
+        
         <Link to="/" className="flex items-center">
           <img src={Logo} alt="Logo" className="h-10 lg:h-15 object-contain" />
         </Link>
@@ -59,7 +62,12 @@ export default function Header() {
                   {item.label}
                 </a>
               ) : (
-                <Link key={item.label} to={item.path} className="hover:text-black">
+                <Link
+                  key={item.label}
+                  to={item.path}
+                  onClick={() => handleNavigate(item.path)}
+                  className="hover:text-black"
+                >
                   {item.label}
                 </Link>
               )
@@ -77,7 +85,7 @@ export default function Header() {
 
           {/* DESKTOP BUTTON */}
           <button
-            onClick={() => navigate("/contact")}
+            onClick={() => handleNavigate("/contact")}
             className="hidden sm:flex items-center gap-2 bg-[#2f4b8f] text-white px-5 py-2 text-md font-semibold hover:bg-[#1f3a7a] transition"
           >
             Get Started →
@@ -104,7 +112,7 @@ export default function Header() {
                 <Link
                   key={item.label}
                   to={item.path}
-                  onClick={() => setOpen(false)}
+                  onClick={() => handleNavigate(item.path)}
                   className="block px-2 py-1 rounded hover:bg-gray-200"
                 >
                   {item.label}
@@ -113,10 +121,7 @@ export default function Header() {
             )}
 
             <button
-              onClick={() => {
-                setOpen(false);
-                navigate("/contact");
-              }}
+              onClick={() => handleNavigate("/contact")}
               className="w-full bg-[#2f4b8f] text-white py-2 rounded-md"
             >
               Contact Us →
@@ -139,7 +144,7 @@ export default function Header() {
                 <Link
                   key={item.label}
                   to={item.path}
-                  onClick={() => setOpen(false)}
+                  onClick={() => handleNavigate(item.path)}
                   className="block px-2 py-1 rounded hover:bg-gray-200"
                 >
                   {item.label}
@@ -148,10 +153,7 @@ export default function Header() {
             )}
 
             <button
-              onClick={() => {
-                setOpen(false);
-                navigate("/contact");
-              }}
+              onClick={() => handleNavigate("/contact")}
               className="w-full bg-[#2f4b8f] text-white py-2 rounded-md"
             >
               Contact Us →

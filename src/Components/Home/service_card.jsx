@@ -6,7 +6,7 @@ import serviceImg1 from "../../assets/Service/serviceImg1.png";
 import serviceImg2 from "../../assets/Service/serviceImg2.png";
 import serviceImg3 from "../../assets/Service/serviceImg3.png";
 import serviceImg4 from "../../assets/Service/serviceImg4.png";
-import serviceImg5 from "../../assets/Service/serviceImg5.jpg";
+import serviceImg5 from "../../assets/Service/serviceImg5.png";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -228,13 +228,11 @@ const Services = () => {
   const containerRef = useRef(null);
   const cardsRef = useRef([]);
 
-  const handleNavigate = (e) => {
-    e.stopPropagation();
-    e.preventDefault();
-    ScrollTrigger.getAll().forEach((t) => t.kill());
-    window.scrollTo({ top: 0, behavior: "instant" });
-    navigate("/contact");
-  };
+const handleNavigate = (e) => {
+  e.stopPropagation();
+  e.preventDefault();
+  navigate("/contact");
+};
 
   useEffect(() => {
     const ctx = gsap.context(() => {
