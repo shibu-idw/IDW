@@ -1,161 +1,141 @@
-import { useState } from "react";
-import { Menu, X } from "lucide-react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Logo from "./../../assets/logoidw.png";
 
+gsap.registerPlugin(ScrollTrigger);
+
 export default function Header() {
-  const [open, setOpen] = useState(false);
-  const navigate = useNavigate();
-  const location = useLocation();
+  const headerRef = useRef(null);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const handleServiceClick = (e) => {
-    e.preventDefault();
-    setOpen(false);
+  useEffect(() => {
+    const showAnim = gsap
+      .from(headerRef.current, {
+        yPercent: -100,
+        paused: true,
+        duration: 0.4,
+        ease: "power2.out",
+      })
+      .progress(1);
 
-    if (location.pathname === "/") {
-      document.getElementById("services")?.scrollIntoView({
-        behavior: "smooth",
-      });
-    } else {
-      navigate("/");
-      setTimeout(() => {
-        document.getElementById("services")?.scrollIntoView({
-          behavior: "smooth",
-        });
-      }, 300);
-    }
-  };
+    ScrollTrigger.create({
+      start: "top top",
+      end: "max",
+      onUpdate: (self) => {
+        if (self.direction === 1) {
+          showAnim.reverse();
+        } else {
+          showAnim.play();
+        }
+      },
+    });
 
-  const menuItems = [
-    { label: "About", path: "/about" },
-    { label: "Services", path: "#services", onClick: handleServiceClick },
-    { label: "Divisions", path: "/division" },
+    return () => {
+      ScrollTrigger.getAll().forEach((t) => t.kill());
+    };
+  }, []);
+
+  const navLinks = [
+    { name: "About", href: "/about" },
+    { name: "Services", href: "/service" },
+    { name: "Divisions", href: "/division" },
   ];
 
   return (
-    <header className="w-full bg-[#f5f5f5] fixed top-0 left-0 z-50">
-      <div className="max-w-7xl mx-auto flex items-center justify-between px-6 md:px-10 lg:px-20 py-6">
-
+    <header
+      ref={headerRef}
+      className="fixed top-0 left-0 w-full z-[100] bg-[#f5f5f5] border-b border-gray-200 text-gray-700"
+    >
+      <div className="max-w-7xl mx-auto px-6 md:px-10 lg:px-20 h-20 flex justify-between items-center">
         {/* LOGO */}
-        <Link to="/" className="flex items-center">
-          <img src={Logo} alt="Logo" className="h-10 lg:h-15 object-contain" />
-        </Link>
+        <a href="/" className="flex items-center">
+          <img
+            src={Logo}
+            alt="Logo"
+            className="h-10 lg:h-12 object-contain"
+          />
+        </a>
 
-        <div className="flex items-center gap-6 lg:gap-10">
-
-          {/* DESKTOP MENU */}
-          <nav className="hidden lg:flex items-center gap-18 text-[#888686] text-xl font-semibold">
-            {menuItems.map((item) =>
-              item.onClick ? (
+        {/* DESKTOP NAV */}
+        <nav className="hidden lg:block">
+          <ul className="flex items-center gap-14">
+            {navLinks.map((link) => (
+              <li key={link.name}>
                 <a
-                  key={item.label}
-                  href={item.path}
-                  onClick={item.onClick}
-                  className="hover:text-black cursor-pointer"
+                  href={link.href}
+                  className="text-xl font-semibold text-gray-600 hover:text-black transition-colors duration-300"
                 >
-                  {item.label}
+                  {link.name}
                 </a>
-              ) : (
-                <Link key={item.label} to={item.path} className="hover:text-black">
-                  {item.label}
-                </Link>
-              )
-            )}
-          </nav>
+              </li>
+            ))}
 
-          {/* MOBILE MENU ICON */}
-          <button
-            className="lg:hidden text-gray-700"
-            onClick={() => setOpen(!open)}
-            type="button"
-          >
-            {open ? <X size={26} /> : <Menu size={26} />}
-          </button>
+            <li>
+              <a
+                href="/contact"
+                className="inline-flex items-center gap-2 bg-[#2f4b8f] text-white px-5 py-2 text-md font-semibold hover:bg-[#1f3a7a] transition"
+              >
+                Get Started →
+              </a>
+            </li>
+          </ul>
+        </nav>
 
-          {/* DESKTOP BUTTON */}
-          <button
-            onClick={() => navigate("/contact")}
-            className="hidden sm:flex items-center gap-2 bg-[#2f4b8f] text-white px-5 py-2 text-md font-semibold hover:bg-[#1f3a7a] transition"
-          >
-            Get Started →
-          </button>
-        </div>
+        {/* MOBILE MENU TOGGLE */}
+        <button
+          className="lg:hidden flex flex-col gap-1.5 p-2"
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          aria-label="Toggle Menu"
+        >
+          <div
+            className={`w-6 h-0.5 bg-gray-700 transition-all ${
+              isMenuOpen ? "rotate-45 translate-y-2" : ""
+            }`}
+          />
+          <div
+            className={`w-6 h-0.5 bg-gray-700 transition-all ${
+              isMenuOpen ? "opacity-0" : ""
+            }`}
+          />
+          <div
+            className={`w-6 h-0.5 bg-gray-700 transition-all ${
+              isMenuOpen ? "-rotate-45 -translate-y-2" : ""
+            }`}
+          />
+        </button>
       </div>
 
-      {/* MOBILE + TABLET MENU */}
-      {open && (
-        <>
-          {/* MOBILE */}
-          <div className="sm:hidden bg-[#f5f5f5] px-6 pb-4 space-y-4 text-[#888686] font-medium">
-            {menuItems.map((item) =>
-              item.onClick ? (
-                <a
-                  key={item.label}
-                  href={item.path}
-                  onClick={item.onClick}
-                  className="block px-2 py-1 rounded hover:bg-gray-200 cursor-pointer"
-                >
-                  {item.label}
-                </a>
-              ) : (
-                <Link
-                  key={item.label}
-                  to={item.path}
-                  onClick={() => setOpen(false)}
-                  className="block px-2 py-1 rounded hover:bg-gray-200"
-                >
-                  {item.label}
-                </Link>
-              )
-            )}
+      {/* MOBILE NAV OVERLAY */}
+      <div
+        className={`fixed inset-0 top-20 bg-[#f5f5f5] z-50 transition-transform duration-500 ease-in-out ${
+          isMenuOpen ? "translate-x-0" : "translate-x-full"
+        } lg:hidden`}
+      >
+        <ul className="flex flex-col items-center justify-center h-full gap-8">
+          {navLinks.map((link) => (
+            <li key={link.name}>
+              <a
+                href={link.href}
+                onClick={() => setIsMenuOpen(false)}
+                className="text-3xl font-semibold text-gray-700 hover:text-black transition-colors"
+              >
+                {link.name}
+              </a>
+            </li>
+          ))}
 
-            <button
-              onClick={() => {
-                setOpen(false);
-                navigate("/contact");
-              }}
-              className="w-full bg-[#2f4b8f] text-white py-2 rounded-md"
+          <li>
+            <a
+              href="/contact"
+              onClick={() => setIsMenuOpen(false)}
+              className="inline-flex items-center bg-[#2f4b8f] text-white px-6 py-3 text-sm font-semibold hover:bg-[#1f3a7a] transition"
             >
-              Contact Us →
-            </button>
-          </div>
-
-          {/* TABLET */}
-          <div className="hidden sm:block lg:hidden absolute top-[80px] right-6 w-64 bg-[#f5f5f5] shadow-lg rounded-lg p-5 space-y-4 text-[#888686] font-medium">
-            {menuItems.map((item) =>
-              item.onClick ? (
-                <a
-                  key={item.label}
-                  href={item.path}
-                  onClick={item.onClick}
-                  className="block px-2 py-1 rounded hover:bg-gray-200 cursor-pointer"
-                >
-                  {item.label}
-                </a>
-              ) : (
-                <Link
-                  key={item.label}
-                  to={item.path}
-                  onClick={() => setOpen(false)}
-                  className="block px-2 py-1 rounded hover:bg-gray-200"
-                >
-                  {item.label}
-                </Link>
-              )
-            )}
-
-            <button
-              onClick={() => {
-                setOpen(false);
-                navigate("/contact");
-              }}
-              className="w-full bg-[#2f4b8f] text-white py-2 rounded-md"
-            >
-              Contact Us →
-            </button>
-          </div>
-        </>
-      )}
+              Get Started →
+            </a>
+          </li>
+        </ul>
+      </div>
     </header>
   );
 }
