@@ -80,19 +80,19 @@ export default function DigitalIntro() {
         {/* WATERMARK */}
         <div className="pointer-events-none absolute inset-0 select-none z-0 overflow-hidden">
           <h2
-            className="hidden lg:block absolute right-[5%] font-black text-white/[0.03] tracking-widest leading-none uppercase"
+            className="hidden lg:block absolute right-[5%] font-black text-white/[0.02] tracking-widest leading-none uppercase"
             style={{ top: "2vh", fontSize: "clamp(120px, 14vw, 200px)" }}
           >IDW</h2>
           <h2
-            className="absolute left-[6%] font-black text-white/[0.04] tracking-[0.05em] leading-none uppercase"
+            className="absolute left-[6%] font-black text-white/[0.02] tracking-[0.05em] leading-none uppercase"
             style={{ top: "10vh", fontSize: "clamp(35px, 6vw, 100px)" }}
           >Introducing</h2>
           <h2
-            className="absolute left-[6%] font-black text-white/[0.045] tracking-[0.02em] leading-none uppercase"
+            className="absolute left-[6%] font-black text-white/[0.025] tracking-[0.02em] leading-none uppercase"
             style={{ top: "38vh", fontSize: "clamp(80px, 18vw, 240px)" }}
           >Digital</h2>
           <h2
-            className="absolute left-[6%] font-black text-white/[0.045] tracking-[0.03em] leading-none uppercase"
+            className="absolute left-[6%] font-black text-white/[0.025] tracking-[0.03em] leading-none uppercase"
             style={{ top: "65vh", fontSize: "clamp(90px, 22vw, 280px)" }}
           >World</h2>
         </div>
@@ -159,27 +159,42 @@ export default function DigitalIntro() {
           </div>
         </div>
 
-        {/* MOVING CARD - All screens (absolute inside section, clipped by overflow-hidden) */}
+        {/* MOVING CARD - All screens */}
         <div
           ref={desktopCardRef}
-          className="hidden lg:flex flex-col bg-[#f1f1f1] text-black shadow-2xl"
+          className="flex flex-col text-black shadow-2xl"
           style={{
             position: "absolute",
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
-            width: "260px",
+            width: "clamp(180px, 30vw, 260px)",
             zIndex: 9999,
             pointerEvents: "none",
+            background: "#f1f1f1",
           }}
         >
           <img
             src={personImg}
             alt="Founder"
-            className="w-full h-[320px] object-cover object-top"
+            className="w-full object-cover object-top"
+            style={{ height: "clamp(220px, 35vw, 320px)", display: "block" }}
           />
-          <div className="p-4">
-            <p className="font-medium text-[14px]">Er.Venkat Chennakrishnan</p>
+          <div style={{ padding: "12px 14px", background: "#f1f1f1" }}>
+            <p style={{ fontWeight: 500, fontSize: "13px", marginBottom: "8px" }}>Er.Venkat Chennakrishnan</p>
+            <div style={{
+              display: "flex",
+              justifyContent: "space-between",
+              borderTop: "1px solid rgba(0,0,0,0.12)",
+              paddingTop: "8px",
+              fontSize: "9px",
+              fontWeight: 700,
+              textTransform: "uppercase",
+              letterSpacing: "0.04em",
+            }}>
+              <p style={{ margin: 0 }}>Founder & CEO</p>
+              <p style={{ margin: 0, textAlign: "right" }}>Quality Group of<br />Companies</p>
+            </div>
           </div>
         </div>
 

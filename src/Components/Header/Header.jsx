@@ -1,20 +1,16 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import Logo from "./../../assets/logoidw.png";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
+  const [showHeader, setShowHeader] = useState(true);
+
   const navigate = useNavigate();
   const location = useLocation();
 
-  // ✅ COMMON NAVIGATION FIX
-  const handleNavigate = (path) => {
-    setOpen(false);
-    navigate(path);
-    window.scrollTo({ top: 0, behavior: "instant" });
-  };
-
+  // 🔥 SERVICES SCROLL
   const handleServiceClick = (e) => {
     e.preventDefault();
     setOpen(false);
@@ -33,17 +29,66 @@ export default function Header() {
     }
   };
 
+  // 🔥 DIVISION NAVIGATION
+  const handleDivisionClick = (e) => {
+    e.preventDefault();
+    setOpen(false);
+
+    navigate("/division");
+    window.scrollTo(0, 0);
+  };
+
+  // 🔥 SCROLL BEHAVIOR (hide/show)
+  useEffect(() => {
+    let lastScrollY = window.scrollY;
+
+    const handleScroll = () => {
+      if (window.scrollY > lastScrollY) {
+        setShowHeader(false); // scroll down → hide
+      } else {
+        setShowHeader(true); // scroll up → show
+      }
+      lastScrollY = window.scrollY;
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  // 🔥 MOUSE TOP DETECTION
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      if (e.clientY < 60) {
+        setShowHeader(true); // cursor near top → show
+      }
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, []);
+
   const menuItems = [
     { label: "About", path: "/about" },
     { label: "Services", path: "#services", onClick: handleServiceClick },
-    { label: "Divisions", path: "/division" },
+    { label: "Divisions", path: "/division", onClick: handleDivisionClick },
   ];
 
   return (
-    <header className="w-full bg-[#f5f5f5] fixed top-0 left-0 z-50">
+    <header
+      className={`fixed w-full bg-[#f5f5f5] left-0 z-50 transition-transform duration-300 ${
+        showHeader ? "translate-y-0" : "-translate-y-full"
+      }`}
+    >
       <div className="max-w-7xl mx-auto flex items-center justify-between px-6 md:px-10 lg:px-20 py-6">
         
-        <Link to="/" className="flex items-center">
+        {/* LOGO */}
+        <Link to="/" onClick={() => window.scrollTo(0, 0)}>
           <img src={Logo} alt="Logo" className="h-10 lg:h-15 object-contain" />
         </Link>
 
@@ -51,28 +96,35 @@ export default function Header() {
 
           {/* DESKTOP MENU */}
           <nav className="hidden lg:flex items-center gap-18 text-[#888686] text-xl font-semibold">
-            {menuItems.map((item) =>
-              item.onClick ? (
-                <a
-                  key={item.label}
-                  href={item.path}
-                  onClick={item.onClick}
-                  className="hover:text-black cursor-pointer"
-                >
-                  {item.label}
-                </a>
-              ) : (
-                <Link
-                  key={item.label}
-                  to={item.path}
-                  onClick={() => handleNavigate(item.path)}
-                  className="hover:text-black"
-                >
-                  {item.label}
-                </Link>
-              )
-            )}
-          </nav>
+  {menuItems.map((item) => {
+    const isActive = location.pathname === item.path;
+
+    return item.onClick ? (
+      <a
+        key={item.label}
+        href={item.path}
+        onClick={item.onClick}
+        className={`cursor-pointer hover:text-black hover:underline 
+          ${isActive ? "text-black underline" : ""}`}
+      >
+        {item.label}
+      </a>
+    ) : (
+      <Link
+        key={item.label}
+        to={item.path}
+        onClick={() => {
+          setOpen(false);
+          window.scrollTo(0, 0);
+        }}
+        className={`hover:text-black hover:underline 
+          ${isActive ? "text-black underline" : ""}`}
+      >
+        {item.label}
+      </Link>
+    );
+  })}
+</nav>
 
           {/* MOBILE MENU ICON */}
           <button
@@ -85,7 +137,10 @@ export default function Header() {
 
           {/* DESKTOP BUTTON */}
           <button
-            onClick={() => handleNavigate("/contact")}
+            onClick={() => {
+              navigate("/contact");
+              window.scrollTo(0, 0);
+            }}
             className="hidden sm:flex items-center gap-2 bg-[#2f4b8f] text-white px-5 py-2 text-md font-semibold hover:bg-[#1f3a7a] transition"
           >
             Get Started →
@@ -112,7 +167,10 @@ export default function Header() {
                 <Link
                   key={item.label}
                   to={item.path}
-                  onClick={() => handleNavigate(item.path)}
+                  onClick={() => {
+                    setOpen(false);
+                    window.scrollTo(0, 0);
+                  }}
                   className="block px-2 py-1 rounded hover:bg-gray-200"
                 >
                   {item.label}
@@ -121,7 +179,11 @@ export default function Header() {
             )}
 
             <button
-              onClick={() => handleNavigate("/contact")}
+              onClick={() => {
+                setOpen(false);
+                navigate("/contact");
+                window.scrollTo(0, 0);
+              }}
               className="w-full bg-[#2f4b8f] text-white py-2 rounded-md"
             >
               Contact Us →
@@ -144,7 +206,10 @@ export default function Header() {
                 <Link
                   key={item.label}
                   to={item.path}
-                  onClick={() => handleNavigate(item.path)}
+                  onClick={() => {
+                    setOpen(false);
+                    window.scrollTo(0, 0);
+                  }}
                   className="block px-2 py-1 rounded hover:bg-gray-200"
                 >
                   {item.label}
@@ -153,7 +218,11 @@ export default function Header() {
             )}
 
             <button
-              onClick={() => handleNavigate("/contact")}
+              onClick={() => {
+                setOpen(false);
+                navigate("/contact");
+                window.scrollTo(0, 0);
+              }}
               className="w-full bg-[#2f4b8f] text-white py-2 rounded-md"
             >
               Contact Us →

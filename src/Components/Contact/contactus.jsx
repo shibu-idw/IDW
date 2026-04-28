@@ -1,20 +1,22 @@
-import React, { useEffect } from "react";
+import React from "react";
+import  { useEffect } from "react";
+
 import mapImg from "./../../assets/Contact/footer.png";
 
 const HeroContact = () => {
 
-  // ✅ Scroll to top when page loads
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "instant" });
   }, []);
-
+  
   return (
-    <section className="bg-[#f5f5f5] px-6 md:px-10 lg:px-20 py-15 font-Poppins">
+    <section className="bg-[#f5f5f5] px-6 md:px-10 lg:px-20 pb-15 pt-35 font-Poppins">
 
-      {/* Heading */}
-      <div className="text-center max-w-7xl mx-auto">
+      <div className="text-center max-w-5xl mx-auto">
         
-        <h1 className="text-[36px] md:text-[60px] pt-16 font-bold text-black max-w-[280px] mx-auto md:max-w-full">
+        {/* Mobile 3 lines */}
+        <h1 className="text-[36px] md:text-[52px] font-bold text-black 
+                       max-w-[280px] mx-auto md:max-w-full">
           Ready to Make Your Brand Roar?
         </h1>
 
@@ -44,7 +46,8 @@ const HeroContact = () => {
               className="w-full max-w-[700px] h-[450px] object-contain"
             />
 
-            <p className="hidden lg:block font-Inter text-[26px] text-black">
+            {/* ✅ Desktop only mail */}
+            <p className="hidden mt-12 ml-29 lg:block font-Inter text-[28px]  text-black">
               idw.enquiries@gmail.com
             </p>
           </div>
@@ -118,8 +121,8 @@ const HeroContact = () => {
               idw.enquiries@gmail.com
             </p>
 
-            <p className="font-Inter mt-4 text-[28px] text-black pb-10 text-left lg:ml-15">
-              +91 9600998036
+            <p className="font-Inter mt-4 md:mt-6 lg:mt-14 text-[28px] text-black pb-10 text-left">
+              + 91 9600998036
             </p>
           </div>
 

@@ -2,7 +2,7 @@ import Hero_idw from "./../../assets/Home/Hero_idw.jpg";
 
 export default function Hero() {
   return (
-    <section className="w-full px-0 lg:px-20 pt-32 md:pt-36 lg:pt-38 pb-16 md:pb-20 lg:pb-24 bg-[#f5f5f5]">
+    <section className="w-full px-0 lg:px-20 pt-32 md:pt-34 lg:pt-36 pb-16 md:pb-20 lg:pb-24 bg-[#f5f5f5]">
       
       <div className="relative w-full lg:max-w-7xl lg:mx-auto overflow-hidden">
         
