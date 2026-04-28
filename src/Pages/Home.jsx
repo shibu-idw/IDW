@@ -9,13 +9,15 @@ import FAQ from "./../Components/Home/Faq"
 import Card from "./../Components/Home/service_card"
 
 
+
+
 const Home = () => {
   return (
     <div>
       <Hero/>
       <Vission/>
       <Service/>
-       <Card/>
+      <Card />
       <Process/>
       <Explore/>
       <Form/>
