@@ -71,7 +71,6 @@ const data = [
   }
 ];
 
-// Create 3 loops to ensure enough content for seamless scrolling
 const loopData = [...data, ...data, ...data];
 
 export default function OurDivisions() {
@@ -91,33 +90,22 @@ export default function OurDivisions() {
     return () => window.removeEventListener("resize", checkScreen);
   }, []);
 
-  // Reset scroll position when it reaches the duplicate set
   useEffect(() => {
     if (!isDesktop) return;
-    
+
     const container = containerRef.current;
     if (!container) return;
 
     const handleScroll = () => {
       if (isDragging.current) return;
-      
-      const scrollWidth = container.scrollWidth;
-      const clientWidth = container.clientWidth;
-      const scrollLeft = container.scrollLeft;
-      
-      // If we've scrolled past the original 7 cards into the duplicate
+
       const originalWidth = (300 + 42) * data.length;
-      
-      if (scrollLeft >= originalWidth) {
-        // Reset scroll to the beginning without animation
-        container.scrollLeft = scrollLeft - originalWidth;
-      }
-      
-      if (scrollLeft <= 0 && scrollLeft > -10) {
-        // Near the beginning, don't reset
+
+      if (container.scrollLeft >= originalWidth) {
+        container.scrollLeft = container.scrollLeft - originalWidth;
       }
     };
-    
+
     container.addEventListener('scroll', handleScroll);
     return () => container.removeEventListener('scroll', handleScroll);
   }, [isDesktop]);
@@ -133,7 +121,7 @@ export default function OurDivisions() {
       controls.start({
         x: [containerRef.current?.scrollLeft || 0, -((300 + 42) * data.length * 2)],
         transition: {
-          duration: 30, // Increased from 18 to 30 for slower speed
+          duration: 60,
           ease: "linear",
           repeat: Infinity
         }
@@ -161,12 +149,11 @@ export default function OurDivisions() {
     isDragging.current = false;
     if (containerRef.current) {
       containerRef.current.style.cursor = "grab";
-      // Resume auto-scroll after manual drag
       if (isDesktop) {
         controls.start({
           x: [containerRef.current.scrollLeft, -((300 + 42) * data.length * 2)],
           transition: {
-            duration: 30, // Increased from 18 to 30 for slower speed
+            duration: 60,
             ease: "linear",
             repeat: Infinity
           }
@@ -175,20 +162,15 @@ export default function OurDivisions() {
     }
   };
 
+  const displayData = isDesktop ? loopData : data;
+
   return (
     <div className="w-full bg-[#f5f5f5] py-15 md:py-25 lg:py-24">
 
       {/* Title */}
       <div className="px-[20px] md:px-[40px] lg:px-20">
         <div className="max-w-7xl mx-auto w-full">
-          <p
-            className="mb-[15px] lg:mb-[20px] font-semibold"
-            style={{
-              fontFamily: "Inter, sans-serif",
-              fontSize: "16px",
-              letterSpacing: "0.08em"
-            }}
-          >
+          <p className="text-black font-semibold mb-6 tracking-widest text-lg md:text-2xl font-[Inter]">
             /OUR DIVISIONS/
           </p>
         </div>
@@ -226,7 +208,7 @@ export default function OurDivisions() {
                 controls.start({
                   x: [0, -((300 + 42) * data.length * 2)],
                   transition: {
-                    duration: 30, // Increased from 18 to 30 for slower speed
+                    duration: 90,
                     ease: "linear",
                     repeat: Infinity
                   }
@@ -234,10 +216,10 @@ export default function OurDivisions() {
               }
             }}
           >
-            {loopData.map((item, i) => (
+            {displayData.map((item, i) => (
               <div
                 key={i}
-                className="flex flex-col min-w-[260px] md:min-w-[280px] lg:min-w-[300px] min-h-[600px] pt-[10px] md:pt-[15px] pb-[60px] md:pb-[70px] lg:pb-[40px]"
+                className="flex flex-col min-w-[85vw] md:min-w-[45vw] lg:min-w-[300px] min-h-[600px] pt-[10px] md:pt-[15px] pb-[60px] md:pb-[70px] lg:pb-[40px]"
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
               >
