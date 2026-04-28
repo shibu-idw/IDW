@@ -3,7 +3,7 @@ import visionSmall from "./../../assets/Home/vision-small.png";
 
 export default function Vision() {
   return (
-    <section className="w-full bg-[#f5f5f5] px-6 md:px-10 lg:px-20 py-15 md:py-25 lg:py-25">
+    <section id="vission" className="w-full bg-[#f5f5f5] px-6 md:px-10 lg:px-20 py-15 md:py-25 lg:py-25">
       
       <div className="max-w-7xl mx-auto">
 
@@ -134,11 +134,17 @@ export default function Vision() {
             </div>
 
             {/* Right Content */}
-            <div className="w-full md:w-2/3 lg:w-2/3 text-[#7A7A7A] 
-              text-sm md:text-base lg:text-xl 
-              font-semibold leading-relaxed 
-              space-y-4 md:space-y-5 lg:space-y-6 
-              mt-4 md:mt-0 lg:mt-0">
+            <div
+              className="w-full md:w-2/3 lg:w-2/3
+              text-[#7A7A7A]
+              text-sm md:text-base lg:text-xl
+              font-semibold leading-tight tracking-wide
+              space-y-4 md:space-y-5 lg:space-y-6
+              mt-4 md:mt-0 lg:mt-0
+              overflow-hidden
+              whitespace-pre-line
+              break-all"
+              >
 
               <p>
                 IDW (Introducing Digital to the World) is a digital growth initiative

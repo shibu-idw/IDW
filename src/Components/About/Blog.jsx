@@ -111,8 +111,8 @@ export default function BlogSection() {
   const [openId, setOpenId] = useState(null);
 
   return (
-    <section className="w-full bg-[#f3f3f3]">
-      <div className="max-w-[1440px] mx-auto px-5 sm:px-8 md:px-10 lg:px-14 xl:px-20 pt-12 sm:pt-16 md:pt-20 pb-14 sm:pb-16 md:pb-20 lg:pb-24">
+    <section className="w-full bg-[#f5f5f5]">
+      <div className="max-w-[1440px] mx-auto px-6 md:px-10 lg:px-14 xl:px-20 pt-12 sm:pt-16 md:pt-20 pb-14 sm:pb-16 md:pb-20 lg:pb-24">
 
         {/* ── HEADER ROW ── */}
         <div className="grid grid-cols-1 lg:grid-cols-[minmax(220px,28%)_1fr] gap-6 md:gap-8 lg:gap-12 xl:gap-16 items-start">

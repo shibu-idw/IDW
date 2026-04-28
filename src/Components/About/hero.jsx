@@ -2,7 +2,7 @@ import heroImg from "./../../assets/About/idw.png";
 
 export default function AboutHero() {
   return (
-    <section className="w-full bg-[#f5f5f5] px-3 sm:px-4 md:px-6 lg:px-20 pt-24 sm:pt-28 md:pt-32 lg:pt-38 pb-12 sm:pb-16 lg:pb-24">
+    <section className="w-full bg-[#f5f5f5] px-6 md:px-10 lg:px-20 pt-24 sm:pt-28 md:pt-32 lg:pt-38 pb-12 sm:pb-16 lg:pb-24">
       <div className="relative max-w-7xl mx-auto overflow-hidden">
         <img
           src={heroImg}

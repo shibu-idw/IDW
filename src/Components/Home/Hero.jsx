@@ -19,7 +19,7 @@ export default function Hero() {
         <div className="absolute inset-0 flex flex-col justify-center items-center text-center px-4 sm:px-6">
           
           {/* Top Text */}
-          <h2 className="text-gray-100 text-2xl sm:text-3xl md:text-5xl lg:text-7xl font-thin leading-tight tracking-tight transform lg:scale-x-116 lg:scale-y-130">
+          <h2 className="text-gray-100 text-2xl sm:text-3xl md:text-5xl lg:text-7xl font-[300] leading-tight tracking-tight transform lg:scale-x-116 lg:scale-y-130">
             Empowering Businesses
           </h2>
 
@@ -37,7 +37,13 @@ export default function Hero() {
           </p>
 
           {/* Button */}
-          <button className="mt-6 bg-[#1E3A8A] hover:bg-[#1f3a7a] text-white px-5 sm:px-6 py-2.5 sm:py-3 text-sm md:text-base font-medium transition">
+          <button
+            onClick={() => {
+              const el = document.getElementById("vission");
+              if (el) el.scrollIntoView({ behavior: "smooth" });
+            }}
+            className="mt-6 bg-[#2f4b8f] hover:bg-[#1f3a7a] text-white px-5 sm:px-6 py-2.5 sm:py-3 text-sm md:text-base font-medium transition"
+          >
             ▪ Explore the platform
           </button>
 

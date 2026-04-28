@@ -25,14 +25,19 @@ const Services = () => {
           </div>
 
           {/* Bottom Right Paragraph */}
-          <div className="mt-12 flex justify-end">
-            <p className="text-[#7A7A7A] text-md font-semibold leading-tight max-w-sm">
-              We work across a focused set of disciplines shaping how digital 
-              products are structured, designed, and built. Each services 
-              represents a distinct area of responsibility within design and 
-              development.
-            </p>
-          </div>
+<div className="mt-12 flex justify-end">
+  <p
+    className="text-[#7A7A7A] text-md font-semibold leading-tight tracking-wide max-w-sm
+    text-left
+    whitespace-pre-line
+    break-words"
+  >
+    We work across a focused set of disciplines shaping how digital
+    products are structured, designed, and built. Each service
+    represents a distinct area of responsibility within design and
+    development.
+  </p>
+</div>
 
         </div>
 

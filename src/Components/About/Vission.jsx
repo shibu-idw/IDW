@@ -51,7 +51,7 @@ export default function VisionMission() {
   }, []);
 
   return (
-    <section ref={ref} className="w-full bg-[#f3f3f3] overflow-hidden">
+    <section ref={ref} className="w-full bg-[#f5f5f5] overflow-hidden">
       <div
         className="max-w-[1440px] mx-auto"
         style={{

@@ -11,13 +11,13 @@ import ig6 from "../../assets/division/ig6.png";
 import ig7 from "../../assets/division/ig7.png";
 
 // Logos
-import logo1 from "../../assets/division/log1.png";
-import logo2 from "../../assets/division/log2.png";
-import logo3 from "../../assets/division/log3.png";
-import logo4 from "../../assets/division/log4.png";
-import logo5 from "../../assets/division/log5.png";
-import logo6 from "../../assets/division/log6.png";
-import logo7 from "../../assets/division/log7.png";
+import logo1 from "../../assets/division/Log1.png";
+import logo2 from "../../assets/division/Log2.png";
+import logo3 from "../../assets/division/Log3.png";
+import logo4 from "../../assets/division/Log4.png";
+import logo5 from "../../assets/division/Log5.png";
+import logo6 from "../../assets/division/Log6.png";
+import logo7 from "../../assets/division/Log7.png";
 
 const data = [
   {
@@ -181,16 +181,9 @@ export default function OurDivisions() {
       {/* Title */}
       <div className="px-[20px] md:px-[40px] lg:px-20">
         <div className="max-w-7xl mx-auto w-full">
-          <p
-            className="mb-[15px] lg:mb-[20px] font-semibold"
-            style={{
-              fontFamily: "Inter, sans-serif",
-              fontSize: "16px",
-              letterSpacing: "0.08em"
-            }}
-          >
-            /OUR DIVISIONS/
-          </p>
+         <p className="text-black font-semibold mb-6 tracking-widest text-lg md:text-2xl font-[Inter]">
+  /OUR DIVISIONS/
+</p>
         </div>
       </div>
 

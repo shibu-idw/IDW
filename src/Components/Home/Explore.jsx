@@ -3,7 +3,7 @@ import BannerImg from "./../../assets/Home/Explore.png";
 
 export default function WorkHighlight() {
   return (
-    <section className="w-full py-16 md:py-32 lg:py-42 bg-[#f5f5f5]">
+    <section className="w-full py-16 md:py-32 lg:py-36 bg-[#f5f5f5]">
       
       <div className="relative w-full h-[380px] sm:h-[450px] md:h-[550px] lg:h-[670px]">
         
