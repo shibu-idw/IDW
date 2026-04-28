@@ -121,7 +121,7 @@ export default function OurDivisions() {
       controls.start({
         x: [containerRef.current?.scrollLeft || 0, -((300 + 42) * data.length * 2)],
         transition: {
-          duration: 30,
+          duration: 60,
           ease: "linear",
           repeat: Infinity
         }
@@ -153,7 +153,7 @@ export default function OurDivisions() {
         controls.start({
           x: [containerRef.current.scrollLeft, -((300 + 42) * data.length * 2)],
           transition: {
-            duration: 30,
+            duration: 60,
             ease: "linear",
             repeat: Infinity
           }
@@ -208,7 +208,7 @@ export default function OurDivisions() {
                 controls.start({
                   x: [0, -((300 + 42) * data.length * 2)],
                   transition: {
-                    duration: 30,
+                    duration: 90,
                     ease: "linear",
                     repeat: Infinity
                   }

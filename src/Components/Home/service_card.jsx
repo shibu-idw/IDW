@@ -358,7 +358,7 @@ const Services = () => {
               </div>
               <br />
               <div className="flex-1 min-h-0 relative z-10 mx-0 mb-0 px-2 mt-4">
-                <img src={item.img} alt={item.title} className="w-full h-[200px] object-cover rounded-xl" />
+                <img src={item.img} alt={item.title} className="w-full h-[200px] object-cover" />
               </div>
             </div>
 
@@ -379,7 +379,7 @@ const Services = () => {
                 <div className={`${item.idStyle} text-[60px]`}>{item.id}</div>
               </div>
               <div className="w-full flex-1 min-h-0 mb-3">
-                <img src={item.img} alt={item.title} className="w-full h-full object-cover rounded-lg" />
+                <img src={item.img} alt={item.title} className="w-full h-full object-cover" />
               </div>
               <div className="flex-shrink-0 mb-2 mt-8">
                 <h2 className={`${item.leftTitleStyle} text-[13px]`}>{item.leftTitle}</h2>
@@ -455,7 +455,7 @@ const Services = () => {
                 </div>
               </div>
               <div className="col-span-4 flex items-end justify-end pb-10">
-                <img src={item.img} alt={item.title} className="w-full h-auto max-w-sm rounded-lg object-cover" />
+                <img src={item.img} alt={item.title} className="w-full h-auto max-w-sm object-cover" />
               </div>
               <div className={`absolute top-6 right-10 ${item.idStyle} text-[70px]`}>
                 {item.id}

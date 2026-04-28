@@ -14,7 +14,7 @@ export default function ClientProcess() {
   ];
 
   return (
-    <section className="bg-[#f5f5f5] pt-12 md:pt-16 pb-10  px-6 md:px-10 lg:px-20">
+    <section className="bg-[#f5f5f5] pt-12 md:pt-16 pb-10 px-6 md:px-10 lg:px-20">
       <div className="max-w-7xl mx-auto">
 
         <h2 className="text-black font-semibold mb-6 tracking-wide text-xl md:text-2xl">
@@ -23,10 +23,12 @@ export default function ClientProcess() {
 
         <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-10 md:gap-16 lg:gap-20 items-start">
 
+          {/* IMAGE */}
           <div className="w-full lg:w-[540px] h-[260px] sm:h-[320px] md:h-[420px] lg:h-[524px] overflow-hidden">
             <img src={ProcessImg} alt="process" className="w-full h-full object-cover" />
           </div>
 
+          {/* STEPS */}
           <div className="space-y-5 md:space-y-6">
             {steps.map((step, index) => (
               <div key={index}>
@@ -51,7 +53,7 @@ export default function ClientProcess() {
 
             <div className="border-0 md:border-t-2 lg:border-t border-gray-400"></div>
 
-            {/* 🔥 BUTTON FIX */}
+            {/* ✅ CLEAN BUTTON */}
             <button
               onClick={() => navigate("/contact")}
               className="mt-6 bg-[#2f4b8f] hover:bg-[#1f3a7a] text-white px-5 md:px-6 py-2.5 md:py-3 flex items-center gap-2 transition text-sm md:text-base"
