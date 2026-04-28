@@ -92,20 +92,20 @@ export default function OurDivisions() {
 
   useEffect(() => {
     if (!isDesktop) return;
-    
+
     const container = containerRef.current;
     if (!container) return;
 
     const handleScroll = () => {
       if (isDragging.current) return;
-      
+
       const originalWidth = (300 + 42) * data.length;
-      
+
       if (container.scrollLeft >= originalWidth) {
         container.scrollLeft = container.scrollLeft - originalWidth;
       }
     };
-    
+
     container.addEventListener('scroll', handleScroll);
     return () => container.removeEventListener('scroll', handleScroll);
   }, [isDesktop]);
@@ -162,7 +162,6 @@ export default function OurDivisions() {
     }
   };
 
-  // Desktop uses loopData (21 cards), Mobile/Tab uses data (7 cards only)
   const displayData = isDesktop ? loopData : data;
 
   return (
@@ -220,7 +219,7 @@ export default function OurDivisions() {
             {displayData.map((item, i) => (
               <div
                 key={i}
-                className="flex flex-col min-w-[260px] md:min-w-[280px] lg:min-w-[300px] min-h-[600px] pt-[10px] md:pt-[15px] pb-[60px] md:pb-[70px] lg:pb-[40px]"
+                className="flex flex-col min-w-[85vw] md:min-w-[45vw] lg:min-w-[300px] min-h-[600px] pt-[10px] md:pt-[15px] pb-[60px] md:pb-[70px] lg:pb-[40px]"
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
               >
