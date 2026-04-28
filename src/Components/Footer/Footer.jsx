@@ -52,7 +52,7 @@ const Footer = () => {
         </div>
 
         {/* About / IDW Description */}
-        <div className="">
+        <div className="lg:w-[45%] lg:max-w-md">
           <h3 className="text-white text-[26px] font-semibold font-Poppins -ml-4.5 mb-6">
             IDW – Introducing Digital To The World
           </h3>

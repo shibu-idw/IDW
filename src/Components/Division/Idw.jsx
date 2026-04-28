@@ -4,25 +4,24 @@ import sideImg from "../../assets/Division/side.png";
 export default function DivisionSection() {
   return (
     <div className="w-full bg-[#f5f5f5] px-6 md:px-10 lg:px-20 py-15 md:py-25 lg:py-5">
-      
-       <div className="max-w-7xl mx-auto">
-        
+      <div className="max-w-7xl mx-auto">
+
+        {/* /IDW/ — ALONE AT TOP */}
+        <p
+          className="text-black font-semibold mb-6 tracking-wide text-lg md:text-2xl"
+          style={{
+            fontFamily: "'Poppins', sans-serif",
+            letterSpacing: "-0.03em"
+          }}
+        >
+          /IDW/
+        </p>
+
+        {/* ROW: Heading+Paragraph LEFT | Images RIGHT */}
         <div className="flex flex-col lg:flex-row items-start gap-[24px] lg:gap-[80px]">
-          
+
           {/* LEFT CONTENT */}
-          <div className="w-full lg:w-[45%]">
-            
-            {/* Small label */}
-            <p
-              className="text-black font-semibold mb-6 tracking-wide text-lg md:text-2xl "
-              style={{
-                fontFamily: "'Poppins', sans-serif",
-                letterSpacing: "-0.03em"
-              
-              }}
-            >
-              /IDW/
-            </p>
+          <div className="w-full lg:w-[45%] flex flex-col">
 
             {/* Heading — desktop only */}
             <h2
@@ -76,7 +75,7 @@ export default function DivisionSection() {
 
           {/* RIGHT IMAGES */}
           <div className="w-full lg:w-[55%] flex gap-[12px] lg:gap-[16px]">
-            
+
             {/* BIG IMAGE */}
             <div className="w-[55%] md:w-[50%] lg:w-[60%]">
               <img
