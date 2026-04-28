@@ -3,8 +3,6 @@ import { Menu, X } from "lucide-react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import Logo from "./../../assets/logoidw.png";
 
-gsap.registerPlugin(ScrollTrigger);
-
 export default function Header() {
   const [open, setOpen] = useState(false);
   const [showHeader, setShowHeader] = useState(true);
@@ -17,17 +15,19 @@ export default function Header() {
     e.preventDefault();
     setOpen(false);
 
-    ScrollTrigger.create({
-      start: "top top",
-      end: "max",
-      onUpdate: (self) => {
-        if (self.direction === 1) {
-          showAnim.reverse();
-        } else {
-          showAnim.play();
-        }
-      },
-    });
+    if (location.pathname === "/") {
+      document.getElementById("services")?.scrollIntoView({
+        behavior: "smooth",
+      });
+    } else {
+      navigate("/");
+      setTimeout(() => {
+        document.getElementById("services")?.scrollIntoView({
+          behavior: "smooth",
+        });
+      }, 300);
+    }
+  };
 
   // 🔥 DIVISION NAVIGATION
   const handleDivisionClick = (e) => {
@@ -126,16 +126,14 @@ export default function Header() {
   })}
 </nav>
 
-            <li>
-              <a
-                href="/contact"
-                className="inline-flex items-center gap-2 bg-[#2f4b8f] text-white px-5 py-2 text-md font-semibold hover:bg-[#1f3a7a] transition"
-              >
-                Get Started →
-              </a>
-            </li>
-          </ul>
-        </nav>
+          {/* MOBILE MENU ICON */}
+          <button
+            className="lg:hidden text-gray-700"
+            onClick={() => setOpen(!open)}
+            type="button"
+          >
+            {open ? <X size={26} /> : <Menu size={26} />}
+          </button>
 
           {/* DESKTOP BUTTON */}
           <button
