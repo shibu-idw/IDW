@@ -1,117 +1,141 @@
-import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Logo from "./../../assets/logoidw.png";
 
-export default function Header() {
-  const [open, setOpen] = useState(false);
-  const [active, setActive] = useState("");
+gsap.registerPlugin(ScrollTrigger);
 
-  const menuItems = [
-    { name: "About", link: "/about" },
-    { name: "Services", link: "/service" },
-    { name: "Divisions", link: "/division" },
+export default function Header() {
+  const headerRef = useRef(null);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const showAnim = gsap
+      .from(headerRef.current, {
+        yPercent: -100,
+        paused: true,
+        duration: 0.4,
+        ease: "power2.out",
+      })
+      .progress(1);
+
+    ScrollTrigger.create({
+      start: "top top",
+      end: "max",
+      onUpdate: (self) => {
+        if (self.direction === 1) {
+          showAnim.reverse();
+        } else {
+          showAnim.play();
+        }
+      },
+    });
+
+    return () => {
+      ScrollTrigger.getAll().forEach((t) => t.kill());
+    };
+  }, []);
+
+  const navLinks = [
+    { name: "About", href: "/about" },
+    { name: "Services", href: "/service" },
+    { name: "Divisions", href: "/division" },
   ];
 
   return (
-    <header className="w-full bg-[#f5f5f5] fixed top-0 left-0 z-50">
-      <div className="max-w-7xl mx-auto flex items-center justify-between px-6 md:px-10 lg:px-20 py-6">
-
-        {/* Logo */}
+    <header
+      ref={headerRef}
+      className="fixed top-0 left-0 w-full z-[100] bg-[#f5f5f5] border-b border-gray-200 text-gray-700"
+    >
+      <div className="max-w-7xl mx-auto px-6 md:px-10 lg:px-20 h-20 flex justify-between items-center">
+        {/* LOGO */}
         <a href="/" className="flex items-center">
           <img
             src={Logo}
             alt="Logo"
-            className="h-10 lg:h-15 object-contain"
+            className="h-10 lg:h-12 object-contain"
           />
         </a>
 
-        {/* Right Section */}
-        <div className="flex items-center gap-6 lg:gap-10">
-
-          {/* Desktop Menu */}
-          <nav className="hidden lg:flex items-center gap-18 text-gray-600 text-xl font-semibold">
-            {menuItems.map((item) => (
-              <a
-                key={item.name}
-                href={item.link}
-                onClick={() => setActive(item.name)}
-                className={`cursor-pointer transition hover:text-black ${
-                  active === item.name ? "text-black" : ""
-                }`}
-              >
-                {item.name}
-              </a>
+        {/* DESKTOP NAV */}
+        <nav className="hidden lg:block">
+          <ul className="flex items-center gap-14">
+            {navLinks.map((link) => (
+              <li key={link.name}>
+                <a
+                  href={link.href}
+                  className="text-xl font-semibold text-gray-600 hover:text-black transition-colors duration-300"
+                >
+                  {link.name}
+                </a>
+              </li>
             ))}
-          </nav>
 
-          {/* Hamburger */}
-          <button
-            className="lg:hidden text-gray-700"
-            onClick={() => setOpen(!open)}
-          >
-            {open ? <X size={26} /> : <Menu size={26} />}
-          </button>
+            <li>
+              <a
+                href="/contact"
+                className="inline-flex items-center gap-2 bg-[#2f4b8f] text-white px-5 py-2 text-md font-semibold hover:bg-[#1f3a7a] transition"
+              >
+                Get Started →
+              </a>
+            </li>
+          </ul>
+        </nav>
 
-          {/* Get Started */}
-          <a
-            href="/contact"
-            className="hidden sm:flex items-center gap-2 bg-[#2f4b8f] text-white px-5 py-2 text-md font-semibold hover:bg-[#1f3a7a] transition"
-          >
-            Get Started →
-          </a>
-
-        </div>
+        {/* MOBILE MENU TOGGLE */}
+        <button
+          className="lg:hidden flex flex-col gap-1.5 p-2"
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          aria-label="Toggle Menu"
+        >
+          <div
+            className={`w-6 h-0.5 bg-gray-700 transition-all ${
+              isMenuOpen ? "rotate-45 translate-y-2" : ""
+            }`}
+          />
+          <div
+            className={`w-6 h-0.5 bg-gray-700 transition-all ${
+              isMenuOpen ? "opacity-0" : ""
+            }`}
+          />
+          <div
+            className={`w-6 h-0.5 bg-gray-700 transition-all ${
+              isMenuOpen ? "-rotate-45 -translate-y-2" : ""
+            }`}
+          />
+        </button>
       </div>
 
-      {/* Dropdowns */}
-      {open && (
-        <>
-          {/* Mobile */}
-          <div className="sm:hidden bg-[#f5f5f5] px-6 pb-4 space-y-4 text-gray-700 font-medium">
-            {menuItems.map((item) => (
+      {/* MOBILE NAV OVERLAY */}
+      <div
+        className={`fixed inset-0 top-20 bg-[#f5f5f5] z-50 transition-transform duration-500 ease-in-out ${
+          isMenuOpen ? "translate-x-0" : "translate-x-full"
+        } lg:hidden`}
+      >
+        <ul className="flex flex-col items-center justify-center h-full gap-8">
+          {navLinks.map((link) => (
+            <li key={link.name}>
               <a
-                key={item.name}
-                href={item.link}
-                onClick={() => {
-                  setActive(item.name);
-                  setOpen(false);
-                }}
-                className={`block px-2 py-1 rounded ${
-                  active === item.name ? "bg-gray-200" : ""
-                }`}
+                href={link.href}
+                onClick={() => setIsMenuOpen(false)}
+                className="text-3xl font-semibold text-gray-700 hover:text-black transition-colors"
               >
-                {item.name}
+                {link.name}
               </a>
-            ))}
+            </li>
+          ))}
 
+          <li>
             <a
               href="/contact"
-              className="block w-full text-center bg-[#2f4b8f] text-white py-2 rounded-md"
+              onClick={() => setIsMenuOpen(false)}
+              className="inline-flex items-center bg-[#2f4b8f] text-white px-6 py-3 text-sm font-semibold hover:bg-[#1f3a7a] transition"
             >
-              Contact Us →
+              Get Started →
             </a>
-          </div>
-
-          {/* Tablet */}
-          <div className="hidden sm:block lg:hidden absolute top-[80px] right-6 w-64 bg-[#f5f5f5] shadow-lg rounded-lg p-5 space-y-4 text-gray-700 font-medium">
-            {menuItems.map((item) => (
-              <a
-                key={item.name}
-                href={item.link}
-                onClick={() => {
-                  setActive(item.name);
-                  setOpen(false);
-                }}
-                className={`block px-2 py-1 rounded ${
-                  active === item.name ? "bg-gray-200" : ""
-                }`}
-              >
-                {item.name}
-              </a>
-            ))}
-          </div>
-        </>
-      )}
+          </li>
+        </ul>
+      </div>
     </header>
   );
 }
