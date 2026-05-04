@@ -1,9 +1,20 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import footerImg from "./../../assets/Footer/footerlast.jpg";
 
 const Footer = () => {
+  const navigate = useNavigate();
+
+  const handleServicesClick = () => {
+    navigate("/");
+    setTimeout(() => {
+      document.getElementById("services")?.scrollIntoView({
+        behavior: "smooth",
+      });
+    }, 300);
+  };
+
   return (
     <footer className="bg-black text-gray-400 px-6 md:px-10 lg:px-20 pt-16 pb-0">
 
@@ -39,18 +50,27 @@ const Footer = () => {
           </h3>
           <ul className="space-y-2 text-[18px] font-Inter">
             <li className="hover:text-white cursor-pointer">
-              <Link to="/about">About</Link>
+              <Link to="/about" onClick={() => window.scrollTo(0, 0)}>
+                About
+              </Link>
             </li>
-            <li className="hover:text-white cursor-pointer">
-              <Link to="/">Services</Link> {/* scroll handled in header */}
+
+            <li
+              className="hover:text-white cursor-pointer"
+              onClick={handleServicesClick}
+            >
+              Services
             </li>
+
             <li className="hover:text-white cursor-pointer">
-              <Link to="/division">Divisions</Link> {/* ✅ fixed */}
+              <Link to="/division" onClick={() => window.scrollTo(0, 0)}>
+                Divisions
+              </Link>
             </li>
           </ul>
         </div>
 
-        {/* About Section (unchanged) */}
+        {/* About Section */}
         <div className="w-full md:w-[70%] lg:w-[45%] lg:max-w-md px-0 md:px-0 lg:px-0">
           <h3 className="text-white text-[20px] md:text-[24px] lg:text-[26px] font-semibold font-Poppins mb-6 md:mb-10 lg:mb-14 ml-0 md:ml-0 lg:-ml-16">
             IDW – Introducing Digital To The World
@@ -77,13 +97,19 @@ const Footer = () => {
 
           <div className="w-full md:w-auto order-1 md:order-3 ml-10 text-right text-md mb-6 md:mb-0 font-Inter">
             <p className="hover:text-white mb-1 cursor-pointer">
-              <Link to="/terms">Terms & Conditions</Link> {/* ✅ fixed */}
+              <Link to="/terms" onClick={() => window.scrollTo(0, 0)}>
+                Terms & Conditions
+              </Link>
             </p>
             <p className="hover:text-white mb-1 cursor-pointer">
-              <Link to="/privacy">Privacy Policy</Link> {/* ✅ fixed */}
+              <Link to="/privacy" onClick={() => window.scrollTo(0, 0)}>
+                Privacy Policy
+              </Link>
             </p>
             <p className="hover:text-white mb-1 cursor-pointer">
-              <Link to="/privacy">Cookies Policy</Link> {/* fallback */}
+              <Link to="/privacy" onClick={() => window.scrollTo(0, 0)}>
+                Cookies Policy
+              </Link>
             </p>
             <p className="mt-18 text-gray-500">©2026 IDW. All rights</p>
           </div>
@@ -105,13 +131,19 @@ const Footer = () => {
         <div className="hidden md:block lg:hidden pt-6">
           <div className="text-right text-[14px] mb-2 font-Inter">
             <p className="hover:text-white mb-1 cursor-pointer">
-              <Link to="/terms">Terms & Conditions</Link>
+              <Link to="/terms" onClick={() => window.scrollTo(0, 0)}>
+                Terms & Conditions
+              </Link>
             </p>
             <p className="hover:text-white mb-1 cursor-pointer">
-              <Link to="/privacy">Privacy Policy</Link>
+              <Link to="/privacy" onClick={() => window.scrollTo(0, 0)}>
+                Privacy Policy
+              </Link>
             </p>
             <p className="hover:text-white mb-1 cursor-pointer">
-              <Link to="/privacy">Cookies Policy</Link>
+              <Link to="/privacy" onClick={() => window.scrollTo(0, 0)}>
+                Cookies Policy
+              </Link>
             </p>
           </div>
 
@@ -135,13 +167,19 @@ const Footer = () => {
         <div className="block md:hidden pt-6">
           <div className="text-right text-[14px] mb-2 font-Inter">
             <p className="hover:text-white mb-1 cursor-pointer">
-              <Link to="/terms">Terms & Conditions</Link>
+              <Link to="/terms" onClick={() => window.scrollTo(0, 0)}>
+                Terms & Conditions
+              </Link>
             </p>
             <p className="hover:text-white mb-1 cursor-pointer">
-              <Link to="/privacy">Privacy Policy</Link>
+              <Link to="/privacy" onClick={() => window.scrollTo(0, 0)}>
+                Privacy Policy
+              </Link>
             </p>
             <p className="hover:text-white mb-1 cursor-pointer">
-              <Link to="/privacy">Cookies Policy</Link>
+              <Link to="/privacy" onClick={() => window.scrollTo(0, 0)}>
+                Cookies Policy
+              </Link>
             </p>
           </div>
 
