@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Logo from "./../../assets/logoidw.png";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -12,65 +14,54 @@ export default function Header() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // 🔥 SERVICES SCROLL
   const handleServiceClick = (e) => {
     e.preventDefault();
     setOpen(false);
 
-    ScrollTrigger.create({
-      start: "top top",
-      end: "max",
-      onUpdate: (self) => {
-        if (self.direction === 1) {
-          showAnim.reverse();
-        } else {
-          showAnim.play();
-        }
-      },
-    });
+    if (location.pathname !== "/") {
+      navigate("/");
+      setTimeout(() => {
+        document.getElementById("services")?.scrollIntoView({
+          behavior: "smooth",
+        });
+      }, 300);
+    } else {
+      document.getElementById("services")?.scrollIntoView({
+        behavior: "smooth",
+      });
+    }
+  };
 
-  // 🔥 DIVISION NAVIGATION
   const handleDivisionClick = (e) => {
     e.preventDefault();
     setOpen(false);
-
     navigate("/division");
     window.scrollTo(0, 0);
   };
 
-  // 🔥 SCROLL BEHAVIOR (hide/show)
   useEffect(() => {
     let lastScrollY = window.scrollY;
 
     const handleScroll = () => {
       if (window.scrollY > lastScrollY) {
-        setShowHeader(false); // scroll down → hide
+        setShowHeader(false);
       } else {
-        setShowHeader(true); // scroll up → show
+        setShowHeader(true);
       }
       lastScrollY = window.scrollY;
     };
 
     window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // 🔥 MOUSE TOP DETECTION
   useEffect(() => {
     const handleMouseMove = (e) => {
-      if (e.clientY < 60) {
-        setShowHeader(true); // cursor near top → show
-      }
+      if (e.clientY < 60) setShowHeader(true);
     };
 
     window.addEventListener("mousemove", handleMouseMove);
-
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-    };
+    return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
   const menuItems = [
@@ -86,56 +77,45 @@ export default function Header() {
       }`}
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between px-6 md:px-10 lg:px-20 py-6">
-        
         {/* LOGO */}
         <Link to="/" onClick={() => window.scrollTo(0, 0)}>
           <img src={Logo} alt="Logo" className="h-10 lg:h-15 object-contain" />
         </Link>
 
         <div className="flex items-center gap-6 lg:gap-10">
-
           {/* DESKTOP MENU */}
           <nav className="hidden lg:flex items-center gap-18 text-[#888686] text-xl font-semibold">
-  {menuItems.map((item) => {
-    const isActive = location.pathname === item.path;
+            {menuItems.map((item) => {
+              const isActive = location.pathname === item.path;
 
-    return item.onClick ? (
-      <a
-        key={item.label}
-        href={item.path}
-        onClick={item.onClick}
-        className={`cursor-pointer hover:text-black hover:underline 
-          ${isActive ? "text-black underline" : ""}`}
-      >
-        {item.label}
-      </a>
-    ) : (
-      <Link
-        key={item.label}
-        to={item.path}
-        onClick={() => {
-          setOpen(false);
-          window.scrollTo(0, 0);
-        }}
-        className={`hover:text-black hover:underline 
-          ${isActive ? "text-black underline" : ""}`}
-      >
-        {item.label}
-      </Link>
-    );
-  })}
-</nav>
-
-            <li>
-              <a
-                href="/contact"
-                className="inline-flex items-center gap-2 bg-[#2f4b8f] text-white px-5 py-2 text-md font-semibold hover:bg-[#1f3a7a] transition"
-              >
-                Get Started →
-              </a>
-            </li>
-          </ul>
-        </nav>
+              return item.onClick ? (
+                <a
+                  key={item.label}
+                  href={item.path}
+                  onClick={item.onClick}
+                  className={`cursor-pointer hover:text-black hover:underline ${
+                    isActive ? "text-black underline" : ""
+                  }`}
+                >
+                  {item.label}
+                </a>
+              ) : (
+                <Link
+                  key={item.label}
+                  to={item.path}
+                  onClick={() => {
+                    setOpen(false);
+                    window.scrollTo(0, 0);
+                  }}
+                  className={`hover:text-black hover:underline ${
+                    isActive ? "text-black underline" : ""
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
+          </nav>
 
           {/* DESKTOP BUTTON */}
           <button
@@ -146,6 +126,14 @@ export default function Header() {
             className="hidden sm:flex items-center gap-2 bg-[#2f4b8f] text-white px-5 py-2 text-md font-semibold hover:bg-[#1f3a7a] transition"
           >
             Get Started →
+          </button>
+
+          {/* MOBILE / TABLET MENU ICON */}
+          <button
+            onClick={() => setOpen(!open)}
+            className="lg:hidden text-black"
+          >
+            {open ? <X size={28} /> : <Menu size={28} />}
           </button>
         </div>
       </div>

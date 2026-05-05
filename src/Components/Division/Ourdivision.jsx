@@ -2,13 +2,13 @@ import { motion, useAnimation } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 
 // Images
-import ig1 from "../../assets/division/ig1.png";
-import ig2 from "../../assets/division/ig2.png";
-import ig3 from "../../assets/division/ig3.png";
-import ig4 from "../../assets/division/ig4.png";
-import ig5 from "../../assets/division/ig5.png";
-import ig6 from "../../assets/division/ig6.png";
-import ig7 from "../../assets/division/ig7.png";
+import Ig1 from "../../assets/division/ig1.png";
+import Ig2 from "../../assets/division/ig2.png";
+import Ig3 from "../../assets/division/ig3.png";
+import Ig4 from "../../assets/division/ig4.png";
+import Ig5 from "../../assets/division/ig5.png";
+import Ig6 from "../../assets/division/ig6.png";
+import Ig7 from "../../assets/division/ig7.png";
 
 // Logos
 import logo1 from "../../assets/division/Log1.png";
@@ -23,49 +23,49 @@ const data = [
   {
     logo: logo1,
     title: "Quality Groups Of Companies",
-    img: ig1,
+    img: Ig1,
     link: "https://www.qgc.org.in/",
     desc: "Quality Groups specializes in Market Surveys, Market Demand Analysis, Digital Marketing, Digital Advertising and Business Consulting. Quality Groups is more than a service provider; we are your dedicated partner in achieving your business goals."
   },
   {
     logo: logo2,
     title: "Quality Building Construction (QBC)",
-    img: ig2,
+    img: Ig2,
     link: "https://www.example.com/",
     desc: "Quality Building Construction is a premier construction company, where innovation meets craftsmanship in the dynamic realm of building construction. Quality Building Construction stands ready to bring your vision to life. Join us on a journey where innovation meets reliability."
   },
   {
     logo: logo3,
     title: "Quality Global Machines (QGM)",
-    img: ig3,
+    img: Ig3,
     link: "https://www.example.com/",
     desc: "Quality Building Material company is your one-stop destination for comprehensive building solutions that redefine the very essence of construction. Our extensive range of building materials showcases the latest innovations in construction, ensuring structural integrity and longevity."
   },
   {
     logo: logo4,
     title: "Q Store (Online Marketplace)",
-    img: ig4,
+    img: Ig4,
     link: "https://www.q-store.co.in/",
     desc: "Q Store is an innovative online marketplace that transcends traditional boundaries by offering a diverse range of products, from everyday groceries to exquisite diamonds. Experience the future of online shopping with Q Store, where convenience, diversity and excellence converge to redefine your shopping experience."
   },
   {
     logo: logo5,
     title: "Quick Financial Service (QFS)",
-    img: ig5,
+    img: Ig5,
     link: "https://www.example.com/",
     desc: "Quick Financial Service proprietorship specializes in providing a range of financial services that cater to your unique needs, ensuring access to Home Loans, Business Loans, Personal Loans, Mortgage Loans, Secured Loans & Unsecured Loans. We strive to provide transparent and flexible solutions that align with your financial goals."
   },
   {
     logo: logo6,
     title: "Quality Building Materials (QBM)",
-    img: ig6,
+    img: Ig6,
     link: "https://qbmindia.co.in/page-209e5",
     desc: "Quality Global Machinery company is your gateway to cutting-edge machinery solutions that span across industries and applications. Our portfolio of industrial machines encompasses a wide range of solutions designed to meet the demands of various sectors."
   },
   {
     logo: logo7,
     title: "Q Incense (Manufacturing)",
-    img: ig7,
+    img: Ig7,
     link: "https://www.example.com/",
     desc: "Q Incense is a leading manufacturer of best quality of Agarbathi, Dhoopstick, Camphor and Sambrani. We understand the profound cultural significance and spiritual importance of aromatic products."
   }
