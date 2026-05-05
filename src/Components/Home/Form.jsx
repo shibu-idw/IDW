@@ -122,7 +122,7 @@ export default function ContactForm() {
             <br />
             <button
               onClick={handleNext}
-              className="w-full text-left border-b-2 border-black pb-2 hover:opacity-70 text-base md:text-lg lg:text-xl font-semibold"
+              className="w-full text-left border-b-2 border-black pb-2 hover:opacity-70 text-base md:text-lg lg:text-2xl font-semibold"
             >
               Next step
             </button>
@@ -192,7 +192,7 @@ export default function ContactForm() {
             <button
               onClick={handleSubmit}
               disabled={submitted}
-              className="w-full text-left border-b-2 border-black pb-2 hover:opacity-70 text-base md:text-lg lg:text-xl font-semibold disabled:opacity-50"
+              className="w-full text-left border-b-2 border-black pb-2 hover:opacity-70 text-base md:text-lg lg:text-2xl font-semibold disabled:opacity-50"
             >
               Send request
             </button>

@@ -68,7 +68,7 @@ export default function VisionMission() {
           <div className="shrink-0 mb-6 lg:mb-0">
             <h3
               className="font-[Poppins] font-semibold text-black leading-none tracking-[-0.02em] whitespace-nowrap"
-              style={{ fontSize: "clamp(14px,1.55vw,22px)" }}
+              style={{ fontSize: "clamp(16px,1.60vw,24px)" }}
             >
               /OUR VISION & MISSION/
             </h3>

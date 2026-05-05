@@ -1,23 +1,21 @@
-import { useEffect, useRef, useState } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useState, useEffect } from "react";
+import { Menu, X } from "lucide-react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import Logo from "./../../assets/logoidw.png";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Header() {
-  const headerRef = useRef(null);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [showHeader, setShowHeader] = useState(true);
 
-  useEffect(() => {
-    const showAnim = gsap
-      .from(headerRef.current, {
-        yPercent: -100,
-        paused: true,
-        duration: 0.4,
-        ease: "power2.out",
-      })
-      .progress(1);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  // 🔥 SERVICES SCROLL
+  const handleServiceClick = (e) => {
+    e.preventDefault();
+    setOpen(false);
 
     ScrollTrigger.create({
       start: "top top",
@@ -31,45 +29,102 @@ export default function Header() {
       },
     });
 
+  // 🔥 DIVISION NAVIGATION
+  const handleDivisionClick = (e) => {
+    e.preventDefault();
+    setOpen(false);
+
+    navigate("/division");
+    window.scrollTo(0, 0);
+  };
+
+  // 🔥 SCROLL BEHAVIOR (hide/show)
+  useEffect(() => {
+    let lastScrollY = window.scrollY;
+
+    const handleScroll = () => {
+      if (window.scrollY > lastScrollY) {
+        setShowHeader(false); // scroll down → hide
+      } else {
+        setShowHeader(true); // scroll up → show
+      }
+      lastScrollY = window.scrollY;
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
     return () => {
-      ScrollTrigger.getAll().forEach((t) => t.kill());
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
-  const navLinks = [
-    { name: "About", href: "/about" },
-    { name: "Services", href: "/service" },
-    { name: "Divisions", href: "/division" },
+  // 🔥 MOUSE TOP DETECTION
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      if (e.clientY < 60) {
+        setShowHeader(true); // cursor near top → show
+      }
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, []);
+
+  const menuItems = [
+    { label: "About", path: "/about" },
+    { label: "Services", path: "#services", onClick: handleServiceClick },
+    { label: "Divisions", path: "/division", onClick: handleDivisionClick },
   ];
 
   return (
     <header
-      ref={headerRef}
-      className="fixed top-0 left-0 w-full z-[100] bg-[#f5f5f5] border-b border-gray-200 text-gray-700"
+      className={`fixed w-full bg-[#f5f5f5] left-0 z-50 transition-transform duration-300 ${
+        showHeader ? "translate-y-0" : "-translate-y-full"
+      }`}
     >
-      <div className="max-w-7xl mx-auto px-6 md:px-10 lg:px-20 h-20 flex justify-between items-center">
+      <div className="max-w-7xl mx-auto flex items-center justify-between px-6 md:px-10 lg:px-20 py-6">
+        
         {/* LOGO */}
-        <a href="/" className="flex items-center">
-          <img
-            src={Logo}
-            alt="Logo"
-            className="h-10 lg:h-12 object-contain"
-          />
-        </a>
+        <Link to="/" onClick={() => window.scrollTo(0, 0)}>
+          <img src={Logo} alt="Logo" className="h-10 lg:h-15 object-contain" />
+        </Link>
 
-        {/* DESKTOP NAV */}
-        <nav className="hidden lg:block">
-          <ul className="flex items-center gap-14">
-            {navLinks.map((link) => (
-              <li key={link.name}>
-                <a
-                  href={link.href}
-                  className="text-xl font-semibold text-gray-600 hover:text-black transition-colors duration-300"
-                >
-                  {link.name}
-                </a>
-              </li>
-            ))}
+        <div className="flex items-center gap-6 lg:gap-10">
+
+          {/* DESKTOP MENU */}
+          <nav className="hidden lg:flex items-center gap-18 text-[#888686] text-xl font-semibold">
+  {menuItems.map((item) => {
+    const isActive = location.pathname === item.path;
+
+    return item.onClick ? (
+      <a
+        key={item.label}
+        href={item.path}
+        onClick={item.onClick}
+        className={`cursor-pointer hover:text-black hover:underline 
+          ${isActive ? "text-black underline" : ""}`}
+      >
+        {item.label}
+      </a>
+    ) : (
+      <Link
+        key={item.label}
+        to={item.path}
+        onClick={() => {
+          setOpen(false);
+          window.scrollTo(0, 0);
+        }}
+        className={`hover:text-black hover:underline 
+          ${isActive ? "text-black underline" : ""}`}
+      >
+        {item.label}
+      </Link>
+    );
+  })}
+</nav>
 
             <li>
               <a
@@ -82,60 +137,101 @@ export default function Header() {
           </ul>
         </nav>
 
-        {/* MOBILE MENU TOGGLE */}
-        <button
-          className="lg:hidden flex flex-col gap-1.5 p-2"
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          aria-label="Toggle Menu"
-        >
-          <div
-            className={`w-6 h-0.5 bg-gray-700 transition-all ${
-              isMenuOpen ? "rotate-45 translate-y-2" : ""
-            }`}
-          />
-          <div
-            className={`w-6 h-0.5 bg-gray-700 transition-all ${
-              isMenuOpen ? "opacity-0" : ""
-            }`}
-          />
-          <div
-            className={`w-6 h-0.5 bg-gray-700 transition-all ${
-              isMenuOpen ? "-rotate-45 -translate-y-2" : ""
-            }`}
-          />
-        </button>
+          {/* DESKTOP BUTTON */}
+          <button
+            onClick={() => {
+              navigate("/contact");
+              window.scrollTo(0, 0);
+            }}
+            className="hidden sm:flex items-center gap-2 bg-[#2f4b8f] text-white px-5 py-2 text-md font-semibold hover:bg-[#1f3a7a] transition"
+          >
+            Get Started →
+          </button>
+        </div>
       </div>
 
-      {/* MOBILE NAV OVERLAY */}
-      <div
-        className={`fixed inset-0 top-20 bg-[#f5f5f5] z-50 transition-transform duration-500 ease-in-out ${
-          isMenuOpen ? "translate-x-0" : "translate-x-full"
-        } lg:hidden`}
-      >
-        <ul className="flex flex-col items-center justify-center h-full gap-8">
-          {navLinks.map((link) => (
-            <li key={link.name}>
-              <a
-                href={link.href}
-                onClick={() => setIsMenuOpen(false)}
-                className="text-3xl font-semibold text-gray-700 hover:text-black transition-colors"
-              >
-                {link.name}
-              </a>
-            </li>
-          ))}
+      {/* MOBILE + TABLET MENU */}
+      {open && (
+        <>
+          {/* MOBILE */}
+          <div className="sm:hidden bg-[#f5f5f5] px-6 pb-4 space-y-4 text-[#888686] font-medium">
+            {menuItems.map((item) =>
+              item.onClick ? (
+                <a
+                  key={item.label}
+                  href={item.path}
+                  onClick={item.onClick}
+                  className="block px-2 py-1 rounded hover:bg-gray-200 cursor-pointer"
+                >
+                  {item.label}
+                </a>
+              ) : (
+                <Link
+                  key={item.label}
+                  to={item.path}
+                  onClick={() => {
+                    setOpen(false);
+                    window.scrollTo(0, 0);
+                  }}
+                  className="block px-2 py-1 rounded hover:bg-gray-200"
+                >
+                  {item.label}
+                </Link>
+              )
+            )}
 
-          <li>
-            <a
-              href="/contact"
-              onClick={() => setIsMenuOpen(false)}
-              className="inline-flex items-center bg-[#2f4b8f] text-white px-6 py-3 text-sm font-semibold hover:bg-[#1f3a7a] transition"
+            <button
+              onClick={() => {
+                setOpen(false);
+                navigate("/contact");
+                window.scrollTo(0, 0);
+              }}
+              className="w-full bg-[#2f4b8f] text-white py-2 rounded-md"
             >
-              Get Started →
-            </a>
-          </li>
-        </ul>
-      </div>
+              Contact Us →
+            </button>
+          </div>
+
+          {/* TABLET */}
+          <div className="hidden sm:block lg:hidden absolute top-[80px] right-6 w-64 bg-[#f5f5f5] shadow-lg rounded-lg p-5 space-y-4 text-[#888686] font-medium">
+            {menuItems.map((item) =>
+              item.onClick ? (
+                <a
+                  key={item.label}
+                  href={item.path}
+                  onClick={item.onClick}
+                  className="block px-2 py-1 rounded hover:bg-gray-200 cursor-pointer"
+                >
+                  {item.label}
+                </a>
+              ) : (
+                <Link
+                  key={item.label}
+                  to={item.path}
+                  onClick={() => {
+                    setOpen(false);
+                    window.scrollTo(0, 0);
+                  }}
+                  className="block px-2 py-1 rounded hover:bg-gray-200"
+                >
+                  {item.label}
+                </Link>
+              )
+            )}
+
+            <button
+              onClick={() => {
+                setOpen(false);
+                navigate("/contact");
+                window.scrollTo(0, 0);
+              }}
+              className="w-full bg-[#2f4b8f] text-white py-2 rounded-md"
+            >
+              Contact Us →
+            </button>
+          </div>
+        </>
+      )}
     </header>
   );
 }

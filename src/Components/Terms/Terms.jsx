@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 const Terms = () => {
+
+    // ✅ Scroll to top when page loads
+    useEffect(() => {
+      window.scrollTo({ top: 0, behavior: "instant" });
+    }, []);
+
   return (
-    <div className="min-h-screen py-10 px-4 sm:px-6 md:px-10 lg:px-16">
-      <div className="max-w-[1260px] mx-auto  p-8 text-sm text-gray-800 leading-6 ">
+    <div className="min-h-screen pb-20 pt-30 md:pt-30 lg:pt-35 px-6 md:px-10 lg:px-20 bg-[#f5f5f5]">
+      <div className="max-w-7xl text-sm text-gray-800 leading-6 ">
 
 <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[82px]  font-bold mb-8 md:mb-12 lg:mb-16 leading-tight">Terms &   Conditions</h1>
 

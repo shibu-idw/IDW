@@ -7,7 +7,6 @@ const Footer = () => {
   return (
     <footer className="bg-black text-gray-400 px-6 md:px-10 lg:px-20 pt-16 pb-0">
 
-      {/* ── TOP SECTION: flex row on desktop, single column on mobile/tab ── */}
       <div className="flex flex-col lg:flex-row justify-between gap-10">
 
         {/* Contact */}
@@ -20,8 +19,8 @@ const Footer = () => {
           </p>
           <ul className="space-y-2 text-[18px] mt-6 font-Inter">
             <li className="hover:text-white cursor-pointer">LinkedIn</li>
-           <li className="hover:text-white cursor-pointer">
-                <a 
+            <li className="hover:text-white cursor-pointer">
+              <a 
                 href="https://www.instagram.com/idwindia?igsh=azh0ZW9iMXdvYmxh" 
                 target="_blank" 
                 rel="noopener noreferrer"
@@ -40,55 +39,59 @@ const Footer = () => {
           </h3>
           <ul className="space-y-2 text-[18px] font-Inter">
             <li className="hover:text-white cursor-pointer">
-               <Link to="/about">About</Link>
-               </li>
+              <Link to="/about">About</Link>
+            </li>
             <li className="hover:text-white cursor-pointer">
-               <Link to="/services">Services</Link>
-               </li>
+              <Link to="/">Services</Link> {/* scroll handled in header */}
+            </li>
             <li className="hover:text-white cursor-pointer">
-              <Link to="/divisions">Divisions</Link>
-              </li>
+              <Link to="/division">Divisions</Link> {/* ✅ fixed */}
+            </li>
           </ul>
         </div>
 
-        {/* About / IDW Description */}
-        <div className="lg:w-[45%] lg:max-w-md">
-          <h3 className="text-white text-[26px] font-semibold font-Poppins -ml-4.5 mb-6">
+        {/* About Section (unchanged) */}
+        <div className="w-full md:w-[70%] lg:w-[45%] lg:max-w-md px-0 md:px-0 lg:px-0">
+          <h3 className="text-white text-[20px] md:text-[24px] lg:text-[26px] font-semibold font-Poppins mb-6 md:mb-10 lg:mb-14 ml-0 md:ml-0 lg:-ml-16">
             IDW – Introducing Digital To The World
           </h3>
-          <p className="text-[16px] leading-relaxed mb-4 -ml-4.5  font-Inter">
+
+          <p className="text-[14px] md:text-[15px] lg:text-[16px] leading-relaxed mb-4 font-Inter ml-0 lg:-ml-16">
             This Space brings together work we've done and work We're currently
             doing, along with conversation that continue beyond Individual
             projects. If it feels right, this can be this starting point.
           </p>
-          <p className="text-[16px] font-Inter -ml-4.5 ">
+
+          <p className="text-[14px] md:text-[15px] lg:text-[16px] font-Inter ml-0 lg:-ml-16">
             <span className="text-gray-400">Location</span> <br />
             Bangalore, Tiruvannamalai
           </p>
         </div>
-
       </div>
 
-      {/* ── BOTTOM SECTION ── */}
+      {/* BOTTOM */}
       <div className="mt-10">
 
-        {/* ── DESKTOP BOTTOM (lg and above) ── */}
+        {/* DESKTOP */}
         <div className="hidden lg:flex flex-wrap md:flex-nowrap justify-between items-end pt-10 overflow-hidden">
 
-          {/* Policies */}
           <div className="w-full md:w-auto order-1 md:order-3 ml-10 text-right text-md mb-6 md:mb-0 font-Inter">
-            <p className="hover:text-white mb-1 cursor-pointer">Terms & Conditions</p>
-            <p className="hover:text-white mb-1 cursor-pointer">Privacy Policy</p>
-            <p className="hover:text-white mb-1 cursor-pointer">Cookies Policy</p>
-            <p className="mt-20 text-gray-500">©2026 IDW. All rights</p>
+            <p className="hover:text-white mb-1 cursor-pointer">
+              <Link to="/terms">Terms & Conditions</Link> {/* ✅ fixed */}
+            </p>
+            <p className="hover:text-white mb-1 cursor-pointer">
+              <Link to="/privacy">Privacy Policy</Link> {/* ✅ fixed */}
+            </p>
+            <p className="hover:text-white mb-1 cursor-pointer">
+              <Link to="/privacy">Cookies Policy</Link> {/* fallback */}
+            </p>
+            <p className="mt-18 text-gray-500">©2026 IDW. All rights</p>
           </div>
 
-          {/* IDW large text */}
           <h1 className="w-1/2 md:w-auto order-2 md:order-1 text-[127px] sm:text-[120px] md:text-[332px] font-medium font-Poppins text-gray-300 leading-[0.8] -ml-7">
             IDW
           </h1>
 
-          {/* Footer image */}
           <div className="w-1/2 md:w-auto order-3 md:order-2 flex justify-end">
             <img
               src={footerImg}
@@ -96,31 +99,26 @@ const Footer = () => {
               className="w-[95px] sm:w-[180px] md:w-[252px] h-auto object-cover grayscale"
             />
           </div>
-
         </div>
 
-        {/* ── TAB BOTTOM (md only: 768px–1023px) ── */}
+        {/* TAB */}
         <div className="hidden md:block lg:hidden pt-6">
-
-          {/* Policies — right aligned */}
           <div className="text-right text-[14px] mb-2 font-Inter">
-            <p className="hover:text-white mb-1 cursor-pointer"> 
-              <Link to="/Terms & Conditions">Terms & Conditions</Link>
-              </p>
             <p className="hover:text-white mb-1 cursor-pointer">
-              <Link to="/Privacy Policy">Privacy Policy</Link>
-              </p>
+              <Link to="/terms">Terms & Conditions</Link>
+            </p>
             <p className="hover:text-white mb-1 cursor-pointer">
-              <Link to="/Cookies Policy">Cookies Policy</Link>
-              </p>
+              <Link to="/privacy">Privacy Policy</Link>
+            </p>
+            <p className="hover:text-white mb-1 cursor-pointer">
+              <Link to="/privacy">Cookies Policy</Link>
+            </p>
           </div>
 
-          {/* Copyright — right aligned */}
           <div className="text-right text-[13px] text-gray-500 mb-2 font-Inter">
-            @2026 IDW. All rights
+            ©2026 IDW. All rights
           </div>
 
-          {/* IDW full width + image at bottom-right corner */}
           <div className="relative overflow-hidden">
             <h1 className="text-[220px] font-medium font-Poppins text-white leading-[0.85] -ml-4">
               IDW
@@ -131,34 +129,28 @@ const Footer = () => {
               className="absolute bottom-0 right-0 w-[200px] h-auto object-cover grayscale"
             />
           </div>
-
         </div>
 
-        {/* ── MOBILE BOTTOM (below md: 0px–767px) ── */}
+        {/* MOBILE */}
         <div className="block md:hidden pt-6">
-
-          {/* Policies — right aligned */}
           <div className="text-right text-[14px] mb-2 font-Inter">
             <p className="hover:text-white mb-1 cursor-pointer">
-              <Link to="/Terms & Conditions">Terms & Conditions</Link>
-              </p>
+              <Link to="/terms">Terms & Conditions</Link>
+            </p>
             <p className="hover:text-white mb-1 cursor-pointer">
-              <Link to="/Privacy Policy">Privacy Policy</Link>
-              </p>
+              <Link to="/privacy">Privacy Policy</Link>
+            </p>
             <p className="hover:text-white mb-1 cursor-pointer">
-              <Link to="/Cookies Policy">Cookies Policy</Link>
-              </p>
+              <Link to="/privacy">Cookies Policy</Link>
+            </p>
           </div>
 
-          {/* Copyright — right aligned */}
           <div className="text-right text-[13px] text-gray-500 mb-2 font-Inter">
-            @2026 IDW. All rights
+            ©2026 IDW. All rights
           </div>
 
-          {/* IDW text + image side by side */}
           <div className="flex items-end justify-between overflow-hidden">
-            <h1 className="text-[120px] font-medium 
-            font-Poppins text-gray-300 leading-[0.85] -ml-3">
+            <h1 className="text-[120px] font-medium font-Poppins text-gray-300 leading-[0.85] -ml-3">
               IDW
             </h1>
             <img
@@ -167,11 +159,9 @@ const Footer = () => {
               className="w-[80px] h-auto object-cover grayscale mb-1"
             />
           </div>
-
         </div>
 
       </div>
-
     </footer>
   );
 };
