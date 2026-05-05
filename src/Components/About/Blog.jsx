@@ -119,7 +119,7 @@ export default function BlogSection() {
           
           {/* LEFT LABEL */}
           <div className="pt-1">
-            <h3 className="font-[Poppins] text-black font-semibold tracking-[-0.04em] text-[22px] sm:text-[26px] md:text-[30px] lg:text-[28px] xl:text-[32px] leading-none">
+            <h3 className="font-[Poppins] text-black font-semibold tracking-[-0.04em] text-[22px] sm:text-[26px] md:text-[30px] lg:text-[24px] xl:text-[24px] leading-none">
               /IDW Blogs/
             </h3>
           </div>
