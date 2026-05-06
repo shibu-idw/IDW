@@ -2,22 +2,22 @@ import { motion, useAnimation } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 
 // Images
-import Ig1 from "../../assets/division/ig1.png";
-import Ig2 from "../../assets/division/ig2.png";
-import Ig3 from "../../assets/division/ig3.png";
-import Ig4 from "../../assets/division/ig4.png";
-import Ig5 from "../../assets/division/ig5.png";
-import Ig6 from "../../assets/division/ig6.png";
-import Ig7 from "../../assets/division/ig7.png";
+import Ig1 from "../../assets/Division/ig1.png";
+import Ig2 from"../../assets/Division/ig2.png";
+import Ig3 from "../../assets/Division/ig3.png";
+import Ig4 from "../../assets/Division/ig4.png";
+import Ig5 from "../../assets/Division/ig5.png";
+import Ig6 from "../../assets/Division/ig6.png";
+import Ig7 from "../../assets/Division/ig7.png";
 
 // Logos
-import logo1 from "../../assets/division/Log1.png";
-import logo2 from "../../assets/division/Log2.png";
-import logo3 from "../../assets/division/Log3.png";
-import logo4 from "../../assets/division/Log4.png";
-import logo5 from "../../assets/division/Log5.png";
-import logo6 from "../../assets/division/Log6.png";
-import logo7 from "../../assets/division/Log7.png";
+import logo1 from "../../assets/Division/Log1.png";
+import logo2 from "../../assets/Division/Log2.png";
+import logo3 from "../../assets/Division/Log3.png";
+import logo4 from "../../assets/Division/Log4.png";
+import logo5 from "../../assets/Division/Log5.png";
+import logo6 from "../../assets/Division/Log6.png";
+import logo7 from "../../assets/Division/Log7.png";
 
 const data = [
   {
