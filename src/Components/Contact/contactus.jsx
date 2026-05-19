@@ -1,60 +1,101 @@
-import React from "react";
-import  { useEffect } from "react";
-
+import React, { useEffect } from "react";
 import mapImg from "./../../assets/Contact/footer.png";
 
 const HeroContact = () => {
-
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "instant" });
   }, []);
-  
+
+  const openBangaloreMap = () => {
+    window.open(
+      "https://www.google.com/maps/dir/?api=1&destination=12.9716,77.5946",
+      "_blank",
+    );
+  };
+
+  const openTiruvannamalaiMap = () => {
+    window.open(
+      "https://www.google.com/maps/dir/?api=1&destination=12.2253,79.0747",
+      "_blank",
+    );
+  };
+
   return (
     <section className="bg-[#f5f5f5] px-6 md:px-10 lg:px-20 pb-15 pt-35 font-Poppins">
-
       <div className="text-center max-w-5xl mx-auto">
-        
-        {/* Mobile 3 lines */}
-        <h1 className="text-[36px] md:text-[52px] font-bold text-black 
-                       max-w-[280px] mx-auto md:max-w-full">
+        <h1 className="text-[36px] md:text-[52px] font-bold text-black max-w-[280px] mx-auto md:max-w-full">
           Ready to Make Your Brand Roar?
         </h1>
 
-        <p className="font-Inter text-gray-900 text-[24px] font-semibold leading-relaxed text-center
-                      max-w-[260px] mx-auto md:max-w-full">
+        <p className="font-Inter text-gray-900 text-[24px] font-semibold leading-relaxed text-center max-w-[260px] mx-auto md:max-w-full">
           Reach out to explore how IDW can support your digital growth.
           <br className="hidden md:block" />
           Simple guidance, tailored to your needs.
         </p>
       </div>
 
-      {/* Content */}
       <div className="mt-4">
-        
         <div className="flex flex-col lg:flex-row lg:justify-end gap-3 lg:gap-25">
-
           {/* IMAGE */}
           <div className="flex flex-col items-center lg:items-start w-full">
-            
             <h3 className="text-[24px] font-bold w-full text-left">
               Bangalore, Tiruvannamalai
             </h3>
 
-            <img
-              src={mapImg}
-              alt="map"
-              className="w-full max-w-[700px] h-[450px] object-contain"
-            />
+            {/* ✅ MAP + PINS */}
+            <div className="relative w-full max-w-[700px]">
+              <img
+                src={mapImg}
+                alt="map"
+                className="w-full h-[450px] object-contain"
+              />
 
-            {/* ✅ Desktop only mail */}
-            <p className="hidden mt-12 ml-29 lg:block font-Inter text-[28px]  text-black">
+              {/* 🔴 Bangalore Pin */}
+              <div
+                onClick={openBangaloreMap}
+                className="absolute top-[45%] left-[60%] cursor-pointer group"
+              >
+                <div className="relative">
+                  <div className="w-5 h-5 bg-red-600 rounded-full"></div>
+                  <div className="absolute inset-0 bg-red-600 rounded-full animate-ping opacity-75"></div>
+                </div>
+
+                <span
+                  className="absolute -top-8 left-1/2 -translate-x-1/2 
+                                 bg-black text-white text-xs px-2 py-1 rounded 
+                                 opacity-0 group-hover:opacity-100 transition"
+                >
+                  Bangalore Office
+                </span>
+              </div>
+
+              {/* 🔵 Tiruvannamalai Pin */}
+              <div
+                onClick={openTiruvannamalaiMap}
+                className="absolute top-[55%] left-[62%] cursor-pointer group"
+              >
+                <div className="relative">
+                  <div className="w-5 h-5 bg-blue-600 rounded-full"></div>
+                  <div className="absolute inset-0 bg-blue-600 rounded-full animate-ping opacity-75"></div>
+                </div>
+
+                <span
+                  className="absolute -top-8 left-1/2 -translate-x-1/2 
+                                 bg-black text-white text-xs px-2 py-1 rounded 
+                                 opacity-0 group-hover:opacity-100 transition"
+                >
+                  Tiruvannamalai Office
+                </span>
+              </div>
+            </div>
+
+            <p className="hidden mt-12 ml-29 lg:block font-Inter text-[28px] text-black">
               idw.enquiries@gmail.com
             </p>
           </div>
 
           {/* FORM */}
           <div className="w-full max-w-[320px] self-start md:self-start lg:self-auto">
-
             <h3 className="text-[24px] font-medium mb-6 text-black">
               Name (required)
             </h3>
@@ -75,8 +116,7 @@ const HeroContact = () => {
             <div className="mb-6">
               <select
                 defaultValue=""
-                className="w-full bg-transparent font-medium text-[16px] md:text-[18px] lg:text-[20px]
-                          border-b-2 border-gray-400 text-black focus:outline-none py-2"
+                className="w-full bg-transparent font-medium text-[16px] md:text-[18px] lg:text-[20px] border-b-2 border-gray-400 text-black focus:outline-none py-2"
               >
                 <option value="" disabled hidden>
                   Services
@@ -117,7 +157,7 @@ const HeroContact = () => {
               SUBMIT →
             </button>
 
-            <p className="font-Inter mt-6 text-[26px] text-black text-left md:text-left lg:hidden">
+            <p className="font-Inter mt-6 text-[26px] text-black text-left lg:hidden">
               idw.enquiries@gmail.com
             </p>
 
@@ -125,7 +165,6 @@ const HeroContact = () => {
               + 91 9600998036
             </p>
           </div>
-
         </div>
       </div>
     </section>
