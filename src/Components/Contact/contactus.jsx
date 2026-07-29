@@ -69,8 +69,8 @@ const HeroContact = () => {
                 onClick={openBangaloreMap}
                 className="
                   absolute
-                  top-[83%]
-                  left-[33%]
+                  top-[55.5%]
+                  left-[68%]
                   -translate-x-1/2
                   -translate-y-1/2
                   group
@@ -127,8 +127,8 @@ const HeroContact = () => {
                 onClick={openTiruvannamalaiMap}
                 className="
                   absolute
-                  top-[85.5%]
-                  left-[38%]
+                  top-[48.5%]
+                  left-[68%]
                   -translate-x-1/2
                   -translate-y-1/2
                   group
